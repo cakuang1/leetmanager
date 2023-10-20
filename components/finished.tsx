@@ -9,20 +9,6 @@ interface ProgressTrackerRow {
   codeOrNotes: string;
 }
 
-
-function getColorClasses(difficulty : String) {
-    switch (difficulty) {
-      case 'Easy':
-        return 'bg-green-100 text-green-800 border-green-200';
-      case 'Medium':
-        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'Hard':
-        return 'bg-red-100 text-red-800 border-red-200';
-      default:
-        return ''; 
-    }
-}
-
 const ProgressTracker = ({ progressList }: { progressList: ProgressTrackerRow[] }) => {
   return (
     <div className="w-3/5 mx-auto">
@@ -240,3 +226,16 @@ function getTopicClasses(topic: string) {
         }
       }
   
+
+      function getColorClasses(difficulty : String) {
+        switch (difficulty) {
+          case 'Easy':
+            return 'bg-green-100 text-green-800 border-green-200';
+          case 'Medium':
+            return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+          case 'Hard':
+            return 'bg-red-100 text-red-800 border-red-200';
+          default:
+            return ''; 
+        }
+    }

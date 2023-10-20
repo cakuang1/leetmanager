@@ -12,7 +12,7 @@ const progressData = [
   {
     question: 'Problem 2',
     difficulty: 'Easy',
-    topics: ['String', 'Hashing'],
+    topics: ['String', 'Hash Table'],
     timeTaken: 30,
     dateCompleted: new Date('2023-01-20'),
     codeOrNotes: 'Code and notes for problem 2...',
