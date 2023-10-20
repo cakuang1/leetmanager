@@ -7,7 +7,7 @@ export default function Layout({ children }: { children: ReactNode }) {
     <div className="">
       {/* Navigation Component */}
       {/* Main Content */}
-      <main className="w-3/5 mx-auto">
+      <main className="bg-gray-50">
       <Navigation />
         {children}
       </main>

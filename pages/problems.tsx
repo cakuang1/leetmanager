@@ -1,9 +1,6 @@
-import ProgressTracker from "@/components/completed"
+import ProgressTracker from "@/components/problems/completed"
 import Layout from "@/components/layout";
-import Todo from "@/components/todolist";
-
-
-
+import Todo from "@/components/problems/todolist";
 
 const progressData = [
   {
@@ -28,13 +25,14 @@ const progressData = [
 ];
 
 
-
-
 export default function Problems() {
   return (
     <Layout>
+      <div className="w-3/5 mx-auto">
       <ProgressTracker progressList={progressData}/>
       <Todo progressList={progressData}/>
+      </div>
+
       </Layout>
   )
 }
