@@ -13,6 +13,10 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      colors: {
+        leetcode: '#ffa116', // Example custom color
+        leetcodelight: '#fcd4ac', // Another custom color
+      },
     },
   },
   plugins: [],

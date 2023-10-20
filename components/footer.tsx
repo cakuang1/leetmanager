@@ -4,7 +4,7 @@ import React from "react"
 
 
 
-export default function Calender() {
+export default function Footer() {
   return (
     <div>
     </div>

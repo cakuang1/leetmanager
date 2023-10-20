@@ -1,0 +1,29 @@
+model User {
+  id         Int      @id @default(auto())
+  githubId   String   @unique
+  username   String
+  email      String?
+  // Add other user-related fields as needed
+  progress   UserProgress[]
+}
+
+model LeetCodeQuestion {
+  qid          Int      @id
+  title        String
+  titleSlug    String   @unique
+  topicTags    String[]
+  categorySlug String
+}
+
+model UserProgress {
+  id         Int      @id @default(auto())
+  user       User     @relation(fields: [userId], references: [id])
+  userId     Int
+  question   LeetCodeQuestion @relation(fields: [questionId], references: [qid])
+  questionId Int
+  @@unique([userId, questionId])
+  completionStatus Boolean
+  attempts   Int?
+  timeTaken  String?
+  notes     String?
+}

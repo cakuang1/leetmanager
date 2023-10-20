@@ -1,6 +1,7 @@
 import React from 'react';
 
 interface ProgressTrackerRow {
+  id: string;
   question: string;
   difficulty: string;
   topics: string[];
@@ -11,7 +12,7 @@ interface ProgressTrackerRow {
 
 const ProgressTracker = ({ progressList }: { progressList: ProgressTrackerRow[] }) => {
   return (
-    <div className="w-3/5 mx-auto">
+    <div className="">
       <h1 className="text-center text-2xl font-bold">Problems</h1>
       <h1 className="font-semibold text-gray-500">Completed</h1>
       <table className=" divide-y divide-gray-200 ">
@@ -20,6 +21,9 @@ const ProgressTracker = ({ progressList }: { progressList: ProgressTrackerRow[] 
           <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Solved
          </th>
+         <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Id
+            </th>
             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Question
             </th>
@@ -43,8 +47,8 @@ const ProgressTracker = ({ progressList }: { progressList: ProgressTrackerRow[] 
         <tbody className="bg-white divide-y divide-gray-200">
           {progressList.map((row, index) => (
             <tr key={index}>
-                <td className="px-6 py-4 whitespace-nowrap"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 50 50"><path fill="currentColor" d="M25 42c-9.4 0-17-7.6-17-17S15.6 8 25 8s17 7.6 17 17s-7.6 17-17 17zm0-32c-8.3 0-15 6.7-15 15s6.7 15 15 15s15-6.7 15-15s-6.7-15-15-15z"/><path fill="currentColor" d="m23 32.4l-8.7-8.7l1.4-1.4l7.3 7.3l11.3-11.3l1.4 1.4z"/></svg></td>
-              <td className="px-6 py-4 whitespace-nowrap">{row.question}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-xs"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 50 50"><path fill="currentColor" d="M25 42c-9.4 0-17-7.6-17-17S15.6 8 25 8s17 7.6 17 17s-7.6 17-17 17zm0-32c-8.3 0-15 6.7-15 15s6.7 15 15 15s15-6.7 15-15s-6.7-15-15-15z"/><path fill="currentColor" d="m23 32.4l-8.7-8.7l1.4-1.4l7.3 7.3l11.3-11.3l1.4 1.4z"/></svg></td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm">{row.question}</td>
               <td className={`px-6 py-4 whitespace-nowrap `}>
                 <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getColorClasses(row.difficulty)} text-green-800`}>
                     {row.difficulty}
@@ -60,8 +64,8 @@ const ProgressTracker = ({ progressList }: { progressList: ProgressTrackerRow[] 
                         </span>
                     ))}
                     </td>
-              <td className="px-6 py-4 whitespace-nowrap">{row.timeTaken} minutes</td>
-              <td className="px-6 py-4 whitespace-nowrap">{row.dateCompleted.toDateString()}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm">{row.timeTaken} minutes</td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm">{row.dateCompleted.toDateString()}</td>
               <td className="px-6 py-4 whitespace-nowrap">
                 <pre>
                   <code>{row.codeOrNotes}</code>
