@@ -7,7 +7,7 @@ export default function Navigation() {
 
 
   return (
-    <nav className="bg-white flex justify-between">
+    <nav className="bg-white flex justify-between border-b">
 <div className="p-4">
   <div className="  hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 w-20"></div>
 </div>

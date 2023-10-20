@@ -28,7 +28,7 @@ const progressData = [
 export default function Problems() {
   return (
     <Layout>
-      <div className="w-3/5 mx-auto">
+      <div className="w-3/5 mx-auto  h-screen max-h-screen overflow-auto">
       <ProgressTracker progressList={progressData}/>
       <Todo progressList={progressData}/>
       </div>
