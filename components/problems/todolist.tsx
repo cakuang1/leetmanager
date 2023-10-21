@@ -12,23 +12,7 @@ interface ProgressTrackerRow {
 }
 
 
-function Search() {
 
-
-    return(
-        <div className=''>
-            <h1 className='font-semibold text-gray-500'>Search</h1>
-       <label className="relative text-gray-400 focus-within:text-gray-600 block">
-       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"   className="pointer-events-none w-7 h-7 absolute top-1/2 transform -translate-y-1/2 left-3"><path fill="currentColor" d="m19.6 21l-6.3-6.3q-.75.6-1.725.95T9.5 16q-2.725 0-4.612-1.888T3 9.5q0-2.725 1.888-4.612T9.5 3q2.725 0 4.612 1.888T16 9.5q0 1.1-.35 2.075T14.7 13.3l6.3 6.3l-1.4 1.4ZM9.5 14q1.875 0 3.188-1.313T14 9.5q0-1.875-1.313-3.188T9.5 5Q7.625 5 6.312 6.313T5 9.5q0 1.875 1.313 3.188T9.5 14Z"/></svg>
-
-      <input type="email" name="email" id="email" placeholder="email@kemuscorp.com" className="form-input  py-2 px-4 bg-gray-100 rounded placeholder-gray-400 text-gray-500 appearance-none w-full block pl-14 focus:outline-none"/>
-</label>
-
-
-        </div>
-
-    )
-}
 
 const Todo = ({ progressList }: { progressList: ProgressTrackerRow[] }) => {
   return (
@@ -90,9 +74,7 @@ const Todo = ({ progressList }: { progressList: ProgressTrackerRow[] }) => {
     ))}
   </tbody>
 </table>
-      <div className='mt-10'>
 
-        <Search/></div>
     </div>
   );
 };

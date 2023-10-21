@@ -11,7 +11,6 @@ export default function Layout({ children, showFooter = true }: { children: Reac
         <Navigation />
         {children}
       </main>
-
       {/* Conditional Rendering of Footer */}
       {showFooter && <Footer />}
     </div>
