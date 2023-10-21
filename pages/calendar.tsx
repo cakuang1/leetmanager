@@ -6,8 +6,8 @@ import KanbanBoard from "@/components/kanban/app"
 
 export default function Calender() {
   return (
-    <Layout>
-<div className=" h-screen max-h-screen overflow-auto">
+    <Layout showFooter = {false}>
+<div className=" h-screen max-h-screen ">
     <KanbanBoard/>
 </div>
       </Layout>
