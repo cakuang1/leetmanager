@@ -10,10 +10,40 @@ interface SearchProps {
     onClickOutside: () => void;
   }
 
+
+  interface question {
+    id:number;
+    name:string;
+    difficulty:string;
+  }
+
+
+  const example = [
+    {
+      "id": 1,
+      "name": "Two Sum",
+      "difficulty": "Easy"
+    },
+    {
+      "id": 23,
+      "name": "Merge k Sorted Lists",
+      "difficulty": "Hard"
+    },
+    {
+      "id": 46,
+      "name": "Permutations",
+      "difficulty": "Medium"
+    },
+    {
+      "id": 94,
+      "name": "Binary Tree Inorder Traversal",
+      "difficulty": "Medium"
+    }];
+
 function Search({ onClickOutside }: SearchProps) {
     const searchRef = useRef<HTMLDivElement | null>(null);
     const [query, setQuery] = useState('');
-    const [queryResults, setQueryResults] = useState<string[]>([]);
+    const [queryResults, setQueryResults] = useState<question[]>(example);
   
     useEffect(() => {
       const handleClickOutside = (event: MouseEvent) => {
@@ -47,18 +77,19 @@ function Search({ onClickOutside }: SearchProps) {
         </div>
         <input type="email" name="email" id="email" placeholder="Search for problem to add " className="focus:outline-none form-input bg-gray-50 add-card-right text-gray-400 w-full" />
       </div>
-        <ul>
-            {queryResults.map((result, index) => (
-            <li key={index}>{result}</li>
-            ))}
-        </ul>
+      <ul>
+        {queryResults.map((question) => (
+          <li key={question.id} className='border rounded-xl  hover:border-leetcode  hover:shadow cursor-pointer flex items-center p-2 cursor-pointer text-sm font-semibold'>
+            <p>{question.id}.&nbsp;</p>
+            <p>{question.name}&nbsp;</p>
+            <p className={`${getColorClasses(question.difficulty)} px-2 inline-flex text-xs leading-5 font-semibold rounded-full overflow-hidden`}>{question.difficulty}</p>
+          </li>
+        ))}
+      </ul>
         
       </div>
     );
   }
-  
-
-
 
 
   
@@ -78,7 +109,7 @@ function Column({ title}: ColumnProps) {
 
     {isEditing ? <Search onClickOutside={handleEditOff} /> : <div className=" border rounded-xl  hover:border-leetcode  hover:shadow cursor-pointer flex items-center  p-2 cursor-pointer " onClick={handleEditClick}>
     <div className="add-card-left text-gray-400  pr-2 ">
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="4"><rect width="36" height="36" x="6" y="6" rx="3"/><path stroke-linecap="round" d="M24 16v16m-8-8h16"/></g></svg> 
+    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="20" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="4"><rect width="36" height="36" x="6" y="6" rx="3"/><path stroke-linecap="round" d="M24 16v16m-8-8h16"/></g></svg> 
     </div>
     <div className="add-card-right text-gray-400" >
         Add a Problem
@@ -91,3 +122,17 @@ function Column({ title}: ColumnProps) {
   }
 
 export default Column;
+
+
+function getColorClasses(difficulty : String) {
+    switch (difficulty) {
+      case 'Easy':
+        return 'bg-green-100 text-green-800 border-green-200';
+      case 'Medium':
+        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case 'Hard':
+        return 'bg-red-100 text-red-800 border-red-200';
+      default:
+        return ''; 
+    }
+}
