@@ -1,14 +1,28 @@
 import React, { ChangeEvent } from 'react';
 import Card from './Card';
 import { useState ,useEffect,useRef} from 'react';
+import { Droppable } from 'react-beautiful-dnd';
 
-interface ColumnProps {
-  title: string; 
-}
 
 interface SearchProps {
     onClickOutside: () => void;
   }
+  interface CardProps {
+    card: {
+      id: number;
+      name: string;
+      difficulty: string;
+    };
+    index: number;
+  }
+
+
+interface ColumnProps {
+    id: Date;
+    cards: CardProps[];
+  }
+
+
 
   interface question {
     id:number;
@@ -95,10 +109,11 @@ function Search({ onClickOutside }: SearchProps) {
   }
 
 
+
   
-function Column({ title}: ColumnProps) {
+function Column({ id, cards }: ColumnProps) {
     const [isEditing, setIsEditing] = useState(false);
-  const [cards, setCardSection] = useState<question[]>(example);
+    const [currcards, setCardSection] = useState<question[]>(example);
      const handleEditClick = () => {
         setIsEditing(true);
       };
@@ -106,12 +121,14 @@ function Column({ title}: ColumnProps) {
       const handleEditOff = () => {
         setIsEditing(false);
       };
+
+
+    
     return (
 
 
 <div className="kanban-column w-1/6 mx-3 flex-shrink-0">
         <h2 className='font-bold mb-4'>{title}</h2>
-
 
     {isEditing ? <Search onClickOutside={handleEditOff} /> : <div className=" border rounded-xl  hover:border-leetcode  hover:shadow cursor-pointer flex items-center  p-2 text-sm bg-white cursor-pointer " onClick={handleEditClick}>
     <div className="add-card-left text-gray-400  pr-2 ">
@@ -122,11 +139,20 @@ function Column({ title}: ColumnProps) {
     </div>
     </div>}
     <div>
-      <div className="cardsection mt-7" >
-        {cards.map((cardData) => (
-          <Card key={cardData.id} card={cardData} />
-          ))}
-      </div>
+    <Droppable droppableId={id} type="CARD">
+        {(provided) => (
+          <div
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+            className="kanban-card-list"
+          >
+            {cards.map((card, index) => (
+              <Card key={card.card.id} card={card.card} index={index} />
+            ))}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
     </div>
 </div>
 
@@ -135,6 +161,11 @@ function Column({ title}: ColumnProps) {
 
 export default Column;
 
+
+
+
+
+// HELPER FUNCTIONS ignore
 
 function getColorClasses(difficulty : String) {
     switch (difficulty) {
