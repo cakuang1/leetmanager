@@ -10,7 +10,6 @@ interface SearchProps {
     onClickOutside: () => void;
   }
 
-
   interface question {
     id:number;
     name:string;
@@ -40,11 +39,15 @@ interface SearchProps {
       "difficulty": "Medium"
     }];
 
+
+
+
+
+
 function Search({ onClickOutside }: SearchProps) {
     const searchRef = useRef<HTMLDivElement | null>(null);
     const [query, setQuery] = useState('');
     const [queryResults, setQueryResults] = useState<question[]>(example);
-  
     useEffect(() => {
       const handleClickOutside = (event: MouseEvent) => {
         if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
@@ -95,7 +98,8 @@ function Search({ onClickOutside }: SearchProps) {
   
 function Column({ title}: ColumnProps) {
     const [isEditing, setIsEditing] = useState(false);
-    const handleEditClick = () => {
+  const [cards, setCardSection] = useState<question[]>(example);
+     const handleEditClick = () => {
         setIsEditing(true);
       };
     
@@ -103,11 +107,13 @@ function Column({ title}: ColumnProps) {
         setIsEditing(false);
       };
     return (
+
+
 <div className="kanban-column w-1/6 mx-3 flex-shrink-0">
-        <h2 className='font-bold'>{title}</h2>
+        <h2 className='font-bold mb-4'>{title}</h2>
 
 
-    {isEditing ? <Search onClickOutside={handleEditOff} /> : <div className=" border rounded-xl  hover:border-leetcode  hover:shadow cursor-pointer flex items-center  p-2 cursor-pointer " onClick={handleEditClick}>
+    {isEditing ? <Search onClickOutside={handleEditOff} /> : <div className=" border rounded-xl  hover:border-leetcode  hover:shadow cursor-pointer flex items-center  p-2 text-sm bg-white cursor-pointer " onClick={handleEditClick}>
     <div className="add-card-left text-gray-400  pr-2 ">
     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="20" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="4"><rect width="36" height="36" x="6" y="6" rx="3"/><path stroke-linecap="round" d="M24 16v16m-8-8h16"/></g></svg> 
     </div>
@@ -115,7 +121,13 @@ function Column({ title}: ColumnProps) {
         Add a Problem
     </div>
     </div>}
-
+    <div>
+      <div className="cardsection mt-7" >
+        {cards.map((cardData) => (
+          <Card key={cardData.id} card={cardData} />
+          ))}
+      </div>
+    </div>
 </div>
 
     );
