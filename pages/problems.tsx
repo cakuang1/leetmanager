@@ -3,7 +3,7 @@ import Layout from "@/components/layout";
 import Todo from "@/components/problems/todolist";
 
 
-const progressData = [
+/*const progressData = [
   {
     question: 'Problem 1',
     difficulty: 'Medium',
@@ -23,15 +23,14 @@ const progressData = [
     id: 2
   },
   // Add more ProgressTrackerRow objects as needed
-];
+]; */
 
 
 export default function Problems() {
   return (
     <Layout>
       <div className="w-3/5 mx-auto  h-screen max-h-screen overflow-auto">
-      <ProgressTracker progressList={progressData}/>
-      <Todo progressList={progressData}/>
+
       </div>
 
       </Layout>

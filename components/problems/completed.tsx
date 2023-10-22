@@ -10,10 +10,11 @@ interface ProgressTrackerRow {
   codeOrNotes: string;
 }
 
+
+
 const ProgressTracker = ({ progressList }: { progressList: ProgressTrackerRow[] }) => {
   return (
     <div className="">
-
       <h1 className="font-semibold text-gray-500">Completed</h1>
       <table className="w-full divide-y divide-gray-200">
   <thead className="bg-gray-50">

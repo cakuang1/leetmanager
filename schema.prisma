@@ -7,6 +7,7 @@ model User {
   progress   UserProgress[]
 }
 
+
 model LeetCodeQuestion {
   qid          Int      @id
   title        String
@@ -15,6 +16,8 @@ model LeetCodeQuestion {
   categorySlug String
 }
 
+
+
 model UserProgress {
   id         Int      @id @default(auto())
   user       User     @relation(fields: [userId], references: [id])
@@ -22,6 +25,10 @@ model UserProgress {
   question   LeetCodeQuestion @relation(fields: [questionId], references: [qid])
   questionId Int
   @@unique([userId, questionId])
+  title        String
+  titleSlug    String   @unique
+  topicTags    String[]
+  categorySlug String
   completionStatus Boolean
   attempts   Int?
   timeTaken  String?

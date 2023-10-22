@@ -18,10 +18,9 @@ interface SearchProps {
 
 
 interface ColumnProps {
-    id: Date;
+    id: string;
     cards: CardProps[];
   }
-
 
 
   interface question {
@@ -29,6 +28,7 @@ interface ColumnProps {
     name:string;
     difficulty:string;
   }
+
 
 
   const example = [
@@ -57,7 +57,6 @@ interface ColumnProps {
 
 
 
-
 function Search({ onClickOutside }: SearchProps) {
     const searchRef = useRef<HTMLDivElement | null>(null);
     const [query, setQuery] = useState('');
@@ -80,10 +79,8 @@ function Search({ onClickOutside }: SearchProps) {
         const newQuery = event.target.value;
         setQuery(newQuery);
     
-        // Perform your query here and update queryResults
-        // For example, you can fetch data from an API or search locally
-        // and set the results in the queryResults state.
-        // setQueryResults(yourQueryResults);
+
+
       };
 
     return (
@@ -109,7 +106,6 @@ function Search({ onClickOutside }: SearchProps) {
   }
 
 
-
   
 function Column({ id, cards }: ColumnProps) {
     const [isEditing, setIsEditing] = useState(false);
@@ -122,14 +118,11 @@ function Column({ id, cards }: ColumnProps) {
         setIsEditing(false);
       };
 
-
-    
     return (
 
 
 <div className="kanban-column w-1/6 mx-3 flex-shrink-0">
-        <h2 className='font-bold mb-4'>{title}</h2>
-
+        <h2 className='font-bold mb-4'></h2>
     {isEditing ? <Search onClickOutside={handleEditOff} /> : <div className=" border rounded-xl  hover:border-leetcode  hover:shadow cursor-pointer flex items-center  p-2 text-sm bg-white cursor-pointer " onClick={handleEditClick}>
     <div className="add-card-left text-gray-400  pr-2 ">
     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="20" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="4"><rect width="36" height="36" x="6" y="6" rx="3"/><path stroke-linecap="round" d="M24 16v16m-8-8h16"/></g></svg> 
