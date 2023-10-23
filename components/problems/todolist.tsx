@@ -17,8 +17,7 @@ interface ProgressTrackerRow {
 const Todo = ({ progressList }: { progressList: ProgressTrackerRow[] }) => {
   return (
     <div className="">
-      <h1 className="text-center text-2xl font-bold mt-4">Problems</h1>
-      <h1 className="font-semibold text-gray-500">Completed</h1>
+      <h1 className="font-semibold text-gray-500">Todo</h1>
       <table className="w-full divide-y divide-gray-200">
   <thead className="bg-gray-50">
     <tr>

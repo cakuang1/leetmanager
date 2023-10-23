@@ -1,4 +1,4 @@
-import ProgressTracker from "@/components/problems/completed"
+import Completed from "@/components/problems/completed";
 import Layout from "@/components/layout";
 import Todo from "@/components/problems/todolist";
 import { useEffect,useState } from "react";
@@ -20,25 +20,10 @@ import { useEffect,useState } from "react";
     codeOrNotes: string;
   }
 
-
-
 export default function Problems() {
-
   const [activeTab, setActiveTab] = useState('todo'); 
   const [todoList, setTodoList] = useState<ProgressTrackerRow[]>([]);
   const [completedList, setCompletedList] = useState<ProgressTrackerRow[]>([]);
-
-
-
-
-
-  function handletabclicks(){
-    
-  }
-
-
-
-
 
   useEffect(() => {
     // Distribute questions into todo and completed lists
@@ -55,14 +40,13 @@ export default function Problems() {
       };
     });
   
+
     const newTodoList = transformedQuestionsList.filter((question) => !question.dateCompleted);
     const newCompletedList = transformedQuestionsList.filter((question) => question.dateCompleted);
     setTodoList(newTodoList);
     setCompletedList(newCompletedList);
   }, [questionsList]);
   
-
-
   return (
     <Layout>
       <div className="w-3/5 mx-auto h-screen max-h-screen overflow-auto">
@@ -92,7 +76,7 @@ export default function Problems() {
         {activeTab === 'todo' ? (
           <Todo progressList={todoList} />
         ) : (
-          <Completed completedList={completedList} />
+          <Completed progressList={completedList} />
         )}
 
       </div>
