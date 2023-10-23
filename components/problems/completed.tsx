@@ -7,17 +7,15 @@ import React from 'react';
 
 
 interface ProgressTrackerRow {
-  id: string;
+  id: number;
   question: string;
   difficulty: string;
   topics: string[];
   timeTaken: number;
-  dateCompleted: Date;
+  dateCompleted: Date | null;
+  datePlanned: Date | null;
   codeOrNotes: string;
 }
-
-
-
 
 
 const ProgressTracker = ({ progressList }: { progressList: ProgressTrackerRow[] }) => {
@@ -75,7 +73,7 @@ const ProgressTracker = ({ progressList }: { progressList: ProgressTrackerRow[] 
           ))}
         </td>
         <td className="px-3 py-2 whitespace-nowrap text-sm">{row.timeTaken} minutes</td>
-        <td className="px-3 py-2 whitespace-nowrap text-sm">{row.dateCompleted.toDateString()}</td>
+        <td className="px-3 py-2 whitespace-nowrap text-sm">{row.dateCompleted != null ?row.dateCompleted.toDateString() : ''}</td>
         <td className="px-3 py-2 whitespace-nowrap">
           <pre>
             <code>{row.codeOrNotes}</code>

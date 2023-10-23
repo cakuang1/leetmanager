@@ -7,10 +7,11 @@ interface ProgressTrackerRow {
   difficulty: string;
   topics: string[];
   timeTaken: number;
-  dateCompleted: Date;
-  datePlanned : Date;
+  dateCompleted: Date | null;
+  datePlanned: Date | null;
   codeOrNotes: string;
 }
+
 
 
 const Todo = ({ progressList }: { progressList: ProgressTrackerRow[] }) => {
