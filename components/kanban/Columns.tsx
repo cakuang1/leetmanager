@@ -57,6 +57,8 @@ interface ColumnProps {
 
 
 
+
+
 function Search({ onClickOutside }: SearchProps) {
     const searchRef = useRef<HTMLDivElement | null>(null);
     const [query, setQuery] = useState('');
@@ -97,13 +99,9 @@ function Search({ onClickOutside }: SearchProps) {
           </li>
         ))}
       </ul>
-        
       </div>
     );
   }
-
-
-
 
 function Column({ id, cards }: ColumnProps) {
     const [isEditing, setIsEditing] = useState(false);
@@ -111,15 +109,13 @@ function Column({ id, cards }: ColumnProps) {
      const handleEditClick = () => {
         setIsEditing(true);
       };
-    
       const handleEditOff = () => {
         setIsEditing(false);
       };
     const isCurrent = isCurrentDate(id)
     const bgClass = isCurrent ? "bg-orange-50" : "";
     return (
-
-<div className={`kanban-column w-1/6 px-2 mx-2 pt-4 flex-shrink-0 rounded ${bgClass}` }>
+<div className={`kanban-column w-1/5 px-2 mx-2 pt-4 flex-shrink-0 rounded ${bgClass}` }>
     <span className="font-bold text-xl">{getDateInfoFromISODate(id).month} </span>
         <span className="font-bold text-xl">{getDateInfoFromISODate(id).day} </span>
         <span className="font-bold text-leetcode">{getDateInfoFromISODate(id).dayOfWeek}</span>
@@ -148,10 +144,8 @@ function Column({ id, cards }: ColumnProps) {
       </Droppable>
     </div>
 </div>
-
     );
   }
-
 export default Column;
 
 
@@ -159,6 +153,7 @@ export default Column;
 
 
 // HELPER FUNCTIONS ignore
+
 
 function getColorClasses(difficulty : String) {
     switch (difficulty) {
@@ -188,11 +183,9 @@ function getDateInfoFromISODate(dateString:string) {
 
 function isCurrentDate(isoDate: string) {
   const currentDate = new Date();
-  const inputDate = new Date(isoDate);
 
 const isoDateString = currentDate.toISOString();
 const ymd = isoDateString.split('T')[0]; 
-  // Set the time component to midnight (00:00:00) for both dat
-  // Compare the input date to the current date
-  return inputDate.getTime() === currentDate.getTime();
+
+  return ymd === isoDate;
 }
