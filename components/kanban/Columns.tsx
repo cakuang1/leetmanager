@@ -15,8 +15,6 @@ interface SearchProps {
     };
     index: number;
   }
-
-
 interface ColumnProps {
     id: string;
     cards: CardProps[];
@@ -81,6 +79,8 @@ function Search({ onClickOutside }: SearchProps) {
         setQuery(newQuery);
     
       };
+
+
 
     return (
         <div>

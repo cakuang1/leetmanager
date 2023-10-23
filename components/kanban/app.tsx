@@ -3,15 +3,17 @@ import Column from './Columns';
 import { useState } from 'react';
 import { DragDropContext, DraggableLocation, DropResult } from 'react-beautiful-dnd';
 import CalNavigator from './Calnavigation';
+import { startOfWeek, addDays, format,subWeeks,endOfWeek,eachDayOfInterval, addWeeks, getWeek} from 'date-fns';
+import WeekRow from './calendar/Weekrow';
 
 
-
-
-function KanbanBoard() {  
-  const [columns, setColumns] = useState(dates  );
+function KanbanBoard() { 
+  const date = new Date(); // Use your desired date here
+  const weekDates = getWeekDatesInISO(date);
+  const [columns, setColumns] = useState(weekDates);
+  console.log(columns)
   const onDragEnd = (result: DropResult) => {
     if (!result.destination) return;
-
     const source: DraggableLocation = result.source;
     const destination: DraggableLocation = result.destination;
 
@@ -30,17 +32,31 @@ function KanbanBoard() {
     setColumns(updatedColumns);
   };
 
+  function handleLeftclick() {
+    setColumns(getPreviousWeekInISOList(columns[3]));
+  
+  }
+  function handleRightclick() {
+    setColumns(getNextWeekInISOList(columns[3]));
+  }
+
+  function handleCalendarClick(isodate:string) {
+    setColumns(getCurrentWeekInISOList(isodate));
+  }
+
+
+
+
 
   return (
     <div >
-    <CalNavigator/>
+    <CalNavigator onPreviousWeek = {handleLeftclick} onNextWeek = {handleRightclick}/>
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="kanban-scroll-container h-screen overflow-x-auto flex" >
         {columns.map((date, index) => (
           <Column key={index} id = {date} cards={[]} />
         ))}
       </div>
-
     </DragDropContext>
     </div>
   );
@@ -51,69 +67,77 @@ export default KanbanBoard;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 // HELPERS
-function generateDateArray(): string[] {
-  const dateArray: string[] = [];
-  const daysInMilliseconds = 24 * 60 * 60 * 1000;
-  const today = new Date();
 
-  for (let i = 0; i < 6; i++) {
-    const currentDate = new Date(today.getTime() + i * daysInMilliseconds);
-    const year = currentDate.getFullYear();
-    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-indexed
-    const day = currentDate.getDate().toString().padStart(2, '0');
 
-    const formattedDate = `${year}-${month}-${day}`;
-    dateArray.push(formattedDate);
+
+
+function getWeekDatesInISO(date:Date) {
+  const weekStart = startOfWeek(date, { weekStartsOn: 0 }); // 0 means Sunday
+  const weekDates = [];
+
+  for (let i = 0; i < 7; i++) {
+    const currentDate = addDays(weekStart, i);
+    const isoDate = format(currentDate, 'yyyy-MM-dd');
+    weekDates.push(isoDate);
   }
-
-  return dateArray;
+  return weekDates;
 }
 
-const dates = generateDateArray();
+
+function getPreviousWeekInISOList(isoDateString:string) {
+  const currentDate = new Date(isoDateString); // Convert the input ISO string to a Date object
+
+  // Calculate the start and end of the previous week
+  const previousWeekStart = startOfWeek(subWeeks(currentDate, 1), { weekStartsOn: 0 }); // 0 indicates Sunday as the first day of the week
+  const previousWeekEnd = endOfWeek(subWeeks(currentDate, 1), { weekStartsOn: 0 });
+
+  // Generate an array of dates for the entire previous week
+  const daysInPreviousWeek = eachDayOfInterval({
+    start: previousWeekStart,
+    end: previousWeekEnd,
+  });
+
+  // Format the dates in ISO format (yyyy-MM-dd)
+  const isoDates = daysInPreviousWeek.map((date) => format(date, 'yyyy-MM-dd'));
+  return isoDates;
+}
 
 
+function getCurrentWeekInISOList(isoDateString:string) {
+  const currentDate = new Date(isoDateString); // Convert the input ISO string to a Date object
 
-const loadMoreColumns = (direction: string, dates: string[]) => {
-  if (direction === 'left') {
-    const newDates = [];
-    const daysInMilliseconds = 24 * 60 * 60 * 1000;
-    const firstDate = new Date(dates[0]); // Convert the first date in the array to a Date object
+  // Calculate the start and end of the current week
+  const currentWeekStart = startOfWeek(currentDate, { weekStartsOn: 0 }); // 0 indicates Sunday as the first day of the week
+  const currentWeekEnd = endOfWeek(currentDate, { weekStartsOn: 0 });
 
-    // Add 7 dates to the front (left) of the array
-    for (let i = 1; i <= 7; i++) {
-      const currentDate = new Date(firstDate.getTime() - i * daysInMilliseconds);
-      const formattedDate = currentDate.toISOString().split('T')[0];
-      newDates.unshift(formattedDate); // Use unshift to add to the front
-    }
+  // Generate an array of dates for the entire current week
+  const daysInCurrentWeek = eachDayOfInterval({
+    start: currentWeekStart,
+    end: currentWeekEnd,
+  });
 
-    dates = newDates.concat(dates); // Combine the new dates with the existing array
-  } else if (direction === 'right') {
-    const newDates = [];
-    const daysInMilliseconds = 24 * 60 * 60 * 1000;
-    const lastDate = new Date(dates[dates.length - 1]); // Convert the last date in the array to a Date object
+  // Format the dates in ISO format (yyyy-MM-dd)
+  const isoDates = daysInCurrentWeek.map((date) => format(date, 'yyyy-MM-dd'));
+  return isoDates;
+}
 
-    // Add 7 dates to the end (right) of the array
-    for (let i = 1; i <= 7; i++) {
-      const currentDate = new Date(lastDate.getTime() + i * daysInMilliseconds);
-      const formattedDate = currentDate.toISOString().split('T')[0];
-      newDates.push(formattedDate); // Use push to add to the end
-    }
 
-    dates = dates.concat(newDates); // Combine the existing array with the new dates
-  }
+function getNextWeekInISOList(isoDateString:string) {
+  const currentDate = new Date(isoDateString); // Convert the input ISO string to a Date object
 
-  return dates;
-};
+  // Calculate the start and end of the next week
+  const nextWeekStart = startOfWeek(addWeeks(currentDate, 1), { weekStartsOn: 0 }); // 0 indicates Sunday as the first day of the week
+  const nextWeekEnd = endOfWeek(addWeeks(currentDate, 1), { weekStartsOn: 0 });
+
+  // Generate an array of dates for the entire next week
+  const daysInNextWeek = eachDayOfInterval({
+    start: nextWeekStart,
+    end: nextWeekEnd,
+  });
+
+  // Format the dates in ISO format (yyyy-MM-dd)
+  const isoDates = daysInNextWeek.map((date) => format(date, 'yyyy-MM-dd'));
+
+  return isoDates;
+}

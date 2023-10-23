@@ -9,8 +9,6 @@ interface CardProps {
   };
   index: number;
 }
-
-
 function Card({ card, index }: CardProps) {
   return (
     <Draggable draggableId={String(card.id)} index={index}>

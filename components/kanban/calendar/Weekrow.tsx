@@ -1,16 +1,16 @@
 import React from 'react';
 import { eachDayOfInterval, format, startOfWeek, endOfWeek, isSameMonth } from 'date-fns';
 
-function WeekRow({ startDate, month }: any) {
+function WeekRow({ startDate, month,onWeekClick }: any) {
     const weekStartDate = startOfWeek(startDate);
     const weekEndDate = endOfWeek(startDate);
     const daysInWeek = eachDayOfInterval({
       start: weekStartDate,
       end: weekEndDate,
     });
-  
+
     return (
-      <div className="flex items-center hover:bg-orange-50">
+      <div className="flex items-center hover:bg-orange-50 rounded-sm">
         {daysInWeek.map((day) => (
           <div
             key={day.getTime()}
