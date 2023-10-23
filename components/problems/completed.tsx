@@ -1,5 +1,11 @@
 import React from 'react';
 
+
+
+// Completed should include questions information,date completed?, attempt time?, code/notes
+
+
+
 interface ProgressTrackerRow {
   id: string;
   question: string;
@@ -9,6 +15,8 @@ interface ProgressTrackerRow {
   dateCompleted: Date;
   codeOrNotes: string;
 }
+
+
 
 
 

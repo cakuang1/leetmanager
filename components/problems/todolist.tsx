@@ -8,10 +8,9 @@ interface ProgressTrackerRow {
   topics: string[];
   timeTaken: number;
   dateCompleted: Date;
+  datePlanned : Date;
   codeOrNotes: string;
 }
-
-
 
 
 const Todo = ({ progressList }: { progressList: ProgressTrackerRow[] }) => {
@@ -37,7 +36,6 @@ const Todo = ({ progressList }: { progressList: ProgressTrackerRow[] }) => {
       <th scope="col" className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
         Topics
       </th>
-
       <th scope="col" className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
         Code/Notes
       </th>
@@ -81,6 +79,15 @@ const Todo = ({ progressList }: { progressList: ProgressTrackerRow[] }) => {
 
 export default Todo;
 
+
+
+
+
+
+
+
+
+// helpers
 function getTopicClasses(topic: string) {
     switch (topic) {
       case 'Array':
