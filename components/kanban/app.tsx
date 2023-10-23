@@ -46,11 +46,10 @@ function KanbanBoard() {
 
 
 
-
-
+  
   return (
     <div >
-    <CalNavigator onPreviousWeek = {handleLeftclick} onNextWeek = {handleRightclick}/>
+    <CalNavigator onPreviousWeek = {handleLeftclick} onNextWeek = {handleRightclick} onWeekClick = {handleCalendarClick}/>
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="kanban-scroll-container h-screen overflow-x-auto flex" >
         {columns.map((date, index) => (

@@ -13,7 +13,7 @@ function CalNavigator({onPreviousWeek, onNextWeek,onWeekClick} :any) {
     return (
         <div className="p-5 bg-white border-b">
         <div className="flex pl-20 gap-5">
-          <div className="border px-3 py-2 rounded-lg hover:bg-gray-50">Today</div>
+          <div className="border px-3 py-2 rounded-lg htransition duration-200 hover:bg-orange-50 hover:cursor-pointer">Today</div>
           <button className="hover:text-gray-400" onClick={onPreviousWeek}>
             <div className="leftbutton border-gray-400 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
