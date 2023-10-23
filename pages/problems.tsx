@@ -89,7 +89,11 @@ export default function Problems() {
           </ul>
         </div>
         
-        {/* Render the selected tab content */}
+        {activeTab === 'todo' ? (
+          <Todo progressList={todoList} />
+        ) : (
+          <Completed completedList={completedList} />
+        )}
 
       </div>
     </Layout>

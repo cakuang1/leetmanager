@@ -18,7 +18,7 @@ interface ProgressTrackerRow {
 }
 
 
-const ProgressTracker = ({ progressList }: { progressList: ProgressTrackerRow[] }) => {
+const Completed = ({ progressList }: { progressList: ProgressTrackerRow[] }) => {
   return (
     <div className="">
       <h1 className="font-semibold text-gray-500">Completed</h1>
@@ -88,7 +88,7 @@ const ProgressTracker = ({ progressList }: { progressList: ProgressTrackerRow[] 
   );
 };
 
-export default ProgressTracker;
+export default Completed;
 
 function getTopicClasses(topic: string) {
     switch (topic) {
