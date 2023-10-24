@@ -4,6 +4,7 @@ import { useState ,useEffect,useRef} from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import { parseISO, format, getDay } from 'date-fns';
 import { LeetCodeQuestionDTO,UserQuestionDTO } from '../types';
+import SearchResult from './SearchResult';
 interface SearchProps {
     onClickOutside: () => void;
   }
@@ -41,6 +42,13 @@ function Search({ onClickOutside }: SearchProps) {
         document.removeEventListener('mousedown', handleClickOutside);
       };
     }, [onClickOutside]);
+
+    const handleSearchResultClick = (card: LeetCodeQuestionDTO) => {
+      postLeetCodeQuestion(card);
+      console.log('Clicked on:', card.title);
+    };
+  
+
   
     const handleQueryChange = (event: ChangeEvent<HTMLInputElement>) => {
       const newQuery = event.target.value;
@@ -60,17 +68,16 @@ function Search({ onClickOutside }: SearchProps) {
       </div>
       <ul>
         {queryResults.map((question) => (
-          <li key={question.qid} className='border rounded  hover:border-leetcode  hover:shadow cursor-pointer flex items-center p-2 cursor-pointer text-sm font-semibold bg-white'>
-            <p>{question.qid}.&nbsp;</p>
-            <p>{question.title}&nbsp;</p>
-            <p className={`${getColorClasses(question.difficulty)} px-2 inline-flex text-xs leading-5 font-semibold rounded-full overflow-hidden`}>{question.difficulty}</p>
-          </li>
+          <SearchResult
+          key={question.qid}
+          card={question}
+          onClick={() => handleSearchResultClick(question)}
+        />
         ))}
       </ul>
       </div>
     );  
   }
-
 
 
 function Column({ id, cards }: ColumnProps) {
@@ -110,18 +117,6 @@ export default Column;
 // HELPER FUNCTIONS ignore
 
 
-function getColorClasses(difficulty : String) {
-    switch (difficulty) {
-      case 'Easy':
-        return 'bg-green-100 text-green-800 border-green-200';
-      case 'Medium':
-        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'Hard':
-        return 'bg-red-100 text-red-800 border-red-200';
-      default:
-        return ''; 
-    }
-}
 
 function getDateInfoFromISODate(dateString:string) {
 
@@ -152,4 +147,26 @@ const searchApi = async (query: string): Promise<LeetCodeQuestionDTO[]> => {
 
 
 
+async function postLeetCodeQuestion(card:LeetCodeQuestionDTO) {
+  const endpoint = '/api/your-endpoint'; // Replace with your actual API endpoint
 
+  try {
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json', // Set the appropriate content type
+      },
+      body: JSON.stringify(card), // Convert the object to JSON
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error posting data:', error);
+    throw error;
+  }
+}

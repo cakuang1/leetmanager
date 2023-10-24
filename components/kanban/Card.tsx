@@ -5,6 +5,7 @@ import { UserQuestionDTO } from '../types';
 
 
 
+
 function Card(card:UserQuestionDTO) {
   return (
         <div
@@ -19,7 +20,6 @@ function Card(card:UserQuestionDTO) {
 
   );
 }
-
 export default Card;
 
 

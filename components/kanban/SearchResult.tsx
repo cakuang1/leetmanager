@@ -2,27 +2,33 @@ import React from 'react';
 import {LeetCodeQuestionDTO } from '@/components/types';
 
 
-
-
-
-
-
-
-function SearchResult(card:LeetCodeQuestionDTO) {
-
-
-  return (
-    <li key={card.qid} className='border rounded  hover:border-leetcode  hover:shadow cursor-pointer flex items-center p-2 cursor-pointer text-sm font-semibold bg-white'>
-    <p>{card.qid}.&nbsp;</p>
-    <p>{card.title}&nbsp;</p>
-    <p className={`${getColorClasses(card.difficulty)} px-2 inline-flex text-xs leading-5 font-semibold rounded-full overflow-hidden`}>{card.difficulty}</p>
-  </li>
-  );
+interface SearchResultProps {
+  card: LeetCodeQuestionDTO;
+  onClick: () => void; // onClick callback
 }
 
 
 
 
+
+
+function SearchResult({ card, onClick }: SearchResultProps) {
+  return (
+    <li
+      key={card.qid}
+      onClick={onClick} // Attach the onClick handler to the <li> element
+      className="border rounded hover:border-leetcode hover:shadow cursor-pointer flex items-center p-2 cursor-pointer text-sm font-semibold bg-white"
+    >
+      <p>{card.qid}.&nbsp;</p>
+      <p>{card.title}&nbsp;</p>
+      <p
+        className={`${getColorClasses(card.difficulty)} px-2 inline-flex text-xs leading-5 font-semibold rounded-full overflow-hidden`}
+      >
+        {card.difficulty}
+      </p>
+    </li>
+  );
+}
 
 
 
@@ -43,3 +49,9 @@ function getColorClasses(difficulty : String) {
       return ''; 
   }
 }
+
+
+
+
+
+
