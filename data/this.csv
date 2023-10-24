@@ -1,0 +1,193 @@
+QID,title,titleSlug,difficulty,topicTags
+2716,Minimize String Length,minimize-string-length,Easy,"hash-table,string"
+2717,Semi-Ordered Permutation,semi-ordered-permutation,Easy,"array,simulation"
+2718,Sum of Matrix After Queries,sum-of-matrix-after-queries,Medium,"array,hash-table"
+2719,Count of Integers,count-of-integers,Hard,"math,string,dynamic-programming"
+2720,Popularity Percentage,popularity-percentage,Hard,database
+2721,Execute Asynchronous Functions in Parallel,execute-asynchronous-functions-in-parallel,Medium,
+2722,Join Two Arrays by ID,join-two-arrays-by-id,Medium,
+2723,Add Two Promises,add-two-promises,Easy,
+2724,Sort By,sort-by,Easy,
+2725,Interval Cancellation,interval-cancellation,Easy,
+2726,Calculator with Method Chaining,calculator-with-method-chaining,Easy,
+2727,Is Object Empty,is-object-empty,Easy,
+2728,Count Houses in a Circular Street,count-houses-in-a-circular-street,Easy,"array,interactive"
+2729,Check if The Number is Fascinating,check-if-the-number-is-fascinating,Easy,"hash-table,math"
+2730,Find the Longest Semi-Repetitive Substring,find-the-longest-semi-repetitive-substring,Medium,"string,sliding-window"
+2731,Movement of Robots,movement-of-robots,Medium,"array,brainteaser,sorting,prefix-sum"
+2732,Find a Good Subset of the Matrix,find-a-good-subset-of-the-matrix,Hard,"array,greedy,bit-manipulation,matrix"
+2733,Neither Minimum nor Maximum,neither-minimum-nor-maximum,Easy,"array,sorting"
+2734,Lexicographically Smallest String After Substring Operation,lexicographically-smallest-string-after-substring-operation,Medium,"string,greedy"
+2735,Collecting Chocolates,collecting-chocolates,Medium,"array,enumeration"
+2736,Maximum Sum Queries,maximum-sum-queries,Hard,"array,binary-search,stack,binary-indexed-tree,segment-tree,sorting,monotonic-stack"
+2737,Find the Closest Marked Node,find-the-closest-marked-node,Medium,"array,graph,heap-priority-queue,shortest-path"
+2738,Count Occurrences in Text,count-occurrences-in-text,Medium,database
+2739,Total Distance Traveled,total-distance-traveled,Easy,"math,simulation"
+2740,Find the Value of the Partition,find-the-value-of-the-partition,Medium,"array,sorting"
+2741,Special Permutations,special-permutations,Medium,"array,dynamic-programming,bit-manipulation,bitmask"
+2742,Painting the Walls,painting-the-walls,Hard,"array,dynamic-programming"
+2743,Count Substrings Without Repeating Character,count-substrings-without-repeating-character,Medium,"hash-table,string,sliding-window"
+2744,Find Maximum Number of String Pairs,find-maximum-number-of-string-pairs,Easy,"array,hash-table,string,simulation"
+2745,Construct the Longest New String,construct-the-longest-new-string,Medium,"math,greedy,brainteaser"
+2746,Decremental String Concatenation,decremental-string-concatenation,Medium,"array,string,dynamic-programming"
+2747,Count Zero Request Servers,count-zero-request-servers,Medium,"array,hash-table,sliding-window,sorting"
+2748,Number of Beautiful Pairs,number-of-beautiful-pairs,Easy,"array,math,number-theory"
+2749,Minimum Operations to Make the Integer Zero,minimum-operations-to-make-the-integer-zero,Medium,"bit-manipulation,brainteaser"
+2750,Ways to Split Array Into Good Subarrays,ways-to-split-array-into-good-subarrays,Medium,"array,math,dynamic-programming"
+2751,Robot Collisions,robot-collisions,Hard,"array,stack,sorting,simulation"
+2752,Customers with Maximum Number of Transactions on Consecutive Days,customers-with-maximum-number-of-transactions-on-consecutive-days,Hard,database
+2753,Count Houses in a Circular Street II,count-houses-in-a-circular-street-ii,Hard,
+2754,Bind Function to Context,bind-function-to-context,Medium,
+2755,Deep Merge of Two Objects,deep-merge-of-two-objects,Medium,
+2756,Query Batching,query-batching,Hard,
+2757,Generate Circular Array Values,generate-circular-array-values,Medium,
+2758,Next Day,next-day,Easy,
+2759,Convert JSON String to Object,convert-json-string-to-object,Hard,
+2760,Longest Even Odd Subarray With Threshold,longest-even-odd-subarray-with-threshold,Easy,"array,sliding-window"
+2761,Prime Pairs With Target Sum,prime-pairs-with-target-sum,Medium,"array,math,enumeration,number-theory"
+2762,Continuous Subarrays,continuous-subarrays,Medium,"array,queue,sliding-window,heap-priority-queue,ordered-set,monotonic-queue"
+2763,Sum of Imbalance Numbers of All Subarrays,sum-of-imbalance-numbers-of-all-subarrays,Hard,"array,hash-table,ordered-set"
+2764,is Array a Preorder of Some ‌Binary Tree,is-array-a-preorder-of-some-binary-tree,Medium,"stack,tree,depth-first-search,binary-tree"
+2765,Longest Alternating Subarray,longest-alternating-subarray,Easy,"array,enumeration"
+2766,Relocate Marbles,relocate-marbles,Medium,"array,hash-table,sorting,simulation"
+2767,Partition String Into Minimum Beautiful Substrings,partition-string-into-minimum-beautiful-substrings,Medium,"hash-table,string,dynamic-programming,backtracking"
+2768,Number of Black Blocks,number-of-black-blocks,Medium,"array,hash-table,enumeration"
+2769,Find the Maximum Achievable Number,find-the-maximum-achievable-number,Easy,math
+2770,Maximum Number of Jumps to Reach the Last Index,maximum-number-of-jumps-to-reach-the-last-index,Medium,"array,dynamic-programming"
+2771,Longest Non-decreasing Subarray From Two Arrays,longest-non-decreasing-subarray-from-two-arrays,Medium,"array,dynamic-programming"
+2772,Apply Operations to Make All Array Elements Equal to Zero,apply-operations-to-make-all-array-elements-equal-to-zero,Medium,"array,prefix-sum"
+2773,Height of Special Binary Tree,height-of-special-binary-tree,Medium,
+2774,Array Upper Bound,array-upper-bound,Easy,
+2775,Undefined to Null,undefined-to-null,Medium,
+2776,Convert Callback Based Function to Promise Based Function,convert-callback-based-function-to-promise-based-function,Medium,
+2777,Date Range Generator,date-range-generator,Medium,
+2778,Sum of Squares of Special Elements,sum-of-squares-of-special-elements,Easy,"array,simulation"
+2779,Maximum Beauty of an Array After Applying Operation,maximum-beauty-of-an-array-after-applying-operation,Medium,"array,binary-search,sliding-window,sorting"
+2780,Minimum Index of a Valid Split,minimum-index-of-a-valid-split,Medium,"array,hash-table,sorting"
+2781,Length of the Longest Valid Substring,length-of-the-longest-valid-substring,Hard,"array,hash-table,string,sliding-window"
+2782,Number of Unique Categories,number-of-unique-categories,Medium,"union-find,counting"
+2783,Flight Occupancy and Waitlist Analysis,flight-occupancy-and-waitlist-analysis,Medium,database
+2784,Check if Array is Good,check-if-array-is-good,Easy,"array,hash-table,sorting"
+2785,Sort Vowels in a String,sort-vowels-in-a-string,Medium,"string,sorting"
+2786,Visit Array Positions to Maximize Score,visit-array-positions-to-maximize-score,Medium,"array,dynamic-programming"
+2787,Ways to Express an Integer as Sum of Powers,ways-to-express-an-integer-as-sum-of-powers,Medium,dynamic-programming
+2788,Split Strings by Separator,split-strings-by-separator,Easy,"array,string"
+2789,Largest Element in an Array after Merge Operations,largest-element-in-an-array-after-merge-operations,Medium,"array,greedy,prefix-sum"
+2790,Maximum Number of Groups With Increasing Length,maximum-number-of-groups-with-increasing-length,Hard,"array,math,binary-search,greedy,sorting"
+2791,Count Paths That Can Form a Palindrome in a Tree,count-paths-that-can-form-a-palindrome-in-a-tree,Hard,"dynamic-programming,bit-manipulation,tree,depth-first-search,bitmask"
+2792,Count Nodes That Are Great Enough,count-nodes-that-are-great-enough,Hard,
+2793,Status of Flight Tickets,status-of-flight-tickets,Hard,
+2794,Create Object from Two Arrays,create-object-from-two-arrays,Easy,
+2795,Parallel Execution of Promises for Individual Results Retrieval,parallel-execution-of-promises-for-individual-results-retrieval,Medium,
+2796,Repeat String,repeat-string,Easy,
+2797,Partial Function with Placeholders,partial-function-with-placeholders,Easy,
+2798,Number of Employees Who Met the Target,number-of-employees-who-met-the-target,Easy,"array,enumeration"
+2799,Count Complete Subarrays in an Array,count-complete-subarrays-in-an-array,Medium,"array,hash-table,sliding-window"
+2800,Shortest String That Contains Three Strings,shortest-string-that-contains-three-strings,Medium,"string,greedy,enumeration"
+2801,Count Stepping Numbers in Range,count-stepping-numbers-in-range,Hard,"string,dynamic-programming"
+2802,Find The K-th Lucky Number,find-the-k-th-lucky-number,Medium,
+2803,Factorial Generator,factorial-generator,Easy,
+2804,Array Prototype ForEach,array-prototype-foreach,Easy,
+2805,Custom Interval,custom-interval,Medium,
+2806,Account Balance After Rounded Purchase,account-balance-after-rounded-purchase,Easy,math
+2807,Insert Greatest Common Divisors in Linked List,insert-greatest-common-divisors-in-linked-list,Medium,"array,linked-list,math"
+2808,Minimum Seconds to Equalize a Circular Array,minimum-seconds-to-equalize-a-circular-array,Medium,"array,hash-table,greedy"
+2809,Minimum Time to Make Array Sum At Most x,minimum-time-to-make-array-sum-at-most-x,Hard,"array,dynamic-programming,sorting"
+2810,Faulty Keyboard,faulty-keyboard,Easy,"string,simulation"
+2811,Check if it is Possible to Split Array,check-if-it-is-possible-to-split-array,Medium,"array,dynamic-programming,greedy"
+2812,Find the Safest Path in a Grid,find-the-safest-path-in-a-grid,Medium,"array,binary-search,breadth-first-search,union-find,matrix"
+2813,Maximum Elegance of a K-Length Subsequence,maximum-elegance-of-a-k-length-subsequence,Hard,"array,hash-table,greedy,sorting,heap-priority-queue"
+2814,Minimum Time Takes to Reach Destination Without Drowning,minimum-time-takes-to-reach-destination-without-drowning,Hard,"array,breadth-first-search,matrix"
+2815,Max Pair Sum in an Array,max-pair-sum-in-an-array,Easy,"array,hash-table"
+2816,Double a Number Represented as a Linked List,double-a-number-represented-as-a-linked-list,Medium,"linked-list,math,stack"
+2817,Minimum Absolute Difference Between Elements With Constraint,minimum-absolute-difference-between-elements-with-constraint,Medium,"array,binary-search,ordered-set"
+2818,Apply Operations to Maximize Score,apply-operations-to-maximize-score,Hard,"array,math,stack,greedy,monotonic-stack,number-theory"
+2819,Minimum Relative Loss After Buying Chocolates,minimum-relative-loss-after-buying-chocolates,Hard,
+2820,Election Results,election-results,Medium,
+2821,Delay the Resolution of Each Promise,delay-the-resolution-of-each-promise,Easy,
+2822,Inversion of Object,inversion-of-object,Easy,
+2823,Deep Object Filter,deep-object-filter,Medium,
+2824,Count Pairs Whose Sum is Less than Target,count-pairs-whose-sum-is-less-than-target,Easy,"array,two-pointers,sorting"
+2825,Make String a Subsequence Using Cyclic Increments,make-string-a-subsequence-using-cyclic-increments,Medium,"two-pointers,string"
+2826,Sorting Three Groups,sorting-three-groups,Medium,"array,dynamic-programming"
+2827,Number of Beautiful Integers in the Range,number-of-beautiful-integers-in-the-range,Hard,"math,dynamic-programming"
+2828,Check if a String Is an Acronym of Words,check-if-a-string-is-an-acronym-of-words,Easy,"array,string"
+2829,Determine the Minimum Sum of a k-avoiding Array,determine-the-minimum-sum-of-a-k-avoiding-array,Medium,"math,greedy"
+2830,Maximize the Profit as the Salesman,maximize-the-profit-as-the-salesman,Medium,"array,binary-search,dynamic-programming,sorting"
+2831,Find the Longest Equal Subarray,find-the-longest-equal-subarray,Medium,"array,hash-table,binary-search,sliding-window"
+2832,Maximal Range That Each Element Is Maximum in It,maximal-range-that-each-element-is-maximum-in-it,Medium,"array,stack,monotonic-stack"
+2833,Furthest Point From Origin,furthest-point-from-origin,Easy,"array,counting"
+2834,Find the Minimum Possible Sum of a Beautiful Array,find-the-minimum-possible-sum-of-a-beautiful-array,Medium,"math,greedy"
+2835,Minimum Operations to Form Subsequence With Target Sum,minimum-operations-to-form-subsequence-with-target-sum,Hard,"array,greedy,bit-manipulation"
+2836,Maximize Value of Function in a Ball Passing Game,maximize-value-of-function-in-a-ball-passing-game,Hard,"array,dynamic-programming,bit-manipulation"
+2837,Total Traveled Distance,total-traveled-distance,Easy,database
+2838,Maximum Coins Heroes Can Collect,maximum-coins-heroes-can-collect,Medium,"array,two-pointers,binary-search,sorting,prefix-sum"
+2839,Check if Strings Can be Made Equal With Operations I,check-if-strings-can-be-made-equal-with-operations-i,Easy,string
+2840,Check if Strings Can be Made Equal With Operations II,check-if-strings-can-be-made-equal-with-operations-ii,Medium,"hash-table,string,sorting"
+2841,Maximum Sum of Almost Unique Subarray,maximum-sum-of-almost-unique-subarray,Medium,"array,hash-table,sliding-window"
+2842,Count K-Subsequences of a String With Maximum Beauty,count-k-subsequences-of-a-string-with-maximum-beauty,Hard,"hash-table,math,string,greedy,combinatorics"
+2843,Count Symmetric Integers,count-symmetric-integers,Easy,"math,enumeration"
+2844,Minimum Operations to Make a Special Number,minimum-operations-to-make-a-special-number,Medium,"math,string,greedy,enumeration"
+2845,Count of Interesting Subarrays,count-of-interesting-subarrays,Medium,"array,hash-table,prefix-sum"
+2846,Minimum Edge Weight Equilibrium Queries in a Tree,minimum-edge-weight-equilibrium-queries-in-a-tree,Hard,"array,tree,graph,strongly-connected-component"
+2847,Smallest Number With Given Digit Product,smallest-number-with-given-digit-product,Medium,"math,greedy"
+2848,Points That Intersect With Cars,points-that-intersect-with-cars,Easy,"hash-table,math,prefix-sum"
+2849,Determine if a Cell Is Reachable at a Given Time,determine-if-a-cell-is-reachable-at-a-given-time,Medium,math
+2850,Minimum Moves to Spread Stones Over Grid,minimum-moves-to-spread-stones-over-grid,Medium,"array,dynamic-programming,breadth-first-search,matrix"
+2851,String Transformation,string-transformation,Hard,"math,string,dynamic-programming,string-matching"
+2852,Sum of Remoteness of All Cells,sum-of-remoteness-of-all-cells,Medium,"array,depth-first-search,breadth-first-search,union-find,matrix"
+2853,Highest Salaries Difference,highest-salaries-difference,Easy,database
+2854,Rolling Average Steps,rolling-average-steps,Medium,database
+2855,Minimum Right Shifts to Sort the Array,minimum-right-shifts-to-sort-the-array,Easy,array
+2856,Minimum Array Length After Pair Removals,minimum-array-length-after-pair-removals,Medium,"array,hash-table,two-pointers,binary-search,greedy,counting"
+2857,Count Pairs of Points With Distance k,count-pairs-of-points-with-distance-k,Medium,"array,hash-table,bit-manipulation"
+2858,Minimum Edge Reversals So Every Node Is Reachable,minimum-edge-reversals-so-every-node-is-reachable,Hard,"dynamic-programming,depth-first-search,breadth-first-search,graph"
+2859,Sum of Values at Indices With K Set Bits,sum-of-values-at-indices-with-k-set-bits,Easy,"array,bit-manipulation"
+2860,Happy Students,happy-students,Medium,"array,sorting,enumeration"
+2861,Maximum Number of Alloys,maximum-number-of-alloys,Medium,"array,binary-search"
+2862,Maximum Element-Sum of a Complete Subset of Indices,maximum-element-sum-of-a-complete-subset-of-indices,Hard,"array,math,number-theory"
+2863,Maximum Length of Semi-Decreasing Subarrays,maximum-length-of-semi-decreasing-subarrays,Medium,"array,hash-table,sorting"
+2864,Maximum Odd Binary Number,maximum-odd-binary-number,Easy,"math,string,greedy"
+2865,Beautiful Towers I,beautiful-towers-i,Medium,"array,stack,monotonic-stack"
+2866,Beautiful Towers II,beautiful-towers-ii,Medium,"array,stack,monotonic-stack"
+2867,Count Valid Paths in a Tree,count-valid-paths-in-a-tree,Hard,"math,dynamic-programming,tree,depth-first-search,number-theory"
+2868,The Wording Game,the-wording-game,Hard,"array,math,two-pointers,string,game-theory"
+2869,Minimum Operations to Collect Elements,minimum-operations-to-collect-elements,Easy,"array,hash-table"
+2870,Minimum Number of Operations to Make Array Empty,minimum-number-of-operations-to-make-array-empty,Medium,"array,hash-table,greedy,counting"
+2871,Split Array Into Maximum Number of Subarrays,split-array-into-maximum-number-of-subarrays,Medium,"array,greedy,bit-manipulation"
+2872,Maximum Number of K-Divisible Components,maximum-number-of-k-divisible-components,Hard,"dynamic-programming,tree,depth-first-search"
+2873,Maximum Value of an Ordered Triplet I,maximum-value-of-an-ordered-triplet-i,Easy,array
+2874,Maximum Value of an Ordered Triplet II,maximum-value-of-an-ordered-triplet-ii,Medium,array
+2875,Minimum Size Subarray in Infinite Array,minimum-size-subarray-in-infinite-array,Medium,"array,hash-table,sliding-window,prefix-sum"
+2876,Count Visited Nodes in a Directed Graph,count-visited-nodes-in-a-directed-graph,Hard,"dynamic-programming,graph,memoization"
+2877,Create a DataFrame from List,create-a-dataframe-from-list,Easy,
+2878,Get the Size of a DataFrame,get-the-size-of-a-dataframe,Easy,
+2879,Display the First Three Rows,display-the-first-three-rows,Easy,
+2880,Select Data,select-data,Easy,
+2881,Create a New Column,create-a-new-column,Easy,
+2882,Drop Duplicate Rows,drop-duplicate-rows,Easy,
+2883,Drop Missing Data,drop-missing-data,Easy,
+2884,Modify Columns,modify-columns,Easy,
+2885,Rename Columns,rename-columns,Easy,
+2886,Change Data Type,change-data-type,Easy,
+2887,Fill Missing Data,fill-missing-data,Easy,
+2888,Reshape Data: Concatenate,reshape-data-concatenate,Easy,
+2889,Reshape Data: Pivot,reshape-data-pivot,Easy,
+2890,Reshape Data: Melt,reshape-data-melt,Easy,
+2891,Method Chaining,method-chaining,Easy,
+2892,Minimizing Array After Replacing Pairs With Their Product,minimizing-array-after-replacing-pairs-with-their-product,Medium,"array,dynamic-programming,greedy"
+2893,Calculate Orders Within Each Interval,calculate-orders-within-each-interval,Medium,database
+2894,Divisible and Non-divisible Sums Difference,divisible-and-non-divisible-sums-difference,Easy,math
+2895,Minimum Processing Time,minimum-processing-time,Medium,"array,greedy,sorting"
+2896,Apply Operations to Make Two Strings Equal,apply-operations-to-make-two-strings-equal,Medium,"string,dynamic-programming"
+2897,Apply Operations on Array to Maximize Sum of Squares,apply-operations-on-array-to-maximize-sum-of-squares,Hard,"array,hash-table,greedy,bit-manipulation"
+2898,Maximum Linear Stock Score,maximum-linear-stock-score,Medium,"array,hash-table"
+2899,Last Visited Integers,last-visited-integers,Easy,"array,string,simulation"
+2900,Longest Unequal Adjacent Groups Subsequence I,longest-unequal-adjacent-groups-subsequence-i,Medium,"array,string,dynamic-programming,greedy"
+2901,Longest Unequal Adjacent Groups Subsequence II,longest-unequal-adjacent-groups-subsequence-ii,Medium,"array,string,dynamic-programming"
+2902,Count of Sub-Multisets With Bounded Sum,count-of-sub-multisets-with-bounded-sum,Hard,"array,hash-table,dynamic-programming,sliding-window"
+2903,Find Indices With Index and Value Difference I,find-indices-with-index-and-value-difference-i,Easy,array
+2904,Shortest and Lexicographically Smallest Beautiful String,shortest-and-lexicographically-smallest-beautiful-string,Medium,"string,sliding-window"
+2905,Find Indices With Index and Value Difference II,find-indices-with-index-and-value-difference-ii,Medium,array
+2906,Construct Product Matrix,construct-product-matrix,Medium,"array,matrix,prefix-sum"
+2907,Maximum Profitable Triplets With Increasing Prices I,maximum-profitable-triplets-with-increasing-prices-i,Medium,
