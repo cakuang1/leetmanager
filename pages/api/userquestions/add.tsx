@@ -44,6 +44,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             questionId: questionId,
             title: data.title,
             titleSlug: data.titleSlug,
+            difficulty: data.difficulty,
             topicTags: data.topicTags,
             completionStatus: false,
             timeTaken: null,

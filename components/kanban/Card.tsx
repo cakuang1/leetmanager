@@ -3,9 +3,6 @@ import { UserQuestionDTO } from '../types';
 
 
 
-
-
-
 function Card(card:UserQuestionDTO) {
   return (
         <div
@@ -17,9 +14,10 @@ function Card(card:UserQuestionDTO) {
             {card.difficulty}
           </p>
         </div>
-
   );
 }
+
+
 export default Card;
 
 

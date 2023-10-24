@@ -6,13 +6,13 @@ import { useState } from 'react';
 
 
 
-const CardPopup = ({ UserQuestionDTO}) => {
+const CardPopup = (card:UserQuestionDTO) => {
   const [formData, setFormData] = useState({
-    categorySlug: UserQuestionDTO.categorySlug,
-    completionStatus: UserQuestionDTO.completionStatus,
-    timeTaken: UserQuestionDTO.timeTaken || '',
-    code: UserQuestionDTO.code,
-    notes: UserQuestionDTO.notes,
+    categorySlug: card.categorySlug,
+    completionStatus: card.completionStatus,
+    timeTaken: card.timeTaken || '',
+    code: card.code,
+    notes: card.notes,
   });
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value, type, checked } = e.target;
@@ -21,9 +21,6 @@ const CardPopup = ({ UserQuestionDTO}) => {
       [name]: type === 'checkbox' ? checked : value,
     });
   };
-
-
-
 
   return (
     <form>

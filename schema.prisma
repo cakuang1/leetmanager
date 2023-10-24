@@ -30,10 +30,10 @@ model UserQuestions {
   topicTags    String[]
   difficulty String
   completionStatus Boolean
-
   timeTaken  String?
-
   code String @default("")
   notes String @default("")
+  dateCompleted   DateTime? @map("date_completed") // New field for the date when the question was completed
+  datePlanned     DateTime? @map("date_planned") // New field for the date when the question is planned
 
 }

@@ -7,30 +7,13 @@ import { startOfWeek, addDays, format,subWeeks,endOfWeek,eachDayOfInterval, addW
 import WeekRow from './calendar/Weekrow';
 
 
+
+
 function KanbanBoard() { 
   const date = new Date(); // Use your desired date here
   const weekDates = getWeekDatesInISO(date);
   const [columns, setColumns] = useState(weekDates);
-  console.log(columns)
-  const onDragEnd = (result: DropResult) => {
-    if (!result.destination) return;
-    const source: DraggableLocation = result.source;
-    const destination: DraggableLocation = result.destination;
 
-    if (source.droppableId === destination.droppableId && source.index === destination.index) {
-      return;
-    }
-
-    // Implement logic to update the order of cards within the same column or move between columns based on the source and destination indices.
-
-    // Update the columns state based on your logic.
-    // You will need to reorder cards within the same column or move cards between columns.
-    // Ensure you handle this logic carefully based on your specific requirements.
-    const updatedColumns = [...columns];
-    // Implement your logic here to update the 'updatedColumns' array.
-
-    setColumns(updatedColumns);
-  };
 
   function handleLeftclick() {
     setColumns(getPreviousWeekInISOList(columns[3]));
@@ -50,13 +33,13 @@ function KanbanBoard() {
   return (
     <div >
     <CalNavigator onPreviousWeek = {handleLeftclick} onNextWeek = {handleRightclick} onWeekClick = {handleCalendarClick}/>
-    <DragDropContext onDragEnd={onDragEnd}>
+
       <div className="kanban-scroll-container h-screen overflow-x-auto flex" >
         {columns.map((date, index) => (
           <Column key={index} id = {date} cards={[]} />
         ))}
       </div>
-    </DragDropContext>
+
     </div>
   );
 }
