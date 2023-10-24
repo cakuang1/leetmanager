@@ -1,28 +1,24 @@
 import React from 'react';
+import { UserQuestionDTO } from '../types';
 
 
 
 
 
 
-type LeetCodeQuestion = {
-  qid: number;
-  title: string;
-  titleSlug: string;
-  difficulty: string;
-  topicTags: string[];
-};
 
 
 
-function Card() {
+
+
+function Card(card:UserQuestionDTO) {
   return (
         <div
           className="kanban-card flex border rounded-sm mt-2 hover:border-leetcode hover:shadow cursor-pointer flex items-center p-2 cursor-pointer text-sm font-semibold bg-white"
         >
           <p>{card.id}.&nbsp;</p>
-          <p>{card.name} &nbsp;</p>
-          <p className={`${getColorClasses(card.difficulty)} px-2 inline-flex text-xs leading-5 font-semibold rounded-full overflow-hidden`}>
+          <p>{card.title} &nbsp;</p>
+          <p className={`${getColorClasses(card.)} px-2 inline-flex text-xs leading-5 font-semibold rounded-full overflow-hidden`}>
             {card.difficulty}
           </p>
         </div>

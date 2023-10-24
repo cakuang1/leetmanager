@@ -3,8 +3,6 @@ import { PrismaClient } from '@prisma/client';
 import { getSession } from 'next-auth/react';
 const prisma = new PrismaClient();
 import { LeetCodeQuestionDTO } from '@/components/types';
-
-
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
     const session = await getSession({ req });

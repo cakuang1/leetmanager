@@ -28,8 +28,11 @@ model UserQuestions {
   title        String
   titleSlug    String   @unique
   topicTags    String[]
+  difficulty String
   completionStatus Boolean
+
   timeTaken  String?
+
   code String @default("")
   notes String @default("")
 

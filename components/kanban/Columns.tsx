@@ -3,7 +3,7 @@ import Card from './Card';
 import { useState ,useEffect,useRef} from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import { parseISO, format, getDay } from 'date-fns';
-
+import { LeetCodeQuestionDTO,UserQuestionDTO } from '../types';
 interface SearchProps {
     onClickOutside: () => void;
   }
@@ -15,34 +15,22 @@ interface SearchProps {
     };
     index: number;
   }
+
+
 interface ColumnProps {
     id: string;
     cards: CardProps[];
   }
 
 
-  type LeetCodeQuestion = {
-    qid: number;
-    title: string;
-    titleSlug: string;
-    difficulty: string;
-    topicTags: string[];
-  };
-
-
-
- 
-
-
-
-
-
-
 
 function Search({ onClickOutside }: SearchProps) {
     const searchRef = useRef<HTMLDivElement | null>(null);
     const [query, setQuery] = useState('');
-    const [queryResults, setQueryResults] = useState<LeetCodeQuestion[]>([]);
+    const [queryResults, setQueryResults] = useState<LeetCodeQuestionDTO[]>([]);
+
+
+
     useEffect(() => {
       const handleClickOutside = (event: MouseEvent) => {
         if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
@@ -56,12 +44,12 @@ function Search({ onClickOutside }: SearchProps) {
       };
     }, [onClickOutside]);
   
+
+
     const handleQueryChange = (event: ChangeEvent<HTMLInputElement>) => {
         const newQuery = event.target.value;
         setQuery(newQuery);
-    
       };
-
 
 
     return (
@@ -74,9 +62,9 @@ function Search({ onClickOutside }: SearchProps) {
       </div>
       <ul>
         {queryResults.map((question) => (
-          <li key={question.id} className='border rounded  hover:border-leetcode  hover:shadow cursor-pointer flex items-center p-2 cursor-pointer text-sm font-semibold bg-white'>
-            <p>{question.id}.&nbsp;</p>
-            <p>{question.name}&nbsp;</p>
+          <li key={question.qid} className='border rounded  hover:border-leetcode  hover:shadow cursor-pointer flex items-center p-2 cursor-pointer text-sm font-semibold bg-white'>
+            <p>{question.qid}.&nbsp;</p>
+            <p>{question.title}&nbsp;</p>
             <p className={`${getColorClasses(question.difficulty)} px-2 inline-flex text-xs leading-5 font-semibold rounded-full overflow-hidden`}>{question.difficulty}</p>
           </li>
         ))}
@@ -85,9 +73,11 @@ function Search({ onClickOutside }: SearchProps) {
     );
   }
 
+
+
 function Column({ id, cards }: ColumnProps) {
     const [isEditing, setIsEditing] = useState(false);
-    const [currcards, setCardSection] = useState<question[]>(example);
+    const [currcards, setCardSection] = useState<UserQuestionDTO[]>([]);
      const handleEditClick = () => {
         setIsEditing(true);
       };
