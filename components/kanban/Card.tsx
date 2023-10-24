@@ -2,6 +2,9 @@ import React from 'react';
 
 
 
+
+
+
 type LeetCodeQuestion = {
   qid: number;
   title: string;
@@ -14,8 +17,6 @@ type LeetCodeQuestion = {
 
 function Card() {
   return (
-
-
         <div
           className="kanban-card flex border rounded-sm mt-2 hover:border-leetcode hover:shadow cursor-pointer flex items-center p-2 cursor-pointer text-sm font-semibold bg-white"
         >
