@@ -46,16 +46,10 @@ function Search({ onClickOutside }: SearchProps) {
       const newQuery = event.target.value;
       setQuery(newQuery);
       // Call the API to search based on the new query
-      searchApi(query).then((results) => {
-        console.log(results)
+      searchApi(newQuery).then((results) => {
         setQueryResults(results);
       });
     };
-
-
-
-
-
     return (
         <div>
       <div ref={searchRef} className=" border rounded p-2 text-sm hover:border-leetcode  hover:shadow cursor-pointer flex items-center p-2 cursor-pointer bg-white">
@@ -113,7 +107,6 @@ export default Column;
 
 
 
-
 // HELPER FUNCTIONS ignore
 
 
@@ -129,8 +122,6 @@ function getColorClasses(difficulty : String) {
         return ''; 
     }
 }
-
-
 
 function getDateInfoFromISODate(dateString:string) {
 
@@ -157,5 +148,8 @@ const ymd = isoDateString.split('T')[0];
 const searchApi = async (query: string): Promise<LeetCodeQuestionDTO[]> => {
   return fetch(`/api/search?query=${query}`)
     .then((response) => response.json())
-    .then((data) => data.results);
 };
+
+
+
+
