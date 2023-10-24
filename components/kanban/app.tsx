@@ -1,10 +1,9 @@
 import React from 'react';
 import Column from './Columns';
-import { useState } from 'react';
-import { DragDropContext, DraggableLocation, DropResult } from 'react-beautiful-dnd';
+import { useState,useEffect} from 'react';
 import CalNavigator from './Calnavigation';
 import { startOfWeek, addDays, format,subWeeks,endOfWeek,eachDayOfInterval, addWeeks, getWeek} from 'date-fns';
-import WeekRow from './calendar/Weekrow';
+
 
 
 
@@ -13,7 +12,6 @@ function KanbanBoard() {
   const date = new Date(); // Use your desired date here
   const weekDates = getWeekDatesInISO(date);
   const [columns, setColumns] = useState(weekDates);
-
 
   function handleLeftclick() {
     setColumns(getPreviousWeekInISOList(columns[3]));
@@ -26,6 +24,15 @@ function KanbanBoard() {
   function handleCalendarClick(isodate:string) {
     setColumns(getCurrentWeekInISOList(isodate));
   }
+
+  useEffect(() => {
+    // Fetch data for the entire date range
+    fetchDataForDateRange(startDate, endDate);
+
+
+
+
+  }, [columns]);
 
 
 
@@ -123,3 +130,24 @@ function getNextWeekInISOList(isoDateString:string) {
 
   return isoDates;
 }
+
+
+
+
+
+const fetchDataForDateRange = async (startDate:string, endDate:string) => {
+  // Make your API request here, using the startDate and endDate as parameters
+  // Replace the URL and query parameters with your actual API endpoint
+  const apiUrl = `/api/fetchdates?startDate=${startDate}&endDate=${endDate}`;
+
+  try {
+    const response = await fetch(apiUrl);
+    if (response.ok) {
+      const data = await response.json();
+      // Store the data in the state
+      setColumnData(data);
+    }
+  } catch (error) {
+    console.error('API request failed:', error);
+  }
+};

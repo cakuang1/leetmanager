@@ -17,7 +17,7 @@ function SearchResult({ card, onClick }: SearchResultProps) {
     <li
       key={card.qid}
       onClick={onClick} // Attach the onClick handler to the <li> element
-      className="border rounded hover:border-leetcode hover:shadow cursor-pointer flex items-center p-2 cursor-pointer text-sm font-semibold bg-white"
+      className="border rounded-lg hover:border-leetcode hover:shadow cursor-pointer flex items-center p-2 cursor-pointer text-sm font-semibold bg-white"
     >
       <p>{card.qid}.&nbsp;</p>
       <p>{card.title}&nbsp;</p>

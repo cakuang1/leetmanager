@@ -1,28 +1,40 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
-import { getSession } from 'next-auth/react';
-const prisma = new PrismaClient();
+import { getServerSession } from "next-auth/next"
+import { authOptions } from "../auth/[...nextauth]"
 import { LeetCodeQuestionDTO } from '@/components/types';
+
+
+
+const prisma = new PrismaClient();
+
+
+
+
+
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
-    const session = await getSession({ req });
-
+    const session = await getServerSession(req, res,authOptions)
     if (!session) {
       res.status(401).json({ message: 'Not authenticated' });
       return;
     }
-    const userId = session.user?.name;
 
+    const userId = session.user?.name;
     if (!userId) {
       res.status(401).json({ message: 'User not found' });
       return;
     }
 
+
+    const { date } = req.query;
+
+      // Check if date is not undefined or an empty string
+    const dateObject = new Date(date as string);
+
     const data: LeetCodeQuestionDTO = req.body;
     const questionId = data.qid; 
-
     try {
-      // Fetch the user's list of LeetCode questions
       const userQuestions = await prisma.userQuestions.findMany({
         where: {
           githubId: userId,
@@ -50,6 +62,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             timeTaken: null,
             code: '',
             notes: '',
+            date : dateObject
           },
         });
         res.status(200).json({ message: 'Question added to your list' });
