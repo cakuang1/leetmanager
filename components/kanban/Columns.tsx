@@ -21,35 +21,17 @@ interface ColumnProps {
   }
 
 
-  interface question {
-    id:number;
-    name:string;
-    difficulty:string;
-  }
+  type LeetCodeQuestion = {
+    qid: number;
+    title: string;
+    titleSlug: string;
+    difficulty: string;
+    topicTags: string[];
+  };
 
 
 
-  const example = [
-    {
-      "id": 1,
-      "name": "Two Sum",
-      "difficulty": "Easy"
-    },
-    {
-      "id": 23,
-      "name": "Merge k Sorted Lists",
-      "difficulty": "Hard"
-    },
-    {
-      "id": 46,
-      "name": "Permutations",
-      "difficulty": "Medium"
-    },
-    {
-      "id": 94,
-      "name": "Binary Tree Inorder Traversal",
-      "difficulty": "Medium"
-    }];
+ 
 
 
 
@@ -60,7 +42,7 @@ interface ColumnProps {
 function Search({ onClickOutside }: SearchProps) {
     const searchRef = useRef<HTMLDivElement | null>(null);
     const [query, setQuery] = useState('');
-    const [queryResults, setQueryResults] = useState<question[]>(example);
+    const [queryResults, setQueryResults] = useState<LeetCodeQuestion[]>([]);
     useEffect(() => {
       const handleClickOutside = (event: MouseEvent) => {
         if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
