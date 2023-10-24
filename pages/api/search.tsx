@@ -8,7 +8,6 @@ const prisma = new PrismaClient();
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
     const { query } = req.query;
-
     try {
       const results = await prisma.LeetCodeQuestion.findMany({
         where: {

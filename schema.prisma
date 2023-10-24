@@ -20,7 +20,7 @@ model LeetCodeQuestion {
 
 
 model UserQuestions {
-  id         Int     @id 
+  id            Int       @id @default(autoincrement())
   githubId     String
   question   LeetCodeQuestion @relation(fields: [questionId], references: [qid])
   questionId Int
