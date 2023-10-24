@@ -29,8 +29,6 @@ function Search({ onClickOutside }: SearchProps) {
     const [query, setQuery] = useState('');
     const [queryResults, setQueryResults] = useState<LeetCodeQuestionDTO[]>([]);
 
-
-
     useEffect(() => {
       const handleClickOutside = (event: MouseEvent) => {
         if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
@@ -44,12 +42,18 @@ function Search({ onClickOutside }: SearchProps) {
       };
     }, [onClickOutside]);
   
-
-
     const handleQueryChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const newQuery = event.target.value;
-        setQuery(newQuery);
-      };
+      const newQuery = event.target.value;
+      setQuery(newQuery);
+      // Call the API to search based on the new query
+      searchApi(query).then((results) => {
+        console.log(results)
+        setQueryResults(results);
+      });
+    };
+
+
+
 
 
     return (
@@ -58,7 +62,7 @@ function Search({ onClickOutside }: SearchProps) {
         <div className="add-card-left text-gray-400 pr-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="16" stroke-dashoffset="16" d="M10.5 13.5L3 21"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.4s" dur="0.2s" values="16;0"/></path><path stroke-dasharray="40" stroke-dashoffset="40" d="M10.7574 13.2426C8.41421 10.8995 8.41421 7.10051 10.7574 4.75736C13.1005 2.41421 16.8995 2.41421 19.2426 4.75736C21.5858 7.10051 21.5858 10.8995 19.2426 13.2426C16.8995 15.5858 13.1005 15.5858 10.7574 13.2426Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="40;0"/></path></g></svg>
         </div>
-        <input type="email" name="email" id="email" placeholder="Search for problem to add " className="focus:outline-none form-input bg-white add-card-right text-gray-400 w-full" />
+        <input type="email" name="email" id="email" placeholder="Search for problem to add " className="focus:outline-none form-input bg-white add-card-right text-gray-400 w-full"  onChange={handleQueryChange}/>
       </div>
       <ul>
         {queryResults.map((question) => (
@@ -70,7 +74,7 @@ function Search({ onClickOutside }: SearchProps) {
         ))}
       </ul>
       </div>
-    );
+    );  
   }
 
 
@@ -100,26 +104,12 @@ function Column({ id, cards }: ColumnProps) {
     </div>
     </div>}
     <div>
-    <Droppable droppableId={id} type="CARD">
-        {(provided) => (
-          <div
-            ref={provided.innerRef}
-            {...provided.droppableProps}
-            className="kanban-card-list"
-          >
-            {cards.map((card, index) => (
-              <Card key={card.card.id} card={card.card} index={index} />
-            ))}
-            {provided.placeholder}
-          </div>
-        )}
-      </Droppable>
+
     </div>
 </div>
     );
   }
 export default Column;
-
 
 
 
@@ -161,3 +151,11 @@ const ymd = isoDateString.split('T')[0];
 
   return ymd === isoDate;
 }
+
+
+
+const searchApi = async (query: string): Promise<LeetCodeQuestionDTO[]> => {
+  return fetch(`/api/search?query=${query}`)
+    .then((response) => response.json())
+    .then((data) => data.results);
+};

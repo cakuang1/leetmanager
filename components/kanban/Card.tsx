@@ -5,12 +5,6 @@ import { UserQuestionDTO } from '../types';
 
 
 
-
-
-
-
-
-
 function Card(card:UserQuestionDTO) {
   return (
         <div
@@ -18,7 +12,7 @@ function Card(card:UserQuestionDTO) {
         >
           <p>{card.id}.&nbsp;</p>
           <p>{card.title} &nbsp;</p>
-          <p className={`${getColorClasses(card.)} px-2 inline-flex text-xs leading-5 font-semibold rounded-full overflow-hidden`}>
+          <p className={`${getColorClasses(card.difficulty)} px-2 inline-flex text-xs leading-5 font-semibold rounded-full overflow-hidden`}>
             {card.difficulty}
           </p>
         </div>

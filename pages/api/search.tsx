@@ -5,6 +5,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
     const { query } = req.query;
@@ -18,7 +19,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         },
         take: 4, // Limit the number of results to 4
       });
-
       res.json(results);
     } catch (error) {
       console.error(error);
