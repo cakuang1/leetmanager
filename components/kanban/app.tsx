@@ -12,6 +12,9 @@ function KanbanBoard() {
   const date = new Date(); // Use your desired date here
   const weekDates = getWeekDatesInISO(date);
   const [columns, setColumns] = useState(weekDates);
+  const [columnData,setColumndata] = useState([])
+
+
 
   function handleLeftclick() {
     setColumns(getPreviousWeekInISOList(columns[3]));
@@ -34,8 +37,7 @@ function KanbanBoard() {
         const response = await fetch(apiUrl);
         if (response.ok) {
           const data = await response.json();
-          
-          setColumns(data);
+          setColumndata(data)
         }
       } catch (error) {
         console.error('API request failed:', error);
@@ -44,12 +46,10 @@ function KanbanBoard() {
     // Fetch data for the entire date range
     fetchDataForDateRange(columns[0], columns[columns.length - 1]);
 
-
   }, [columns]);
 
 
 
-  
   return (
     <div >
     <CalNavigator onPreviousWeek = {handleLeftclick} onNextWeek = {handleRightclick} onWeekClick = {handleCalendarClick}/>

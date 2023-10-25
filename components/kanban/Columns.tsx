@@ -78,6 +78,8 @@ function Search({ onClickOutside,date}: SearchProps) {
 
 
 
+  
+
 function Column({ id, cards }: ColumnProps) {
     const [isEditing, setIsEditing] = useState(false);
     const [currcards, setCardSection] = useState<UserQuestionDTO[]>([]);

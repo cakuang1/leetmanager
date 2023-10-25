@@ -1,23 +1,19 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
-import { getServerSession } from "next-auth/next"
-import { authOptions } from "../auth/[...nextauth]"
-
-
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '../auth/[...nextauth]';
 
 const prisma = new PrismaClient();
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
-    const session = await getServerSession(req, res,authOptions)
-    
+    const session = await getServerSession(req, res, authOptions);
+
     if (!session) {
       res.status(401).json({ message: 'Not authenticated' });
       return;
     }
 
-
-    
     const { userId } = req.query; // Replace with your parameter name for the user ID
     const { startDate, endDate } = req.query; // Replace with your parameter names for start and end dates
     try {
@@ -35,7 +31,18 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         },
       });
 
-      res.status(200).json(userQuestions);
+      // Organize data into the desired format
+      const organizedData: Record<string, any[]> = {};
+      userQuestions.forEach((question) => {
+        if (question.date) {
+          const questionDate = question.date.toISOString().split('T')[0]; // Extract the date part
+          if (!organizedData[questionDate]) {
+            organizedData[questionDate] = [];
+          }
+          organizedData[questionDate].push(question);
+        }
+      });
+      res.status(200).json(organizedData);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'An error occurred' });
