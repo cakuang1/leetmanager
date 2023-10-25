@@ -26,10 +26,23 @@ function KanbanBoard() {
   }
 
   useEffect(() => {
+    const fetchDataForDateRange = async (startDate:string, endDate:string) => {
+      // Make your API request here, using the startDate and endDate as parameters
+      // Replace the URL and query parameters with your actual API endpoint
+      const apiUrl = `/api/userquestions/fetchdates?startDate=${startDate}&endDate=${endDate}`;      
+      try {
+        const response = await fetch(apiUrl);
+        if (response.ok) {
+          const data = await response.json();
+          
+          setColumns(data);
+        }
+      } catch (error) {
+        console.error('API request failed:', error);
+      }
+    };
     // Fetch data for the entire date range
-    fetchDataForDateRange(startDate, endDate);
-
-
+    fetchDataForDateRange(columns[0], columns[columns.length - 1]);
 
 
   }, [columns]);
@@ -135,19 +148,3 @@ function getNextWeekInISOList(isoDateString:string) {
 
 
 
-const fetchDataForDateRange = async (startDate:string, endDate:string) => {
-  // Make your API request here, using the startDate and endDate as parameters
-  // Replace the URL and query parameters with your actual API endpoint
-  const apiUrl = `/api/fetchdates?startDate=${startDate}&endDate=${endDate}`;
-
-  try {
-    const response = await fetch(apiUrl);
-    if (response.ok) {
-      const data = await response.json();
-      // Store the data in the state
-      setColumnData(data);
-    }
-  } catch (error) {
-    console.error('API request failed:', error);
-  }
-};
