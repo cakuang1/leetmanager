@@ -1,23 +1,6 @@
 import React from 'react';
+import { UserQuestionDTO } from '../types';
 
-
-
-
-export type UserQuestionDTO = {
-  id: number;
-  githubId: string;
-  questionId: number;
-  title: string;
-  difficulty: string;
-  titleSlug: string;
-  topicTags: string[];
-  categorySlug: string;
-  completionStatus: boolean;
-  timeTaken?: Date;
-  date : Date;
-  code: string;
-  notes: string;
-};
 
 
 

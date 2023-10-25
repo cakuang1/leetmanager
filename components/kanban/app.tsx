@@ -45,7 +45,7 @@ function KanbanBoard() {
     };
     // Fetch data for the entire date range
     fetchDataForDateRange(columns[0], columns[columns.length - 1]);
-
+    
   }, [columns]);
 
 

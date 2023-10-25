@@ -12,56 +12,39 @@ import { UserQuestionDTO } from "@/components/types";
   // Todo list should be ordered by lowest date first, date asc
   // Completed should be ordered by most recently completed, date desc
 
-  interface ProgressTrackerRow {
-    id: number;
-    question: string;
-    difficulty: string;
-    topics: string[];
-    timeTaken: number;
-    dateCompleted: Date | null;
-    datePlanned: Date | null;
-    codeOrNotes: string;
-  }
-
-
-
-
-
+interface ApiResponse {
+  notCompleted: UserQuestionDTO[]
+  completed: UserQuestionDTO[]
+}
 
 
 
 export default function Problems() {
   const [activeTab, setActiveTab] = useState('todo');
-
-  
-
-
-
-  const [todoList, setTodoList] = useState<ProgressTrackerRow[]>([]);
-  const [completedList, setCompletedList] = useState<ProgressTrackerRow[]>([]);
+  const [todoList, setTodoList] = useState<UserQuestionDTO[]>([]);
+  const [completedList, setCompletedList] = useState<UserQuestionDTO[]>([]);
 
   useEffect(() => {
-    
-    // Distribute questions into todo and completed lists
-    const transformedQuestionsList = questionsList.map((question) => {
-      return {
-        id: question.id,
-        question: question.question,
-        difficulty: question.difficulty,
-        topics: question.topics,
-        timeTaken: question.timeTaken,
-        dateCompleted: question.dateCompleted,
-        datePlanned: question.datePlanned,
-        codeOrNotes: question.codeOrNotes,
-      };
-    });
+    async function getQuestionsByCompletionStatus() {
+      try {
+        const response = await fetch(`/api/userquestions/graball`);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error("Error fetching questions:", error);
+        return { completed: [], notCompleted: [] };
+      }
+    };
   
+    getQuestionsByCompletionStatus().then((data) => {
+      setCompletedList(data.completed);
+      setTodoList(data.notCompleted);
+    });
+  }, []);
 
-    const newTodoList = transformedQuestionsList.filter((question) => !question.dateCompleted);
-    const newCompletedList = transformedQuestionsList.filter((question) => question.dateCompleted);
-    setTodoList(newTodoList);
-    setCompletedList(newCompletedList);
-  }, [questionsList]);
   
   return (
     <Layout>
