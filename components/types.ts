@@ -20,9 +20,9 @@ export type LeetCodeQuestionDTO = {
     timeTaken?: string | null;
     code: string;
     notes: string;
-    date: Date;
+    date: string; 
   };
 
 
-  
+
   
