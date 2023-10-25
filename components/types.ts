@@ -12,6 +12,7 @@ export type LeetCodeQuestionDTO = {
     githubId: string;
     questionId: number;
     title: string;
+    difficulty:string;
     titleSlug: string;
     topicTags: string[];
     categorySlug: string;
@@ -19,5 +20,9 @@ export type LeetCodeQuestionDTO = {
     timeTaken?: string | null;
     code: string;
     notes: string;
+    date: Date;
   };
+
+
+  
   

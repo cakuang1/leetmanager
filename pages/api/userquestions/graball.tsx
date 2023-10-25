@@ -1,40 +1,36 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
-import { getServerSession } from "next-auth/next"
-import { authOptions } from "../auth/[...nextauth]"
-
-
-
-
-
-
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '../auth/[...nextauth]';
 
 const prisma = new PrismaClient();
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
-    const session = await getServerSession(req, res,authOptions)
+    const session = await getServerSession(req, res, authOptions);
 
     if (!session) {
       res.status(401).json({ message: 'Not authenticated' });
       return;
     }
-    const  userId = session.user?.name
-    const { startDate, endDate } = req.query; // Replace with your parameter names for start and end dates
+
+    const userId = req.query.userId as string;
+
+
     try {
-      // Convert date strings to ISO-8601 format
-      const isoStartDate = new Date(startDate as string).toISOString();
-      const isoEndDate = new Date(endDate as string).toISOString();
       const userQuestions = await prisma.userQuestions.findMany({
         where: {
-          githubId: userId as string,
-          date: {
-            gte: isoStartDate,
-            lte: isoEndDate,
-          },
+          githubId: userId,
         },
       });
-      res.status(200).json(userQuestions);
+
+      const completedQuestions = userQuestions.filter((question) => question.completionStatus);
+      const notCompletedQuestions = userQuestions.filter((question) => !question.completionStatus);
+
+      res.status(200).json({
+        completed: completedQuestions,
+        notCompleted: notCompletedQuestions,
+      });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'An error occurred' });

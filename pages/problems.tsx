@@ -2,6 +2,9 @@ import Completed from "@/components/problems/completed";
 import Layout from "@/components/layout";
 import Todo from "@/components/problems/todolist";
 import { useEffect,useState } from "react";
+import { UserQuestionDTO } from "@/components/types";
+
+
 
 
 //As a user I,when I click on the problems page, I am able to see which problems are on my todo list. I am also able to switch between todo and completed tabs
@@ -20,12 +23,25 @@ import { useEffect,useState } from "react";
     codeOrNotes: string;
   }
 
+
+
+
+
+
+
+
 export default function Problems() {
-  const [activeTab, setActiveTab] = useState('todo'); 
+  const [activeTab, setActiveTab] = useState('todo');
+
+  
+
+
+
   const [todoList, setTodoList] = useState<ProgressTrackerRow[]>([]);
   const [completedList, setCompletedList] = useState<ProgressTrackerRow[]>([]);
 
   useEffect(() => {
+    
     // Distribute questions into todo and completed lists
     const transformedQuestionsList = questionsList.map((question) => {
       return {

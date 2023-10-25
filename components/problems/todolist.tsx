@@ -1,20 +1,33 @@
 import React from 'react';
 
 
-interface ProgressTrackerRow {
+
+
+export type UserQuestionDTO = {
   id: number;
-  question: string;
+  githubId: string;
+  questionId: number;
+  title: string;
   difficulty: string;
-  topics: string[];
-  timeTaken: number;
-  dateCompleted: Date | null;
-  datePlanned: Date | null;
-  codeOrNotes: string;
-}
+  titleSlug: string;
+  topicTags: string[];
+  categorySlug: string;
+  completionStatus: boolean;
+  timeTaken?: Date;
+  date : Date;
+  code: string;
+  notes: string;
+};
 
 
 
-const Todo = ({ progressList }: { progressList: ProgressTrackerRow[] }) => {
+
+
+
+
+
+
+const Todo = ({ progressList }: { progressList: UserQuestionDTO[] }) => {
   return (
     <div className="">
       <h1 className="font-semibold text-gray-500">Todo</h1>
@@ -37,7 +50,7 @@ const Todo = ({ progressList }: { progressList: ProgressTrackerRow[] }) => {
         Topics
       </th>
       <th scope="col" className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-        Code/Notes
+        
       </th>
     </tr>
   </thead>
@@ -46,14 +59,14 @@ const Todo = ({ progressList }: { progressList: ProgressTrackerRow[] }) => {
       <tr key={index}>
         <td className="px-3 py-2 whitespace-nowrap text-xs flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 50 50"><path fill="currentColor" d="M25 42c-9.4 0-17-7.6-17-17S15.6 8 25 8s17 7.6 17 17s-7.6 17-17 17zm0-32c-8.3 0-15 6.7-15 15s6.7 15 15 15s15-6.7 15-15s-6.7-15-15-15z"/><path fill="currentColor" d="m23 32.4l-8.7-8.7l1.4-1.4l7.3 7.3l11.3-11.3l1.4 1.4z"/></svg></td>
         <td className="px-3 py-2 whitespace-nowrap text-xs ">{row.id}</td>
-        <td className="px-3 py-2 whitespace-nowrap text-sm">{row.question}</td>
+        <td className="px-3 py-2 whitespace-nowrap text-sm">{row.title}</td>
         <td className={`px-3 py-2 whitespace-nowrap `}>
           <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getColorClasses(row.difficulty)} text-green-800`}>
             {row.difficulty}
           </span>
         </td>
         <td className={`px-3 py-2 whitespace-nowrap`}>
-          {row.topics.map((topic, index) => (
+          {row.topicTags.map((topic, index) => (
             <span
               key={index}
               className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getTopicClasses(topic)}`}
@@ -62,11 +75,9 @@ const Todo = ({ progressList }: { progressList: ProgressTrackerRow[] }) => {
             </span>
           ))}
         </td>
-        
+
         <td className="px-3 py-2 whitespace-nowrap">
-          <pre>
-            <code>{row.codeOrNotes}</code>
-          </pre>
+            {row.date.toISOString()}
         </td>
       </tr>
     ))}

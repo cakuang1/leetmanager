@@ -4,13 +4,7 @@ import { getServerSession } from "next-auth/next"
 import { authOptions } from "../auth/[...nextauth]"
 import { LeetCodeQuestionDTO } from '@/components/types';
 
-
-
 const prisma = new PrismaClient();
-
-
-
-
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
@@ -19,7 +13,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       res.status(401).json({ message: 'Not authenticated' });
       return;
     }
-
     const userId = session.user?.name;
     if (!userId) {
       res.status(401).json({ message: 'User not found' });
