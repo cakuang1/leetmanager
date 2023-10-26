@@ -81,11 +81,11 @@ function Column({ id, cards }: ColumnProps) {
       };
       
       const sortedCards = cards.slice().sort((a, b) => {
-        // First, sort by completionStatus (true comes before false)
-        if (a.completionStatus && !b.completionStatus) {
+        // First, sort by completionStatus (false comes before true)
+        if (!a.completionStatus && b.completionStatus) {
           return -1;
         }
-        if (!a.completionStatus && b.completionStatus) {
+        if (a.completionStatus && !b.completionStatus) {
           return 1;
         }
       

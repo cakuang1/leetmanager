@@ -2,7 +2,7 @@ import React from 'react';
 import Column from './Columns';
 import CalNavigator from './Calnavigation';
 import { UserQuestionDTO } from '../types';
-import { useKanban } from './Kanbancontext';
+import { useKanban } from '../context/Kanbancontext';
 
 function KanbanBoard() { 
 
