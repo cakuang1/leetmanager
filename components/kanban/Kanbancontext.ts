@@ -3,39 +3,39 @@ import { UserQuestionDTO } from '../types';
 import { useEffect } from 'react';
 
 
-
-
-// Define the shape of your context data
 interface KanbanContextData {
   kanbanState: {
     cards: UserQuestionDTO[];
+    dates : string[]
   };
   addCard: (newCard: UserQuestionDTO) => void;
   updateCard: (cardId: number, newDate: string) => void;
+
+
 }
-// Create a context
+
+
+
 const KanbanContext = createContext<KanbanContextData | undefined>(undefined);
-
-
 export function KanbanProvider({ children }: { children: ReactNode }) {
-  const [kanbanState, setKanbanState] = useState({
-    cards: [] as UserQuestionDTO[], // Initialize the state with an empty array
-  });
+  const date = new Date(); // Use your desired date here
+  const weekDates = getWeekDatesInISO(date);
+  const [columns, setColumns] = useState(weekDates);
+  const [columnData, setColumndata] = useState<UserQuestionDTO[]>([]);
 
   const addCard = (newCard: UserQuestionDTO) => {
-    setKanbanState({
-      ...kanbanState,
-      cards: [...kanbanState.cards, newCard],
-    });
+    const updatedColumnData = [...columnData, newCard];
+    // Update the state with the new array
+    setColumndata(updatedColumnData);
   };
 
   const updateCard = (cardId: number, updatedCard: UserQuestionDTO) => {
     // Find the index of the card with the specified ID
-    const cardIndex = kanbanState.cards.findIndex((card) => card.id === cardId);
+    const cardIndex = columnData.findIndex((card) => card.id === cardId);
 
     if (cardIndex !== -1) {
       // If the card with the specified ID is found, replace it with the updated card
-      const updatedCards = [...kanbanState.cards];
+      const updatedCards = [...columnData];
       updatedCards[cardIndex] = updatedCard;
       // Update the state with the updated list of cards
       setKanbanState({
@@ -44,14 +44,14 @@ export function KanbanProvider({ children }: { children: ReactNode }) {
       });
     }
   };
-
-
-
-
   
+
+
+
+
   useEffect(() => {
     // Fetch data from your API and update the state
-    fetch('/api/your-api-endpoint') // Replace with the actual API endpoint
+    fetch('/api/userquestions/fetchdates') // Replace with the actual API endpoint
       .then((response) => response.json())
       .then((data) => {
         setKanbanState({ cards: data });
@@ -70,6 +70,7 @@ export function KanbanProvider({ children }: { children: ReactNode }) {
 }
 
 
+
 // Create a custom hook to access the context
 export function useKanban() {
   const context = useContext(KanbanContext);
@@ -78,3 +79,12 @@ export function useKanban() {
   }
   return context;
 }
+
+
+
+
+
+function getWeekDatesInISO(date: Date) {
+  throw new Error('Function not implemented.');
+}
+

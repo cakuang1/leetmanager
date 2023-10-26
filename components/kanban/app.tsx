@@ -26,6 +26,7 @@ function KanbanBoard() {
     setColumns(getCurrentWeekInISOList(isodate));
   }
 
+
   useEffect(() => {
     const fetchDataForDateRange = async (startDate:string, endDate:string) => {
       // Make your API request here, using the startDate and endDate as parameters
