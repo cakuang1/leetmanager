@@ -8,19 +8,11 @@ import { UserQuestionDTO } from '../types';
 
 
 
-type ColumnData = {
-  [date: string]: UserQuestionDTO[]; // Challenge[] is an array of challenges
-};
-
-
-
 function KanbanBoard() { 
   const date = new Date(); // Use your desired date here
   const weekDates = getWeekDatesInISO(date);
   const [columns, setColumns] = useState(weekDates);
-  const [columnData,setColumndata] = useState<ColumnData>({})
-
-
+  const [columnData,setColumndata] = useState<UserQuestionDTO[]>([])
 
   function handleLeftclick() {
     setColumns(getPreviousWeekInISOList(columns[3]));
@@ -59,7 +51,7 @@ function KanbanBoard() {
     <CalNavigator onPreviousWeek = {handleLeftclick} onNextWeek = {handleRightclick} onWeekClick = {handleCalendarClick}/>
       <div className="kanban-scroll-container h-screen overflow-x-auto flex" >
         {columns.map((date, index) => (
-          <Column key={index} id = {date} cards={columnData[date] ?? []} />
+          <Column key={index} id = {date} cards={} />
         ))}
       </div>
 

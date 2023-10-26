@@ -31,18 +31,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         },
       });
 
-      // Organize data into the desired format
-      const organizedData: Record<string, any[]> = {};
-      userQuestions.forEach((question) => {
-        if (question.date) {
-          const questionDate = question.date.toISOString().split('T')[0]; // Extract the date part
-          if (!organizedData[questionDate]) {
-            organizedData[questionDate] = [];
-          }
-          organizedData[questionDate].push(question);
-        }
-      });
-      res.status(200).json(organizedData);
+      res.status(200).json(userQuestions);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'An error occurred' });
