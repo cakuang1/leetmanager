@@ -3,8 +3,14 @@ import Column from './Columns';
 import { useState,useEffect} from 'react';
 import CalNavigator from './Calnavigation';
 import { startOfWeek, addDays, format,subWeeks,endOfWeek,eachDayOfInterval, addWeeks, getWeek} from 'date-fns';
+import { UserQuestionDTO } from '../types';
+import Kan
 
 
+
+type ColumnData = {
+  [date: string]: UserQuestionDTO[]; // Challenge[] is an array of challenges
+};
 
 
 
@@ -12,7 +18,7 @@ function KanbanBoard() {
   const date = new Date(); // Use your desired date here
   const weekDates = getWeekDatesInISO(date);
   const [columns, setColumns] = useState(weekDates);
-  const [columnData,setColumndata] = useState([])
+  const [columnData,setColumndata] = useState<ColumnData>({})
 
 
 
@@ -38,25 +44,24 @@ function KanbanBoard() {
         if (response.ok) {
           const data = await response.json();
           setColumndata(data)
+
         }
+        
       } catch (error) {
         console.error('API request failed:', error);
       }
     };
     // Fetch data for the entire date range
     fetchDataForDateRange(columns[0], columns[columns.length - 1]);
-    
+    console.log(fetchDataForDateRange)
   }, [columns]);
-
-
 
   return (
     <div >
     <CalNavigator onPreviousWeek = {handleLeftclick} onNextWeek = {handleRightclick} onWeekClick = {handleCalendarClick}/>
-
       <div className="kanban-scroll-container h-screen overflow-x-auto flex" >
         {columns.map((date, index) => (
-          <Column key={index} id = {date} cards={[]} />
+          <Column key={index} id = {date} cards={columnData[date] ?? []} />
         ))}
       </div>
 

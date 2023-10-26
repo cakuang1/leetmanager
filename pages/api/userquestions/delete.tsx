@@ -4,6 +4,7 @@ import { getSession } from 'next-auth/react';
 
 const prisma = new PrismaClient();
 
+
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'DELETE') {
     const session = await getSession({ req });

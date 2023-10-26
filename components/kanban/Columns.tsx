@@ -1,7 +1,6 @@
 import React, { ChangeEvent } from 'react';
 import Card from './Card';
 import { useState ,useEffect,useRef} from 'react';
-
 import { parseISO, format, getDay } from 'date-fns';
 import { LeetCodeQuestionDTO,UserQuestionDTO } from '../types';
 import SearchResult from './SearchResult';
@@ -9,18 +8,13 @@ interface SearchProps {
     onClickOutside: () => void;
     date : string
   }
-  interface CardProps {
-    card: {
-      id: number;
-      name: string;
-      difficulty: string;
-    };
-    index: number;
-  }
+
 interface ColumnProps {
     id: string;
-    cards: CardProps[];
+    cards: UserQuestionDTO[];
   }
+
+
 
 function Search({ onClickOutside,date}: SearchProps) {
     const searchRef = useRef<HTMLDivElement | null>(null);
@@ -76,7 +70,8 @@ function Search({ onClickOutside,date}: SearchProps) {
 
 function Column({ id, cards }: ColumnProps) {
     const [isEditing, setIsEditing] = useState(false);
-    const [currcards, setCardSection] = useState<UserQuestionDTO[]>([]);
+    const [currcards, setCardSection] = useState<UserQuestionDTO[]>(cards);
+
      const handleEditClick = () => {
         setIsEditing(true);
       };
@@ -97,12 +92,13 @@ function Column({ id, cards }: ColumnProps) {
     <div className="add-card-right text-gray-400" >
         Add a Problem
     </div>
+
     </div>}
     <div className='cardsection'>
-
-
-
-    </div>
+        {cards.map((card, index) => (
+          <Card key={card.id} card={card} />
+        ))}
+      </div>
 </div>
     );
   }
