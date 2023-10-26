@@ -11,9 +11,6 @@ const Completed = ({ progressList }: { progressList: UserQuestionDTO[] }) => {
   <thead className="bg-gray-50">
     <tr>
       <th scope="col" className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-        Solved
-      </th>
-      <th scope="col" className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
         Id
       </th>
       <th scope="col" className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -38,7 +35,7 @@ const Completed = ({ progressList }: { progressList: UserQuestionDTO[] }) => {
   </thead>
   <tbody className="bg-white divide-y divide-gray-200">
     {progressList.map((row, index) => (
-      <tr className = {'hover:bg-gray-50'}key={index}>
+      <tr className = {'hover:bg-green-100 bg-green-50'} key={index}>
         <td className="px-3 py-2 whitespace-nowrap text-xs flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 50 50"><path fill="currentColor" d="M25 42c-9.4 0-17-7.6-17-17S15.6 8 25 8s17 7.6 17 17s-7.6 17-17 17zm0-32c-8.3 0-15 6.7-15 15s6.7 15 15 15s15-6.7 15-15s-6.7-15-15-15z"/><path fill="currentColor" d="m23 32.4l-8.7-8.7l1.4-1.4l7.3 7.3l11.3-11.3l1.4 1.4z"/></svg></td>
         <td className="px-3 py-2 whitespace-nowrap text-xs ">{row.id}</td>
         <td className="px-3 py-2 whitespace-nowrap text-sm">{row.title}</td>
@@ -58,9 +55,7 @@ const Completed = ({ progressList }: { progressList: UserQuestionDTO[] }) => {
           ))}
         </td>
         <td className="px-3 py-2 whitespace-nowrap text-sm">{row.timeTaken} minutes</td>
-
         <td className="px-3 py-2 whitespace-nowrap">
-
         </td>
       </tr>
     ))}

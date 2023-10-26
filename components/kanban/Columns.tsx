@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import Card from './Card';
 import { useState ,useEffect,useRef} from 'react';
-import { Droppable } from 'react-beautiful-dnd';
+
 import { parseISO, format, getDay } from 'date-fns';
 import { LeetCodeQuestionDTO,UserQuestionDTO } from '../types';
 import SearchResult from './SearchResult';
@@ -17,8 +17,6 @@ interface SearchProps {
     };
     index: number;
   }
-
-
 interface ColumnProps {
     id: string;
     cards: CardProps[];
@@ -76,10 +74,6 @@ function Search({ onClickOutside,date}: SearchProps) {
     );  
   }
 
-
-
-  
-
 function Column({ id, cards }: ColumnProps) {
     const [isEditing, setIsEditing] = useState(false);
     const [currcards, setCardSection] = useState<UserQuestionDTO[]>([]);
@@ -104,13 +98,20 @@ function Column({ id, cards }: ColumnProps) {
         Add a Problem
     </div>
     </div>}
-    <div>
+    <div className='cardsection'>
+
+
 
     </div>
 </div>
     );
   }
 export default Column;
+
+
+
+
+
 
 
 

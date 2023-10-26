@@ -24,6 +24,11 @@ export default function Problems() {
   const [todoList, setTodoList] = useState<UserQuestionDTO[]>([]);
   const [completedList, setCompletedList] = useState<UserQuestionDTO[]>([]);
 
+
+
+
+
+  
   useEffect(() => {
     async function getQuestionsByCompletionStatus() {
       try {

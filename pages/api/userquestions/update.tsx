@@ -18,7 +18,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       res.status(401).json({ message: 'User not found' });
       return;
     }
-    
+
     const id = parseInt(req.query.id as string, 10);
     
     const data: Partial<UserQuestionDTO> = req.body; // Accept partial updates
@@ -38,6 +38,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         await prisma.userQuestions.update({
           where: {
             id: userQuestion.id,
+            githubId: userId,
           },
           data,
         });
