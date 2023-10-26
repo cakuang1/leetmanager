@@ -16,8 +16,10 @@ interface KanbanContextData {
     cards: UserQuestionDTO[];
   };
   addCard: (newCard: Card) => void;
+  
   updateCard: (cardId: number, newDate: string) => void;
 }
+
 
 // Create a context
 const KanbanContext = createContext<KanbanContextData | undefined>(undefined);
@@ -35,6 +37,12 @@ export function KanbanProvider({ children }: { children: ReactNode }) {
       cards: [...kanbanState.cards, newCard],
     });
   };
+  const deleteCard = (id: number) => {
+        
+
+  }
+
+
 
   const updateCard = (cardId: number, newDate: string) => {
     // Implement your logic to update a card's date

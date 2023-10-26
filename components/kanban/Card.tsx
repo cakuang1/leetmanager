@@ -6,13 +6,11 @@ import { useState } from 'react';
 
 
 
-
 function Card({ card }: { card: UserQuestionDTO }) {
-  const [carddata,setCarddata] = useState(card)
-  console.log(card)
+er
   return (
         <div
-          className="kanban-card flex  justify-between  border rounded-lg mt-2 hover:border-leetcode hover:shadow cursor-pointer flex items-center p-2 cursor-pointer text-sm font-semibold bg-white"
+          className={`${card.completionStatus ? ' bg-green-50 opacity-70 ' : ''} kanban-card flex  justify-between  border rounded-lg mt-2 hover:border-leetcode hover:shadow cursor-pointer flex items-center p-2 cursor-pointer text-sm font-semibold `}
         ><div className='flex'>          <p>{card.id}.&nbsp;</p>
               <p>{card.title} &nbsp;</p>
         

@@ -4,7 +4,7 @@ import { useState,useEffect} from 'react';
 import CalNavigator from './Calnavigation';
 import { startOfWeek, addDays, format,subWeeks,endOfWeek,eachDayOfInterval, addWeeks, getWeek} from 'date-fns';
 import { UserQuestionDTO } from '../types';
-import Kan
+
 
 
 
@@ -44,9 +44,7 @@ function KanbanBoard() {
         if (response.ok) {
           const data = await response.json();
           setColumndata(data)
-
-        }
-        
+        } 
       } catch (error) {
         console.error('API request failed:', error);
       }
