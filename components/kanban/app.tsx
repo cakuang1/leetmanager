@@ -1,15 +1,16 @@
 import React from 'react';
 import Column from './Columns';
-import { useState,useEffect,useContext} from 'react';
 import CalNavigator from './Calnavigation';
-import { startOfWeek, addDays, format,subWeeks,endOfWeek,eachDayOfInterval, addWeeks, getWeek} from 'date-fns';
 import { UserQuestionDTO } from '../types';
 import { useKanban } from './Kanbancontext';
 
 function KanbanBoard() { 
 
-  const { columns, columnData, addCard, updateCard, handleCalendarClick, handleLeftclick, handleRightclick } = useKanban();
+  const { columns,  columnData, addCard, updateCard, handleCalendarClick, handleLeftclick, handleRightclick } = useKanban();
 
+
+
+   let dateBuckets = groupDataByDate(columns,columnData)
 
 
 
@@ -19,7 +20,7 @@ function KanbanBoard() {
     <CalNavigator onPreviousWeek = {handleLeftclick} onNextWeek = {handleRightclick} onWeekClick = {handleCalendarClick}/>
       <div className="kanban-scroll-container h-screen overflow-x-auto flex" >
         {columns.map((date, index) => (
-          <Column key={index} id = {date} cards={} />
+          <Column key={index} id = {date} cards={dateBuckets[date]} />
         ))}
       </div>
 
@@ -30,82 +31,44 @@ function KanbanBoard() {
 export default KanbanBoard;
 
 
-
-
 // HELPERS
 
-
-
-
-function getWeekDatesInISO(date:Date) {
-  const weekStart = startOfWeek(date, { weekStartsOn: 0 }); // 0 means Sunday
-  const weekDates = [];
-
-  for (let i = 0; i < 7; i++) {
-    const currentDate = addDays(weekStart, i);
-    const isoDate = format(currentDate, 'yyyy-MM-dd');
-    weekDates.push(isoDate);
-  }
-  return weekDates;
-}
-
-
-function getPreviousWeekInISOList(isoDateString:string) {
-  const currentDate = new Date(isoDateString); // Convert the input ISO string to a Date object
-
-  // Calculate the start and end of the previous week
-  const previousWeekStart = startOfWeek(subWeeks(currentDate, 1), { weekStartsOn: 0 }); // 0 indicates Sunday as the first day of the week
-  const previousWeekEnd = endOfWeek(subWeeks(currentDate, 1), { weekStartsOn: 0 });
-
-  // Generate an array of dates for the entire previous week
-  const daysInPreviousWeek = eachDayOfInterval({
-    start: previousWeekStart,
-    end: previousWeekEnd,
+const groupDataByDate = (columns:string[], columnData:UserQuestionDTO[]) => {
+  // Create an empty object to hold the buckets
+  const dateBuckets: Record<string, UserQuestionDTO[]> = {};
+  // Initialize the buckets with empty arrays for each date
+  columns.forEach((date) => {
+    dateBuckets[date] = [];
   });
+  // Group the columnData into the date buckets
+  columnData.forEach((item) => {
+    const { date } = item;
+    const formattedDate = date.substring(0, 10);
+
+    // Check if the date exists in columns (assuming it's in the same format)
+    if (dateBuckets[formattedDate]) {
+      dateBuckets[formattedDate].push(item);
+    }
+  });
+  return dateBuckets;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   // Format the dates in ISO format (yyyy-MM-dd)
-  const isoDates = daysInPreviousWeek.map((date) => format(date, 'yyyy-MM-dd'));
-  return isoDates;
-}
-
-
-function getCurrentWeekInISOList(isoDateString:string) {
-  const currentDate = new Date(isoDateString); // Convert the input ISO string to a Date object
-
-  // Calculate the start and end of the current week
-  const currentWeekStart = startOfWeek(currentDate, { weekStartsOn: 0 }); // 0 indicates Sunday as the first day of the week
-  const currentWeekEnd = endOfWeek(currentDate, { weekStartsOn: 0 });
-
-  // Generate an array of dates for the entire current week
-  const daysInCurrentWeek = eachDayOfInterval({
-    start: currentWeekStart,
-    end: currentWeekEnd,
-  });
-
-  // Format the dates in ISO format (yyyy-MM-dd)
-  const isoDates = daysInCurrentWeek.map((date) => format(date, 'yyyy-MM-dd'));
-  return isoDates;
-}
-
-
-function getNextWeekInISOList(isoDateString:string) {
-  const currentDate = new Date(isoDateString); // Convert the input ISO string to a Date object
-
-  // Calculate the start and end of the next week
-  const nextWeekStart = startOfWeek(addWeeks(currentDate, 1), { weekStartsOn: 0 }); // 0 indicates Sunday as the first day of the week
-  const nextWeekEnd = endOfWeek(addWeeks(currentDate, 1), { weekStartsOn: 0 });
-
-  // Generate an array of dates for the entire next week
-  const daysInNextWeek = eachDayOfInterval({
-    start: nextWeekStart,
-    end: nextWeekEnd,
-  });
-
-  // Format the dates in ISO format (yyyy-MM-dd)
-  const isoDates = daysInNextWeek.map((date) => format(date, 'yyyy-MM-dd'));
-
-  return isoDates;
-}
 
 
 

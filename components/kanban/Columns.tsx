@@ -15,7 +15,6 @@ interface ColumnProps {
   }
 
 
-
 function Search({ onClickOutside,date}: SearchProps) {
     const searchRef = useRef<HTMLDivElement | null>(null);
     const [query, setQuery] = useState('');
@@ -47,6 +46,9 @@ function Search({ onClickOutside,date}: SearchProps) {
         setQueryResults(results);
       });
     };
+
+
+
     return (
         <div ref={searchRef}>
       <div  className=" border rounded p-2 text-sm hover:border-leetcode  hover:shadow cursor-pointer flex items-center p-2 cursor-pointer bg-white">
@@ -70,7 +72,6 @@ function Search({ onClickOutside,date}: SearchProps) {
 
 function Column({ id, cards }: ColumnProps) {
     const [isEditing, setIsEditing] = useState(false);
-    const [currcards, setCardSection] = useState<UserQuestionDTO[]>(cards);
 
      const handleEditClick = () => {
         setIsEditing(true);
@@ -78,6 +79,22 @@ function Column({ id, cards }: ColumnProps) {
       const handleEditOff = () => {
         setIsEditing(false);
       };
+      
+      const sortedCards = cards.slice().sort((a, b) => {
+        // First, sort by completionStatus (true comes before false)
+        if (a.completionStatus && !b.completionStatus) {
+          return -1;
+        }
+        if (!a.completionStatus && b.completionStatus) {
+          return 1;
+        }
+      
+        // If completionStatus is the same, sort by id
+        return a.id - b.id;
+      });
+
+
+
     const isCurrent = isCurrentDate(id)
     const bgClass = isCurrent ? "bg-orange-50" : "";
     return (
@@ -95,7 +112,7 @@ function Column({ id, cards }: ColumnProps) {
 
     </div>}
     <div className='cardsection'>
-        {cards.map((card, index) => (
+        {sortedCards.map((card, index) => (
           <Card key={card.id} card={card} />
         ))}
       </div>

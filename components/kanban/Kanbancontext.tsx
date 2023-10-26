@@ -7,16 +7,10 @@ import { startOfWeek, addDays, format,subWeeks,endOfWeek,eachDayOfInterval, addW
 const KanbanContext = createContext<KanbanContextData | undefined>(undefined);
 
 
-
-
-
-
-
 export function KanbanProvider({ children }: { children: ReactNode }) {
   const date = new Date(); // Use your desired date here
   const [columns, setColumns] = useState<string[]>(getWeekDatesInISO(date))
   const [columnData, setColumndata] = useState<UserQuestionDTO[]>([]);
-
 
   function handleLeftclick() {
     setColumns(getPreviousWeekInISOList(columns[3]));
@@ -48,6 +42,9 @@ export function KanbanProvider({ children }: { children: ReactNode }) {
     });
   };
 
+
+  useEffect
+
   useEffect(() => {
     const fetchDataForDateRange = async (startDate:string, endDate:string) => {
       // Make your API request here, using the startDate and endDate as parameters
@@ -59,6 +56,7 @@ export function KanbanProvider({ children }: { children: ReactNode }) {
           const data = await response.json();
           setColumndata(data)
         } 
+        
       } catch (error) {
         console.error('API request failed:', error);
       }
@@ -105,14 +103,7 @@ export function useKanban() {
 
 
 
-
-
 //HELPERS 
-
-
-
-
-
 
 
 
@@ -128,7 +119,6 @@ function getWeekDatesInISO(date:Date) {
   }
   return weekDates;
 }
-
 
 function getPreviousWeekInISOList(isoDateString:string) {
   const currentDate = new Date(isoDateString); // Convert the input ISO string to a Date object
@@ -186,6 +176,7 @@ function getNextWeekInISOList(isoDateString:string) {
 
   return isoDates;
 }
+
 
 
 
