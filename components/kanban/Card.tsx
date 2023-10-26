@@ -10,7 +10,7 @@ function Card({ card }: { card: UserQuestionDTO }) {
 
   return (
         <div
-          className={`${card.completionStatus ? ' bg-green-50 opacity-70 ' : ''} kanban-card flex  justify-between  border rounded-lg mt-2 hover:border-leetcode hover:shadow cursor-pointer flex items-center p-2 cursor-pointer text-sm font-semibold `}
+          className={`${card.completionStatus ? ' bg-green-50 bg-opacity-60 text-gray-800' : ''} kanban-card flex  justify-between  border rounded-lg mt-2 hover:border-leetcode hover:shadow cursor-pointer flex items-center p-2 cursor-pointer text-sm font-semibold `}
         ><div className='flex'>          <p>{card.id}.&nbsp;</p>
               <p>{card.title} &nbsp;</p>
         
