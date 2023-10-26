@@ -1,51 +1,18 @@
 import React from 'react';
 import Column from './Columns';
-import { useState,useEffect} from 'react';
+import { useState,useEffect,useContext} from 'react';
 import CalNavigator from './Calnavigation';
 import { startOfWeek, addDays, format,subWeeks,endOfWeek,eachDayOfInterval, addWeeks, getWeek} from 'date-fns';
 import { UserQuestionDTO } from '../types';
-
-
-
+import { useKanban } from './Kanbancontext';
 
 function KanbanBoard() { 
-  const date = new Date(); // Use your desired date here
-  const weekDates = getWeekDatesInISO(date);
-  const [columns, setColumns] = useState(weekDates);
-  const [columnData,setColumndata] = useState<UserQuestionDTO[]>([])
 
-  function handleLeftclick() {
-    setColumns(getPreviousWeekInISOList(columns[3]));
-  
-  }
-  function handleRightclick() {
-    setColumns(getNextWeekInISOList(columns[3]));
-  }
-
-  function handleCalendarClick(isodate:string) {
-    setColumns(getCurrentWeekInISOList(isodate));
-  }
+  const { columns, columnData, addCard, updateCard, handleCalendarClick, handleLeftclick, handleRightclick } = useKanban();
 
 
-  useEffect(() => {
-    const fetchDataForDateRange = async (startDate:string, endDate:string) => {
-      // Make your API request here, using the startDate and endDate as parameters
-      // Replace the URL and query parameters with your actual API endpoint
-      const apiUrl = `/api/userquestions/fetchdates?startDate=${startDate}&endDate=${endDate}`;      
-      try {
-        const response = await fetch(apiUrl);
-        if (response.ok) {
-          const data = await response.json();
-          setColumndata(data)
-        } 
-      } catch (error) {
-        console.error('API request failed:', error);
-      }
-    };
-    // Fetch data for the entire date range
-    fetchDataForDateRange(columns[0], columns[columns.length - 1]);
-    console.log(fetchDataForDateRange)
-  }, [columns]);
+
+
 
   return (
     <div >
