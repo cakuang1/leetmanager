@@ -13,6 +13,7 @@ interface ModalContextData {
 
 
 
+
 const ModalContext = createContext<ModalContextData | undefined>(undefined);
 interface ModalProviderProps {
   children: ReactNode;

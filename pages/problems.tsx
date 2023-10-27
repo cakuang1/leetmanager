@@ -11,11 +11,7 @@ import { UserQuestionDTO } from "@/components/types";
   // API call to grab the entire list of a user and distribute compoleted and non completed
   // Todo list should be ordered by lowest date first, date asc
   // Completed should be ordered by most recently completed, date desc
-
-interface ApiResponse {
-  notCompleted: UserQuestionDTO[]
-  completed: UserQuestionDTO[]
-}
+  
 
 
 
@@ -24,11 +20,6 @@ export default function Problems() {
   const [todoList, setTodoList] = useState<UserQuestionDTO[]>([]);
   const [completedList, setCompletedList] = useState<UserQuestionDTO[]>([]);
 
-
-
-
-
-  
   useEffect(() => {
     async function getQuestionsByCompletionStatus() {
       try {
