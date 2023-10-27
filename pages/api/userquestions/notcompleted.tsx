@@ -14,11 +14,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       res.status(401).json({ message: 'Not authenticated' });
       return;
     }
-
     const userId = req.query.userId as string;
     const page = parseInt(req.query.page as string) || 1;
     const pageSize = parseInt(req.query.pageSize as string) || 10;
-
     try {
       const notCompletedQuestions = await prisma.userQuestions.findMany({
         where: {
