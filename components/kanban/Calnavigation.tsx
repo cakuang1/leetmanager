@@ -3,8 +3,6 @@ import Calendar from './calendar/Calendar';
 import { useState } from 'react';
 
 
-
-
 function CalNavigator({onPreviousWeek, onNextWeek,onWeekClick} :any) {
   const [isCalendarOpen, setCalendarOpen] = useState(false);
   const handleToggleCalendar = () => {
