@@ -6,7 +6,7 @@ import { useKanban } from '../context/Kanbancontext';
 
 function KanbanBoard() { 
 
-  const { columns,  columnData, addCard, updateCard, handleCalendarClick, handleLeftclick, handleRightclick } = useKanban();
+  const { columns,  columnData, handleCalendarClick, handleLeftclick, handleRightclick } = useKanban();
 
 
    let dateBuckets = groupDataByDate(columns,columnData)

@@ -1,13 +1,21 @@
 import React from 'react';
 import { UserQuestionDTO } from '../types';
 import { useState } from 'react';
+import { useKanban } from '../context/Kanbancontext';
 
 
 
+
+const {update} = useKanban();
 
 
 function Card({ card }: { card: UserQuestionDTO }) {
+  function handledelete() {
+    deleteQuestion(card.id);
+    update()
+  }
 
+  
   return (
         <div
           className={`${card.completionStatus ? ' bg-green-50 bg-opacity-60 text-gray-800' : ''} kanban-card flex  justify-between  border rounded-lg mt-2 hover:border-leetcode hover:shadow cursor-pointer flex items-center p-2 cursor-pointer text-sm font-semibold `}
@@ -36,5 +44,26 @@ function getColorClasses(difficulty : String) {
       return 'bg-red-100 text-red-800 border-red-200';
     default:
       return ''; 
+  }
+}
+
+
+async function deleteQuestion(id:number) {
+  const endpoint = `/api/userquestions/delete?id=${id}` // Replace with your actual API endpoint
+  try {
+    const response = await fetch(endpoint, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json', // Set the appropriate content type
+      },
+    }); 
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error Deleting data:', error);
+    throw error;
   }
 }

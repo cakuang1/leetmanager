@@ -3,7 +3,6 @@ import { UserQuestionDTO } from '../types';
 import { useEffect } from 'react';
 import { startOfWeek, addDays, format,subWeeks,endOfWeek,eachDayOfInterval, addWeeks, getWeek} from 'date-fns';
 
-
 const KanbanContext = createContext<KanbanContextData | undefined>(undefined);
 
 export function KanbanProvider({ children }: { children: ReactNode }) {
@@ -23,8 +22,6 @@ export function KanbanProvider({ children }: { children: ReactNode }) {
     setColumns(getCurrentWeekInISOList(isodate));
   }
 
-
-
   const update = async () => {
     const startDate = columns[0];
     const endDate  = columns[columns.length - 1]
@@ -41,7 +38,6 @@ export function KanbanProvider({ children }: { children: ReactNode }) {
       console.error('API request failed:', error);
     }
   };
-  
 
   
   useEffect(() => {
@@ -61,6 +57,8 @@ export function KanbanProvider({ children }: { children: ReactNode }) {
   </KanbanContext.Provider>
   );
 }
+
+
 
 
 

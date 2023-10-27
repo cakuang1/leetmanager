@@ -182,22 +182,3 @@ async function postLeetCodeQuestion(card:LeetCodeQuestionDTO,date:string) {
 }
 
 
-async function deleteQuestion(id:number) {
-  const endpoint = `/api/userquestions/delete?id=${id}` // Replace with your actual API endpoint
-  try {
-    const response = await fetch(endpoint, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json', // Set the appropriate content type
-      },
-    }); 
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Error Deleting data:', error);
-    throw error;
-  }
-}
