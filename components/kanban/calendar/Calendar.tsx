@@ -17,8 +17,6 @@ function Calendar({onWeekClick}:any) {
     end: addMonths(currentMonth, 1),
   });
 
-
-
   return (
     <div className='absolute bg-white border p-4 rounded' >
       <div className='header flex justify-between mb-1'>

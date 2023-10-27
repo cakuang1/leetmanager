@@ -52,6 +52,7 @@ export function KanbanProvider({ children }: { children: ReactNode }) {
   return (     <KanbanContext.Provider value={{
     columnData,
     columns,
+    update,
     handleCalendarClick,
     handleLeftclick,
     handleRightclick,
@@ -66,6 +67,7 @@ export function KanbanProvider({ children }: { children: ReactNode }) {
 interface KanbanContextData {
   columns : string[],
   columnData : UserQuestionDTO[],
+  update : () => void,
   handleRightclick : () => void;
   handleLeftclick : () => void;
   handleCalendarClick : (isodate:string) => void;

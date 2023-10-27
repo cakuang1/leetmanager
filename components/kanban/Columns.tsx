@@ -7,8 +7,7 @@ import SearchResult from './SearchResult';
 import { useKanban } from '../context/Kanbancontext';
 
 
-const { columns,  columnData, addCard, updateCard, handleCalendarClick, handleLeftclick, handleRightclick } = useKanban();
-
+const {update} = useKanban();
 
 
 
@@ -22,7 +21,6 @@ interface ColumnProps {
     id: string;
     cards: UserQuestionDTO[];
   }
-
 
 
 function Search({ onClickOutside,date}: SearchProps) {
@@ -44,10 +42,11 @@ function Search({ onClickOutside,date}: SearchProps) {
     }, [onClickOutside]);
 
     const handleSearchResultClick = (card: LeetCodeQuestionDTO,date:string) => {
-
       postLeetCodeQuestion(card,date);
-
+      update()
     };  
+
+    
     const handleQueryChange = (event: ChangeEvent<HTMLInputElement>) => {
       const newQuery = event.target.value;
       setQuery(newQuery);
@@ -127,12 +126,6 @@ function Column({ id, cards }: ColumnProps) {
 export default Column;
 
 
-
-
-
-
-
-
 // HELPER FUNCTIONS ignore
 
 
@@ -184,6 +177,27 @@ async function postLeetCodeQuestion(card:LeetCodeQuestionDTO,date:string) {
     return data;
   } catch (error) {
     console.error('Error posting data:', error);
+    throw error;
+  }
+}
+
+
+async function deleteQuestion(id:number) {
+  const endpoint = `/api/userquestions/delete?id=${id}` // Replace with your actual API endpoint
+  try {
+    const response = await fetch(endpoint, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json', // Set the appropriate content type
+      },
+    }); 
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error Deleting data:', error);
     throw error;
   }
 }

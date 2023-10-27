@@ -30,8 +30,6 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
     setModalData(null);
   };
 
-
-
   return (
     <ModalContext.Provider value={{ isModalOpen, modalData, openModal, closeModal }}>
       {children}
