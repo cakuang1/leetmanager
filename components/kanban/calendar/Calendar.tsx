@@ -18,6 +18,7 @@ function Calendar({onWeekClick}:any) {
   });
 
   return (
+
     <div className='absolute bg-white border p-4 rounded' >
       <div className='header flex justify-between mb-1'>
         <h2 className='font-semibold'>{format(currentMonth, 'MMMM yyyy')}</h2>
@@ -40,7 +41,8 @@ function Calendar({onWeekClick}:any) {
       {weeksInMonth.map((weekStartDate) => (
         <WeekRow key={weekStartDate.getTime()} startDate={weekStartDate} month={currentMonth} onWeekClick = {onWeekClick}/>
       ))}
-    </div></div>
+    </div>
+    </div>
   );
 }
 

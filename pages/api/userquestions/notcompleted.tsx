@@ -4,12 +4,11 @@ import { PrismaClient } from '@prisma/client';
 import { getServerSession } from 'next-auth/next';
 import { authOptions }  from '../auth/[...nextauth]';
 
-const prisma = new PrismaClient();
 
+const prisma = new PrismaClient();
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
     const session = await getServerSession(req, res, authOptions);
-
     if (!session) {
       res.status(401).json({ message: 'Not authenticated' });
       return;

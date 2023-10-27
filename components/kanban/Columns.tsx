@@ -7,9 +7,6 @@ import SearchResult from './SearchResult';
 import { useKanban } from '../context/Kanbancontext';
 
 
-const {update} = useKanban();
-
-
 
 
 interface SearchProps {
@@ -22,12 +19,12 @@ interface ColumnProps {
     cards: UserQuestionDTO[];
   }
 
+function Searching({ onClickOutside,date}: SearchProps) {
+  const {update} = useKanban();
 
-function Search({ onClickOutside,date}: SearchProps) {
     const searchRef = useRef<HTMLDivElement | null>(null);
     const [query, setQuery] = useState('');
     const [queryResults, setQueryResults] = useState<LeetCodeQuestionDTO[]>([]);
-
     useEffect(() => {
       const handleClickOutside = (event: MouseEvent) => {
         if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
@@ -41,12 +38,19 @@ function Search({ onClickOutside,date}: SearchProps) {
       };
     }, [onClickOutside]);
 
-    const handleSearchResultClick = (card: LeetCodeQuestionDTO,date:string) => {
-      postLeetCodeQuestion(card,date);
-      update()
+    const handleSearchResultClick = async (card: LeetCodeQuestionDTO,date:string) => {
+      setQuery('');
+      setQueryResults([]);
+      try {
+        await postLeetCodeQuestion(card, date);
+        // The database operation is complete here
+        update();
+      } catch (error) {
+        // Handle any errors that occurred during the database operation
+      }
     };  
 
-    
+
     const handleQueryChange = (event: ChangeEvent<HTMLInputElement>) => {
       const newQuery = event.target.value;
       setQuery(newQuery);
@@ -55,7 +59,6 @@ function Search({ onClickOutside,date}: SearchProps) {
         setQueryResults(results);
       });
     };
-
     return (
         <div ref={searchRef}>
       <div  className=" border rounded p-2 text-sm hover:border-leetcode  hover:shadow cursor-pointer flex items-center p-2 cursor-pointer bg-white">
@@ -79,6 +82,7 @@ function Search({ onClickOutside,date}: SearchProps) {
 function Column({ id, cards }: ColumnProps) {
     const [isEditing, setIsEditing] = useState(false);
 
+
      const handleEditClick = () => {
         setIsEditing(true);
       };
@@ -96,31 +100,33 @@ function Column({ id, cards }: ColumnProps) {
         }
       
         // If completionStatus is the same, sort by id
-        return a.id - b.id;
+        return a.questionId - b.questionId;
       });
 
     const isCurrent = isCurrentDate(id)
     const bgClass = isCurrent ? "bg-orange-50" : "";
     return (
-<div className={`kanban-column w-1/5 px-2 mx-2 pt-4 flex-shrink-0 rounded ${bgClass}` }>
-    <span className="font-bold text-xl">{getDateInfoFromISODate(id).month} </span>
-        <span className="font-bold text-xl">{getDateInfoFromISODate(id).day} </span>
-        <span className="font-bold text-leetcode">{getDateInfoFromISODate(id).dayOfWeek}</span>
-    {isEditing ? <Search onClickOutside={handleEditOff} date = {id}/> : <div className=" border rounded-xl  hover:border-leetcode  hover:shadow cursor-pointer flex items-center  p-2 text-sm bg-white cursor-pointer " onClick={handleEditClick}>
-    <div className="add-card-left text-gray-400  pr-2 ">
-    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="20" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="4"><rect width="36" height="36" x="6" y="6" rx="3"/><path stroke-linecap="round" d="M24 16v16m-8-8h16"/></g></svg> 
-    </div>
-    <div className="add-card-right text-gray-400" >
-        Add a Problem
-    </div>
 
-    </div>}
-    <div className='cardsection'>
-        {sortedCards.map((card, index) => (
-          <Card key={card.id} card={card} />
-        ))}
-      </div>
-</div>
+        <div className={`kanban-column w-1/5 px-2 mx-2 pt-4 flex-shrink-0 rounded ${bgClass}` }>
+
+            <span className="font-bold text-xl">{getDateInfoFromISODate(id).month} </span>
+                <span className="font-bold text-xl">{getDateInfoFromISODate(id).day} </span>
+                <span className="font-bold text-leetcode">{getDateInfoFromISODate(id).dayOfWeek}</span>
+            {isEditing ? <Searching onClickOutside={handleEditOff} date = {id}/> : <div className=" border rounded-xl  hover:border-leetcode  hover:shadow cursor-pointer flex items-center  p-2 text-sm bg-white cursor-pointer " onClick={handleEditClick}>
+            <div className="add-card-left text-gray-400  pr-2 ">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="20" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="4"><rect width="36" height="36" x="6" y="6" rx="3"/><path stroke-linecap="round" d="M24 16v16m-8-8h16"/></g></svg> 
+            </div>
+            <div className="add-card-right text-gray-400" >
+                Add a Problem
+            </div>
+
+            </div>}
+            <div className='cardsection'>
+                {sortedCards.map((card, index) => (
+                  <Card key={card.id} card={card} />
+                ))}
+              </div>
+        </div>
     );
   }
 export default Column;

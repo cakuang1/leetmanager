@@ -6,11 +6,7 @@ import { useKanban } from '../context/Kanbancontext';
 
 function KanbanBoard() { 
 
-  const { columns,  columnData, handleCalendarClick, handleLeftclick, handleRightclick } = useKanban();
-
-
-   let dateBuckets = groupDataByDate(columns,columnData)
-
+  const { columns,  columnData, isLoading,handleCalendarClick, handleLeftclick, handleRightclick} = useKanban();
 
 
 
@@ -18,9 +14,13 @@ function KanbanBoard() {
     <div >
     <CalNavigator onPreviousWeek = {handleLeftclick} onNextWeek = {handleRightclick} onWeekClick = {handleCalendarClick}/>
       <div className="kanban-scroll-container h-screen overflow-x-auto flex" >
-        {columns.map((date, index) => (
-          <Column key={index} id = {date} cards={dateBuckets[date]} />
-        ))}
+      {isLoading ? (
+          <p></p> // Show a loading message while data is being fetched
+        ) : (
+          columns.map((date, index) => (
+            <Column key={index} id={date} cards={columnData[date]} />
+          ))
+        )}
       </div>
 
     </div>
@@ -32,25 +32,6 @@ export default KanbanBoard;
 
 // HELPERS
 
-const groupDataByDate = (columns:string[], columnData:UserQuestionDTO[]) => {
-  // Create an empty object to hold the buckets
-  const dateBuckets: Record<string, UserQuestionDTO[]> = {};
-  // Initialize the buckets with empty arrays for each date
-  columns.forEach((date) => {
-    dateBuckets[date] = [];
-  });
-  // Group the columnData into the date buckets
-  columnData.forEach((item) => {
-    const { date } = item;
-    const formattedDate = date.substring(0, 10);
-
-    // Check if the date exists in columns (assuming it's in the same format)
-    if (dateBuckets[formattedDate]) {
-      dateBuckets[formattedDate].push(item);
-    }
-  });
-  return dateBuckets;
-};
 
 
 

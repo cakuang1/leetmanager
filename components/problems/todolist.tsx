@@ -1,7 +1,11 @@
 import React from 'react';
 import { UserQuestionDTO } from '../types';
-import CardPopup from '../Modal';
+
 import { useState } from 'react';
+
+
+
+
 
 
 const Todo = ({ progressList }: { progressList: UserQuestionDTO[] }) => {
@@ -30,7 +34,7 @@ const Todo = ({ progressList }: { progressList: UserQuestionDTO[] }) => {
   </thead>
   <tbody className="bg-white divide-y divide-gray-200 ">
     {progressList.map((row, index) => (
-      <tr key={index} className='hover:bg-gray-100' onClick={() => setModal({ show: true, data: row })} >
+      <tr key={index} className='hover:bg-gray-100' >
         <td className="px-3 py-2 whitespace-nowrap text-xs ">{row.id}</td>
         <td className="px-3 py-2 whitespace-nowrap text-sm">{row.title}</td>
         <td className={`px-3 py-2 whitespace-nowrap `}>

@@ -3,12 +3,15 @@ import { UserQuestionDTO } from '../types';
 import { useEffect } from 'react';
 import { startOfWeek, addDays, format,subWeeks,endOfWeek,eachDayOfInterval, addWeeks, getWeek} from 'date-fns';
 
-const KanbanContext = createContext<KanbanContextData | undefined>(undefined);
+export const KanbanContext = createContext<KanbanContextData | undefined>(undefined);
 
 export function KanbanProvider({ children }: { children: ReactNode }) {
   const date = new Date(); // Use your desired date here
   const [columns, setColumns] = useState<string[]>(getWeekDatesInISO(date))
-  const [columnData, setColumndata] = useState<UserQuestionDTO[]>([]);
+  const [columnData, setColumndata] = useState<Record<string, UserQuestionDTO[]>>({});
+  const [isLoading, setIsLoading] = useState(true); // Initialize isLoading to true
+
+
 
   function handleLeftclick() {
     setColumns(getPreviousWeekInISOList(columns[3]));
@@ -21,6 +24,14 @@ export function KanbanProvider({ children }: { children: ReactNode }) {
   function handleCalendarClick(isodate:string) {
     setColumns(getCurrentWeekInISOList(isodate));
   }
+  useEffect(() => {
+    const fetchData = async () => {
+      await update();
+      setIsLoading(false); // Set isLoading to false when the data is loaded
+    };
+
+    fetchData();
+  }, [columns]);
 
   const update = async () => {
     const startDate = columns[0];
@@ -32,7 +43,10 @@ export function KanbanProvider({ children }: { children: ReactNode }) {
       const response = await fetch(apiUrl);
       if (response.ok) {
         const data = await response.json();
-        setColumndata(data)
+
+        const newdata = groupDataByDate(columns,data)
+        setColumndata(newdata)
+
       }       
     } catch (error) {
       console.error('API request failed:', error);
@@ -40,14 +54,13 @@ export function KanbanProvider({ children }: { children: ReactNode }) {
   };
 
   
-  useEffect(() => {
-    update();
-  }, [columns]);
+  
 
 
   return (     <KanbanContext.Provider value={{
     columnData,
     columns,
+    isLoading,
     update,
     handleCalendarClick,
     handleLeftclick,
@@ -58,13 +71,10 @@ export function KanbanProvider({ children }: { children: ReactNode }) {
   );
 }
 
-
-
-
-
-interface KanbanContextData {
+export interface KanbanContextData {
   columns : string[],
-  columnData : UserQuestionDTO[],
+  columnData : Record<string, UserQuestionDTO[]>,
+  isLoading : boolean,
   update : () => void,
   handleRightclick : () => void;
   handleLeftclick : () => void;
@@ -160,4 +170,24 @@ function getNextWeekInISOList(isoDateString:string) {
 
 
 
+
+const groupDataByDate = (columns:string[], columnData:UserQuestionDTO[]) => {
+  // Create an empty object to hold the buckets
+  const dateBuckets: Record<string, UserQuestionDTO[]> = {};
+  // Initialize the buckets with empty arrays for each date
+  columns.forEach((date) => {
+    dateBuckets[date] = [];
+  });
+  // Group the columnData into the date buckets
+  columnData.forEach((item) => {
+    const { date } = item;
+    const formattedDate = date.substring(0, 10);
+
+    // Check if the date exists in columns (assuming it's in the same format)
+    if (dateBuckets[formattedDate]) {
+      dateBuckets[formattedDate].push(item);
+    }
+  });
+  return dateBuckets;
+};
 

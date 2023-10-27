@@ -1,77 +1,38 @@
-import { atRule } from 'postcss';
 import React, { ChangeEvent } from 'react';
 
 import { useState,useEffect } from 'react';
+import { useModal } from './context/Modalcontext';
+import { useKanban } from './context/Kanbancontext';
 
 
 
+const Modal = () => {
 
-  export type UserQuestionDTO = {
-    id: number;
-    githubId: string;
-    questionId: number;
-    title: string;
-    difficulty:string;
-    titleSlug: string;
-    topicTags: string[];
-    categorySlug: string;
-    completionStatus: boolean;
-    timeTaken?: string | null;
-    code: string;
-    notes: string;
-    date: string; 
-  };
+  const {
+    isModalOpen,
+    currprops,
+    closeModal,
+    handleAttributeChange,
+    deletecard,
 
-
-
-const Modal = (props : { closeModal:Function, data:UserQuestionDTO }) => {
-  const [currprops, setQuestion] = useState<UserQuestionDTO >(props.data);  
-  const handleAttributeChange = (attribute:any, value:any) => {
-    console.log(attribute,value)
-    setQuestion((prevData) => ({
-      ...prevData,
-      [attribute]: value,
-    }));
-  };
-
-  const handleTimeRangeSelection = (timeRange:string) => {
-    handleAttributeChange("timeTaken", timeRange); // Update the "timeTaken" attribute
-  };
-
-
+    handleTimeRangeSelection,
+  } = useModal();
   // Handle save and close
-  const handleSaveAndClose = () => {
-    // Send a POST request to update the data
-    fetch(`/api/userquestions/update?id=${currprops.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(currprops),
-    })
-      .then((response) => {
-        // Handle the response, e.g., show a success message
-        console.log('Data updated successfully');
-      })
-      .catch((error) => {
-        // Handle errors, e.g., show an error message
-        console.error('Error updating data:', error);
-      });
 
-    // Close the modal
-    props.closeModal();
-  };
 
   return (
-    <div>
-          <div id = "blur"className="fixed inset-0 z-25 bg-black bg-opacity-50 blur-md overflow-hidden pointer-events-none"></div>
-            <div  tabIndex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-25 w-full p-4 md:inset-0 h-[calc(100%-5rem)] max-h-full flex items-center justify-center  ">
-                <div className="">
+    <>
+    <div className={`${isModalOpen ? 'z-20' : 'hidden'}`}>
+<div className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true"></div>
+    <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+
+    <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+    <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                     <div id="authentication-modal" className=" bg-white rounded-lg shadow text-sm w-[600px]">  
                     <div className="relative">
         <button
           className="absolute top-2 right-2 p-2 text-gray-500 hover:text-gray-700"
-          onClick={() => handleSaveAndClose()} // Call the closeModal function when clicked
+          onClick={() => closeModal()} // Call the closeModal function when clicked
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -124,17 +85,16 @@ const Modal = (props : { closeModal:Function, data:UserQuestionDTO }) => {
                                 <div className='logo'><svg xmlns="http://www.w3.org/2000/svg" className = "w-5 h-5" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h3a1 1 0 0 0 1-1V5a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1h-3a1 1 0 0 1-1-1v-1a2 2 0 0 0-4 0v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a2 2 0 0 0 0-4H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1"/></svg></div>
                                 <div className=''>Topics</div>
                               </div>
-                              <div className={``}> 
+                              <div className={`flex  flex-wrap gap-2  w-1/2 text-xs`}> 
                               {currprops.topicTags.map((topic, index) => (
                                         <span
                                           key={index}
-                                          className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 ${topic}`}
+                                          className={`px-2  text-xs leading-5 font-semibold rounded-full bg-gray-100 ${topic}`}
                                         >
                                           {topic}
                                         </span>
                                       ))}
                               </div>
-                              <div className='place holder'></div>
                             </div>
                             <div className='flex '>
         <div className='flex gap-5 items-center w-1/2'>
@@ -197,7 +157,6 @@ const Modal = (props : { closeModal:Function, data:UserQuestionDTO }) => {
           </button>
 
         </div>
-
     </div>
                             <div className='flex'>
                               <div className='flex gap-5 items-center w-1/2'>
@@ -216,16 +175,23 @@ const Modal = (props : { closeModal:Function, data:UserQuestionDTO }) => {
                             </div>
                             <div className="p-2 codesegment">
                                   <textarea
-                                    className="py-3 px-4  w-full rounded-md text-sm h-[400px]  border-transparent focus:border focus:border-gray-200 resize-none focus:ring-0"   value = {currprops.notes} onChange={(e) => handleAttributeChange("notes", e.target.value)}
+                                    className="py-3 px-4  w-full rounded-md text-sm h-[300px]  border-transparent focus:border focus:border-gray-200 resize-none focus:ring-0"   value = {currprops.notes} onChange={(e) => handleAttributeChange("notes", e.target.value)}
                                   />
                                 </div> 
                                 </div>
+                                <div className='delete section mt-3'>
+                                  <button className='flex items-center hover:bg-gray-200 rounded p-2 mx-auto' onClick={deletecard}>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12M8 9h8v10H8V9m7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5Z"/></svg>
+
+                                  <span className='  text-gray-400 '>
+                                    Delete </span></button>   </div>
                         </div>
                     </div>
                 </div>
             </div>
 
 </div>
+</>
   );
 };
 

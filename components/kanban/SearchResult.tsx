@@ -8,10 +8,6 @@ interface SearchResultProps {
 }
 
 
-
-
-
-
 function SearchResult({ card, onClick }: SearchResultProps) {
   return (
     <li
