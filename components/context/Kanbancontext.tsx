@@ -6,7 +6,6 @@ import { startOfWeek, addDays, format,subWeeks,endOfWeek,eachDayOfInterval, addW
 
 const KanbanContext = createContext<KanbanContextData | undefined>(undefined);
 
-
 export function KanbanProvider({ children }: { children: ReactNode }) {
   const date = new Date(); // Use your desired date here
   const [columns, setColumns] = useState<string[]>(getWeekDatesInISO(date))
@@ -24,53 +23,35 @@ export function KanbanProvider({ children }: { children: ReactNode }) {
     setColumns(getCurrentWeekInISOList(isodate));
   }
 
-  const addCard = (newCard: UserQuestionDTO) => {
-    const updatedColumnData = [...columnData, newCard];
-    setColumndata(updatedColumnData);
+
+
+  const update = async () => {
+    const startDate = columns[0];
+    const endDate  = columns[columns.length - 1]
+    // Make your API request here, using the startDate and endDate as parameters
+    // Replace the URL and query parameters with your actual API endpoint
+    const apiUrl = `/api/userquestions/fetchdates?startDate=${startDate}&endDate=${endDate}`;      
+    try {
+      const response = await fetch(apiUrl);
+      if (response.ok) {
+        const data = await response.json();
+        setColumndata(data)
+      }       
+    } catch (error) {
+      console.error('API request failed:', error);
+    }
   };
+  
 
-
-  const updateCard = (cardId: number, updatedCard: UserQuestionDTO) => {
-    setColumndata((prevData) => {
-      const cardIndex = prevData.findIndex((card) => card.id === cardId);
-      if (cardIndex !== -1) {
-        const updatedData = [...prevData];
-        updatedData[cardIndex] = updatedCard;
-        return updatedData;
-      }
-      return prevData;
-    });
-  };
-
-
-  useEffect
-
+  
   useEffect(() => {
-    const fetchDataForDateRange = async (startDate:string, endDate:string) => {
-      // Make your API request here, using the startDate and endDate as parameters
-      // Replace the URL and query parameters with your actual API endpoint
-      const apiUrl = `/api/userquestions/fetchdates?startDate=${startDate}&endDate=${endDate}`;      
-      try {
-        const response = await fetch(apiUrl);
-        if (response.ok) {
-          const data = await response.json();
-          setColumndata(data)
-        } 
-        
-      } catch (error) {
-        console.error('API request failed:', error);
-      }
-    };
-    fetchDataForDateRange(columns[0], columns[columns.length - 1]);
-    console.log(fetchDataForDateRange)
+    update();
   }, [columns]);
 
 
   return (     <KanbanContext.Provider value={{
     columnData,
     columns,
-    addCard,
-    updateCard,
     handleCalendarClick,
     handleLeftclick,
     handleRightclick,
@@ -85,8 +66,6 @@ export function KanbanProvider({ children }: { children: ReactNode }) {
 interface KanbanContextData {
   columns : string[],
   columnData : UserQuestionDTO[],
-  addCard: (newCard: UserQuestionDTO) => void;
-  updateCard: (cardId: number, newcard:UserQuestionDTO) => void;
   handleRightclick : () => void;
   handleLeftclick : () => void;
   handleCalendarClick : (isodate:string) => void;

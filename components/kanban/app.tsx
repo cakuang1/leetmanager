@@ -9,7 +9,6 @@ function KanbanBoard() {
   const { columns,  columnData, addCard, updateCard, handleCalendarClick, handleLeftclick, handleRightclick } = useKanban();
 
 
-
    let dateBuckets = groupDataByDate(columns,columnData)
 
 

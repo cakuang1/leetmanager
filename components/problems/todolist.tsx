@@ -1,44 +1,12 @@
 import React from 'react';
 import { UserQuestionDTO } from '../types';
-import CardPopup from '../CardPopup';
+import CardPopup from '../Modal';
 import { useState } from 'react';
 
 
-
-
-
-const userQuestionExample = {
-  id: 1,
-  githubId: "exampleUser123",
-  questionId: 1001,
-  title: "Example Question",
-  difficulty: "Medium",
-  titleSlug: "example-question",
-  topicTags: ["arrays", "algorithms", "javascript"],
-  categorySlug: "programming",
-  completionStatus: true,
-
-  code: "function exampleFunction() {\n  // Your code here\n}",
-  notes: "This question involves solving a common algorithm problem.",
-  date: "2023-10-25"
-};
-
-
 const Todo = ({ progressList }: { progressList: UserQuestionDTO[] }) => {
-  const [modal, setModal] = useState({ show: false, data: userQuestionExample });
-
-  const handleClose = () => {
-    setModal({ show: false ,data:userQuestionExample});
-  };
-
-
-
-
-
-
   return (
     <div className="">
-      {modal.show && modal.data && <CardPopup closeModal={handleClose} data={modal.data} />}
       <h1 className="font-semibold text-gray-500">Todo</h1>
       <table className="w-full divide-y divide-gray-200">
   <thead className="bg-gray-50">
@@ -94,7 +62,6 @@ const Todo = ({ progressList }: { progressList: UserQuestionDTO[] }) => {
 };
 
 export default Todo;
-
 
 
 function extractIsoDate(dateString:string) {

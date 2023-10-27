@@ -4,6 +4,15 @@ import { useState ,useEffect,useRef} from 'react';
 import { parseISO, format, getDay } from 'date-fns';
 import { LeetCodeQuestionDTO,UserQuestionDTO } from '../types';
 import SearchResult from './SearchResult';
+import { useKanban } from '../context/Kanbancontext';
+
+
+const { columns,  columnData, addCard, updateCard, handleCalendarClick, handleLeftclick, handleRightclick } = useKanban();
+
+
+
+
+
 interface SearchProps {
     onClickOutside: () => void;
     date : string
@@ -13,6 +22,7 @@ interface ColumnProps {
     id: string;
     cards: UserQuestionDTO[];
   }
+
 
 
 function Search({ onClickOutside,date}: SearchProps) {
@@ -34,10 +44,10 @@ function Search({ onClickOutside,date}: SearchProps) {
     }, [onClickOutside]);
 
     const handleSearchResultClick = (card: LeetCodeQuestionDTO,date:string) => {
+
       postLeetCodeQuestion(card,date);
 
-    };
-  
+    };  
     const handleQueryChange = (event: ChangeEvent<HTMLInputElement>) => {
       const newQuery = event.target.value;
       setQuery(newQuery);
@@ -46,8 +56,6 @@ function Search({ onClickOutside,date}: SearchProps) {
         setQueryResults(results);
       });
     };
-
-
 
     return (
         <div ref={searchRef}>
@@ -69,7 +77,6 @@ function Search({ onClickOutside,date}: SearchProps) {
       </div>
     );  
   }
-
 function Column({ id, cards }: ColumnProps) {
     const [isEditing, setIsEditing] = useState(false);
 
@@ -92,8 +99,6 @@ function Column({ id, cards }: ColumnProps) {
         // If completionStatus is the same, sort by id
         return a.id - b.id;
       });
-
-
 
     const isCurrent = isCurrentDate(id)
     const bgClass = isCurrent ? "bg-orange-50" : "";

@@ -2,9 +2,9 @@ import { atRule } from 'postcss';
 import React, { ChangeEvent } from 'react';
 
 import { useState,useEffect } from 'react';
-import type { CustomFlowbiteTheme } from 'flowbite-react';
 
-import { Datepicker } from 'flowbite-react';
+
+
 
   export type UserQuestionDTO = {
     id: number;
@@ -23,26 +23,21 @@ import { Datepicker } from 'flowbite-react';
   };
 
 
-const CardPopup = (props : { closeModal:Function, data:UserQuestionDTO }) => {
 
-  const [currprops, setQuestion] = useState<UserQuestionDTO >(props.data);
- 
-
-  // This function handles debounced updates to the notes field
-
-  
+const Modal = (props : { closeModal:Function, data:UserQuestionDTO }) => {
+  const [currprops, setQuestion] = useState<UserQuestionDTO >(props.data);  
   const handleAttributeChange = (attribute:any, value:any) => {
+    console.log(attribute,value)
     setQuestion((prevData) => ({
       ...prevData,
       [attribute]: value,
     }));
   };
 
-  
   const handleTimeRangeSelection = (timeRange:string) => {
-
     handleAttributeChange("timeTaken", timeRange); // Update the "timeTaken" attribute
   };
+
 
   // Handle save and close
   const handleSaveAndClose = () => {
@@ -66,7 +61,6 @@ const CardPopup = (props : { closeModal:Function, data:UserQuestionDTO }) => {
     // Close the modal
     props.closeModal();
   };
-
 
   return (
     <div>
@@ -237,7 +231,7 @@ const CardPopup = (props : { closeModal:Function, data:UserQuestionDTO }) => {
 
 
 
-export default CardPopup;
+export default Modal;
 
 
 function getColorClasses(difficulty : String) {

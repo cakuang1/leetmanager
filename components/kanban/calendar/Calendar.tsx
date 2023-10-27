@@ -4,7 +4,6 @@ import WeekRow from './Weekrow'; // Import the WeekRow component
 import { useState  } from 'react';
 
 
-
 function Calendar({onWeekClick}:any) {
   const [currentMonth, setCurrentMonth] = useState(startOfMonth(new Date()));
   const handlePrevMonth = () => {
@@ -13,11 +12,12 @@ function Calendar({onWeekClick}:any) {
   const handleNextMonth = () => {
     setCurrentMonth((prevMonth) => addMonths(prevMonth, 1));
   };
-
   const weeksInMonth = eachWeekOfInterval({
     start: currentMonth,
     end: addMonths(currentMonth, 1),
   });
+
+
 
   return (
     <div className='absolute bg-white border p-4 rounded' >
