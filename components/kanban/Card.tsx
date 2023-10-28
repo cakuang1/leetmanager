@@ -3,9 +3,7 @@ import { UserQuestionDTO } from '../types';
 
 
 
-
 function Card({ card }: { card: UserQuestionDTO }) {
-
   return (
     <div className="">
       <div
@@ -26,9 +24,7 @@ function Card({ card }: { card: UserQuestionDTO }) {
   );
 }
 
-
 export default Card;
-
 
 function getColorClasses(difficulty : String) {
   switch (difficulty) {

@@ -4,9 +4,11 @@ import { useState,useEffect } from 'react';
 import { useKanban } from './context/Kanbancontext';
 import { UserQuestionDTO } from './types';
 
-const Modalproblems = ({ isOpen, closeModal, cardData }:any) => {
+const Modalproblems = ({ isOpen, closeModal, cardData,update}:any) => {
 
   const [currprops, setModalData] = useState<UserQuestionDTO >(cardData);
+
+
   useEffect(() => {
     // Use the useEffect hook to update currprops when cardData changes
     setModalData(cardData);
@@ -40,6 +42,7 @@ const Modalproblems = ({ isOpen, closeModal, cardData }:any) => {
     }
     closeModal()
   };
+
 
   const handleDelete = async () => {
     try {
