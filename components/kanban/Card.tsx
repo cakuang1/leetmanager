@@ -2,18 +2,57 @@ import React from 'react';
 import { UserQuestionDTO } from '../types';
 import { useState } from 'react';
 import { useModal } from '../context/Modalcontext';
-import Modal from '../Modal';
-
+import Modal from './Modal';
+import { useKanban } from '../context/Kanbancontext';
 
 function Card({ card }: { card: UserQuestionDTO }) {
-  const { isModalOpen, openModal, closeModal } = useModal();
+  const { openModal,} = useModal();
+  const {update} = useKanban();
 
+
+  const deletecard = async () => {
+    try {
+      // Call handleDelete to delete the record and wait for it to complete
+      await handleDelete();
+  
+      // After successful deletion, update the data
+      update();
+  
+      // Finally, set the modal data to a placeholder
+  
+    } catch (error) {
+      // Handle any errors that may occur during deletion or update
+      console.error('Error during deletion or update:', error);
+    }
+  };
+  
+  
+  
+  const handleDelete = async () => {
+    try {
+      // Send a DELETE request to delete the data
+      const response = await fetch(`/api/userquestions/delete?id=${card.id}`, {
+        method: 'DELETE',
+      });
+  
+      if (response.ok) {
+        // Handle the response, e.g., show a success message
+        console.log('Data deleted successfully');
+      } else {
+        // Handle errors if the response is not OK
+        console.error('Error deleting data:', response.statusText);
+      }
+    } catch (error) {
+      // Handle any errors that occur during the request
+      console.error('Error deleting data:', error);
+    }
+  };
   const handleEditClick = () => {
     // Open the modal and pass the card data for editing
     openModal(card);
   };
   return (
-    <div className="" onClick={handleEditClick}>
+    <div className="" onClick={deletecard}>
       <div
         className={`${
           card.completionStatus ? 'bg-opacity-30 text-opacity-30 bg-green-100' : ''
@@ -50,22 +89,5 @@ function getColorClasses(difficulty : String) {
 }
 
 
-async function deleteQuestion(id:number) {
-  const endpoint = `/api/userquestions/delete?id=${id}` // Replace with your actual API endpoint
-  try {
-    const response = await fetch(endpoint, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json', // Set the appropriate content type
-      },
-    }); 
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Error Deleting data:', error);
-    throw error;
-  }
-}
+
+

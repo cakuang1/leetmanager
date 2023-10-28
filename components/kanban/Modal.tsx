@@ -1,24 +1,103 @@
 import React, { ChangeEvent } from 'react';
 
 import { useState,useEffect } from 'react';
-import { useModal } from './context/Modalcontext';
-import { useKanban } from './context/Kanbancontext';
+import { useModal } from '../context/Modalcontext';
+import { useKanban } from '../context/Kanbancontext';
 
 
 
 const Modal = () => {
 
-  const {
-    isModalOpen,
-    currprops,
-    closeModal,
-    handleAttributeChange,
-    deletecard,
+  const {update} = useKanban()
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currprops, setModalData] = useState<UserQuestionDTO >(placeholderUserQuestion);
 
-    handleTimeRangeSelection,
-  } = useModal();
-  // Handle save and close
+  const handleAttributeChange = (attribute: string, value: any) => {
+    console.log(attribute, value);
+    setModalData((prevData) => ({
+      ...prevData,
+      [attribute]: value,
+    }) as UserQuestionDTO);
+  };
+  
+  const handleTimeRangeSelection = (timeRange:string) => {
+    handleAttributeChange("timeTaken", timeRange); // Update the "timeTaken" attribute
+  };
+  const openModal = (data: UserQuestionDTO) => {
+    setIsModalOpen(true);
+    setModalData(data);
+  };
 
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    handleSaveAndClose()
+    setModalData(placeholderUserQuestion);
+  };
+
+
+
+  const deletecard = async () => {
+    setIsModalOpen(false);
+  
+    try {
+      // Call handleDelete to delete the record and wait for it to complete
+      await handleDelete();
+  
+      // After successful deletion, update the data
+      update();
+  
+      // Finally, set the modal data to a placeholder
+
+    } catch (error) {
+      // Handle any errors that may occur during deletion or update
+      console.error('Error during deletion or update:', error);
+    }
+  };
+
+
+
+  const handleDelete = async () => {
+    try {
+      // Send a DELETE request to delete the data
+      const response = await fetch(`/api/userquestions/delete?id=${currprops.id}`, {
+        method: 'DELETE',
+      });
+  
+      if (response.ok) {
+        // Handle the response, e.g., show a success message
+        console.log('Data deleted successfully');
+      } else {
+        // Handle errors if the response is not OK
+        console.error('Error deleting data:', response.statusText);
+      }
+    } catch (error) {
+      // Handle any errors that occur during the request
+      console.error('Error deleting data:', error);
+    }
+  };
+  
+
+
+
+  const handleSaveAndClose = () => {
+    // Send a POST request to update the data
+    fetch(`/api/userquestions/update?id=${currprops.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(currprops),
+    })
+      .then((response) => {
+        // Handle the response, e.g., show a success message
+        console.log('Data updated successfully');
+      })
+      .catch((error) => {
+        // Handle errors, e.g., show an error message
+        console.error('Error updating data:', error);
+      });
+  };
 
   return (
     <>

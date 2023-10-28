@@ -3,12 +3,15 @@ import Column from './Columns';
 import CalNavigator from './Calnavigation';
 import { UserQuestionDTO } from '../types';
 import { useKanban } from '../context/Kanbancontext';
+import { useEffect } from 'react';
 
 function KanbanBoard() { 
 
   const { columns,  columnData, isLoading,handleCalendarClick, handleLeftclick, handleRightclick} = useKanban();
+  useEffect(() => {
 
-
+  }, [columnData]);
+  console.log('rerendered')
 
   return (
     <div >

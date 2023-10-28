@@ -11,8 +11,6 @@ export function KanbanProvider({ children }: { children: ReactNode }) {
   const [columnData, setColumndata] = useState<Record<string, UserQuestionDTO[]>>({});
   const [isLoading, setIsLoading] = useState(true); // Initialize isLoading to true
 
-
-
   function handleLeftclick() {
     setColumns(getPreviousWeekInISOList(columns[3]));
   
@@ -26,6 +24,7 @@ export function KanbanProvider({ children }: { children: ReactNode }) {
   }
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       await update();
       setIsLoading(false); // Set isLoading to false when the data is loaded
     };
@@ -33,18 +32,20 @@ export function KanbanProvider({ children }: { children: ReactNode }) {
     fetchData();
   }, [columns]);
 
+
+
+
+
   const update = async () => {
     const startDate = columns[0];
     const endDate  = columns[columns.length - 1]
-    // Make your API request here, using the startDate and endDate as parameters
-    // Replace the URL and query parameters with your actual API endpoint
     const apiUrl = `/api/userquestions/fetchdates?startDate=${startDate}&endDate=${endDate}`;      
     try {
       const response = await fetch(apiUrl);
       if (response.ok) {
         const data = await response.json();
-
         const newdata = groupDataByDate(columns,data)
+
         setColumndata(newdata)
 
       }       

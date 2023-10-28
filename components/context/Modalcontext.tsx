@@ -37,8 +37,6 @@ interface ModalProviderProps {
 export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
 
   const {update} = useKanban()
-
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currprops, setModalData] = useState<UserQuestionDTO >(placeholderUserQuestion);
 
@@ -66,30 +64,45 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
   };
 
 
-  const deletecard = () => {
-      setIsModalOpen(false);
-      handleDelete();
-      setModalData(placeholderUserQuestion);
+
+  const deletecard = async () => {
+    setIsModalOpen(false);
+  
+    try {
+      // Call handleDelete to delete the record and wait for it to complete
+      await handleDelete();
+  
+      // After successful deletion, update the data
       update();
-  }
+  
+      // Finally, set the modal data to a placeholder
+
+    } catch (error) {
+      // Handle any errors that may occur during deletion or update
+      console.error('Error during deletion or update:', error);
+    }
+  };
 
 
 
-
-  const handleDelete = () => {
-    // Send a POST request to update the data
-    fetch(`/api/userquestions/delete?id=${currprops.id}`, {
-      method: 'DELETE',
-
-    })
-      .then((response) => {
+  const handleDelete = async () => {
+    try {
+      // Send a DELETE request to delete the data
+      const response = await fetch(`/api/userquestions/delete?id=${currprops.id}`, {
+        method: 'DELETE',
+      });
+  
+      if (response.ok) {
         // Handle the response, e.g., show a success message
         console.log('Data deleted successfully');
-      })
-      .catch((error) => {
-        // Handle errors, e.g., show an error message
-        console.error('Error deleting data:', error);
-      });
+      } else {
+        // Handle errors if the response is not OK
+        console.error('Error deleting data:', response.statusText);
+      }
+    } catch (error) {
+      // Handle any errors that occur during the request
+      console.error('Error deleting data:', error);
+    }
   };
   
 
