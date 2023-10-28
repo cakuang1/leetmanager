@@ -2,8 +2,6 @@ import React from 'react';
 import { eachDayOfInterval, format, startOfWeek, endOfWeek, isSameMonth } from 'date-fns';
 
 
-
-
 function WeekRow2({ startDate, month,onDayClick }: any) {
     const weekStartDate = startOfWeek(startDate);
     const weekEndDate = endOfWeek(startDate);
@@ -11,6 +9,8 @@ function WeekRow2({ startDate, month,onDayClick }: any) {
       start: weekStartDate,
       end: weekEndDate,
     });
+
+    
 
     
     return (

@@ -10,7 +10,6 @@ function WeekRow({ startDate, month,onWeekClick }: any) {
       end: weekEndDate,
     });
 
-
     const handleChangeState = () => {
       // Call the function passed as a prop to update the parent's state
       onWeekClick(isoEndDate)

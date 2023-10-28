@@ -4,8 +4,9 @@ import { useState  } from 'react';
 import WeekRow2 from './Weekrow2';
 
 
+// this will be used to change the dates in a modal, how the value of the calender also changes the value of the parent component
 
-function Calendar({value}:any) {
+function Calendar({value,handleDateClick}:any) {
   const [currentMonth, setCurrentMonth] = useState(startOfMonth(new Date()));
   const [currvalue,setValue] = useState<string>(value);
   console.log(currvalue)
@@ -20,9 +21,11 @@ function Calendar({value}:any) {
     end: addMonths(currentMonth, 1),
   });
 
-
   function handleDateSelection(date:string) {
-    setValue(date)
+    //sets the new value for the modal
+    handleDateClick(date); 
+    //sets the new value for the current
+    setValue(date);
 
   }
 
