@@ -5,7 +5,7 @@ import { parseISO, format, getDay } from 'date-fns';
 import { LeetCodeQuestionDTO,UserQuestionDTO } from '../types';
 import SearchResult from './SearchResult';
 import { useKanban } from '../context/Kanbancontext';
-
+import Modal from './Modal';
 
 
 
@@ -18,6 +18,8 @@ interface ColumnProps {
     id: string;
     cards: UserQuestionDTO[];
   }
+
+
 
 function Searching({ onClickOutside,date}: SearchProps) {
   const {update} = useKanban();
@@ -79,9 +81,38 @@ function Searching({ onClickOutside,date}: SearchProps) {
       </div>
     );  
   }
+
+  const userQuestion: UserQuestionDTO = {
+    id: 1,
+    githubId: "user123",
+    questionId: 12345,
+    title: "Sample Question",
+    difficulty: "Medium",
+    titleSlug: "sample-question",
+    topicTags: ["tag1", "tag2"],
+    categorySlug: "sample-category",
+    completionStatus: true,
+    timeTaken: "30-45", // Time string
+    code: "console.log('Hello, World!');",
+    notes: "This is a sample question.",
+    date: "2023-10-31",
+  };
+
+
+
 function Column({ id, cards }: ColumnProps) {
     const [isEditing, setIsEditing] = useState(false);
-
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedCard, setSelectedCard] = useState<UserQuestionDTO>(userQuestion);
+    const openModal = (card:UserQuestionDTO) => {
+      setSelectedCard(card);
+      setIsModalOpen(true);
+    };
+  
+    const closeModal = () => {
+      setSelectedCard(userQuestion);
+      setIsModalOpen(false);
+    };
 
      const handleEditClick = () => {
         setIsEditing(true);
@@ -90,25 +121,23 @@ function Column({ id, cards }: ColumnProps) {
         setIsEditing(false);
       };
       
-      const sortedCards = cards.slice().sort((a, b) => {
-        // First, sort by completionStatus (false comes before true)
-        if (!a.completionStatus && b.completionStatus) {
-          return -1;
-        }
-        if (a.completionStatus && !b.completionStatus) {
-          return 1;
-        }
+      // const sortedCards = cards.slice().sort((a, b) => {
+      //   // First, sort by completionStatus (false comes before true)
+      //   if (!a.completionStatus && b.completionStatus) {
+      //     return -1;
+      //   }
+      //   if (a.completionStatus && !b.completionStatus) {
+      //     return 1;
+      //   }
       
-        // If completionStatus is the same, sort by id
-        return a.questionId - b.questionId;
-      });
+      //   // If completionStatus is the same, sort by id
+      //   return a.questionId - b.questionId;
+      // });
 
     const isCurrent = isCurrentDate(id)
     const bgClass = isCurrent ? "bg-orange-50" : "";
     return (
-
         <div className={`kanban-column w-1/5 px-2 mx-2 pt-4 flex-shrink-0 rounded ${bgClass}` }>
-
             <span className="font-bold text-xl">{getDateInfoFromISODate(id).month} </span>
                 <span className="font-bold text-xl">{getDateInfoFromISODate(id).day} </span>
                 <span className="font-bold text-leetcode">{getDateInfoFromISODate(id).dayOfWeek}</span>
@@ -119,22 +148,20 @@ function Column({ id, cards }: ColumnProps) {
             <div className="add-card-right text-gray-400" >
                 Add a Problem
             </div>
-
             </div>}
             <div className='cardsection'>
-                {sortedCards.map((card, index) => (
+
+                {cards.map((card, index) => (
+                  <div onClick={() => openModal(card)}>
                   <Card key={card.id} card={card} />
+                  </div>
                 ))}
               </div>
+            <Modal isOpen = {isModalOpen} closeModal = {closeModal} cardData = {selectedCard}/>
         </div>
     );
   }
 export default Column;
-
-
-// HELPER FUNCTIONS ignore
-
-
 
 function getDateInfoFromISODate(dateString:string) {
 
@@ -155,6 +182,7 @@ const ymd = isoDateString.split('T')[0];
 
   return ymd === isoDate;
 }
+
 
 
 

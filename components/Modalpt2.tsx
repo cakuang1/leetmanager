@@ -1,12 +1,11 @@
 import React, { ChangeEvent } from 'react';
 
 import { useState,useEffect } from 'react';
-import { useKanban } from '../context/Kanbancontext';
-import { UserQuestionDTO } from '../types';
+import { useKanban } from './context/Kanbancontext';
+import { UserQuestionDTO } from './types';
 
+const Modalproblems = ({ isOpen, closeModal, cardData }:any) => {
 
-const Modal = ({ isOpen, closeModal, cardData }:any) => {
-  const {update} = useKanban()
   const [currprops, setModalData] = useState<UserQuestionDTO >(cardData);
   useEffect(() => {
     // Use the useEffect hook to update currprops when cardData changes
@@ -273,7 +272,7 @@ const Modal = ({ isOpen, closeModal, cardData }:any) => {
 
 
 
-export default Modal;
+export default Modalproblems;
 
 
 function getColorClasses(difficulty : String) {

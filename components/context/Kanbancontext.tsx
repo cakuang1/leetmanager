@@ -13,6 +13,7 @@ export function KanbanProvider({ children }: { children: ReactNode }) {
 
   function handleLeftclick() {
     setColumns(getPreviousWeekInISOList(columns[3]));
+
   
   }
   function handleRightclick() {
@@ -22,7 +23,9 @@ export function KanbanProvider({ children }: { children: ReactNode }) {
   function handleCalendarClick(isodate:string) {
     setColumns(getCurrentWeekInISOList(isodate));
   }
+
   useEffect(() => {
+    console.log(columns)
     const fetchData = async () => {
       setIsLoading(true);
       await update();
@@ -45,7 +48,7 @@ export function KanbanProvider({ children }: { children: ReactNode }) {
       if (response.ok) {
         const data = await response.json();
         const newdata = groupDataByDate(columns,data)
-
+        console.log(newdata)
         setColumndata(newdata)
 
       }       

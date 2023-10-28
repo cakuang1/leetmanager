@@ -1,14 +1,35 @@
 import React from 'react';
 import { UserQuestionDTO } from '../types';
-
-import { useState } from 'react';
-
-
+import { useState,useEffect } from 'react';
+import Modalproblems from '../Modalpt2';
 
 
 
+const Todo = () => {
+  const [page, setPage] = useState(1);
+  const [progressList, setListofCards] = useState<UserQuestionDTO[]>([]);
+  const [totalItems, setTotalItems] = useState(0);
+  const itemsPerPage = 10; 
 
-const Todo = ({ progressList }: { progressList: UserQuestionDTO[] }) => {
+
+  
+  useEffect(() => {
+    // Define a function to fetch data from the API
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`/api/userquestions/notcompleted?page=${page}`);
+        if (!response.ok) {
+          throw new Error('API request failed');
+        }
+        const data = await response.json();
+        setListofCards(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, [page]); 
+
   return (
     <div className="">
       <h1 className="font-semibold text-gray-500">Todo</h1>
@@ -60,7 +81,12 @@ const Todo = ({ progressList }: { progressList: UserQuestionDTO[] }) => {
     ))}
   </tbody>
 </table>
+    <div className='flex justify-center gap-3 text-gray-400 items-center'>
 
+      <div><svg xmlns="http://www.w3.org/2000/svg" className = {'w-6 h-6'} width="1024" height="1024" viewBox="0 0 1024 1024"><path fill="currentColor" d="M724 218.3V141c0-6.7-7.7-10.4-12.9-6.3L260.3 486.8a31.86 31.86 0 0 0 0 50.3l450.8 352.1c5.3 4.1 12.9.4 12.9-6.3v-77.3c0-4.9-2.3-9.6-6.1-12.6l-360-281l360-281.1c3.8-3 6.1-7.7 6.1-12.6z"/></svg></div>
+            <div className='text-xl'>{page}</div>
+            <div><svg xmlns="http://www.w3.org/2000/svg" className = {'w-6 h-6'}width="1024" height="1024" viewBox="0 0 1024 1024"><path fill="currentColor" d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1l-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z"/></svg></div>
+    </div>
     </div>
   );
 };
@@ -73,10 +99,6 @@ function extractIsoDate(dateString:string) {
   const isoDate = dateObject.toISOString().split('T')[0];
   return isoDate;
 }
-
-// helpers
-
-  
 
       function getColorClasses(difficulty : String) {
         switch (difficulty) {

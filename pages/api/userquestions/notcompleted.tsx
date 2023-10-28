@@ -1,11 +1,10 @@
-// Not Completed Questions API with Pagination
 import { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
 import { getServerSession } from 'next-auth/next';
-import { authOptions }  from '../auth/[...nextauth]';
-
+import { authOptions } from '../auth/[...nextauth]';
 
 const prisma = new PrismaClient();
+
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
     const session = await getServerSession(req, res, authOptions);
@@ -13,10 +12,24 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       res.status(401).json({ message: 'Not authenticated' });
       return;
     }
+
     const userId = req.query.userId as string;
     const page = parseInt(req.query.page as string) || 1;
     const pageSize = parseInt(req.query.pageSize as string) || 10;
     try {
+      const result = await prisma.userQuestions.aggregate({
+        where: {
+          githubId: userId,
+          completionStatus: false,
+        },
+          _count: {
+            completionStatus:true,
+      }
+    }
+      );
+
+      const totalNonCompletedCount = result._count;
+      
       const notCompletedQuestions = await prisma.userQuestions.findMany({
         where: {
           githubId: userId,
@@ -26,7 +39,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         take: pageSize,
       });
 
-      res.status(200).json(notCompletedQuestions);
+      res.status(200).json({
+        notCompletedQuestions,
+        totalNonCompletedCount,
+      });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'An error occurred' });
