@@ -4,29 +4,23 @@ import { eachDayOfInterval, format, startOfWeek, endOfWeek, isSameMonth } from '
 
 
 
-function WeekRow({ startDate, month,onDayClick }: any) {
+function WeekRow2({ startDate, month,onDayClick }: any) {
     const weekStartDate = startOfWeek(startDate);
     const weekEndDate = endOfWeek(startDate);
-    const isoEndDate = format(weekEndDate, 'yyyy-MM-dd');
     const daysInWeek = eachDayOfInterval({
       start: weekStartDate,
       end: weekEndDate,
     });
 
-
-    const handleChangeState = () => {
-      // Call the function passed as a prop to update the parent's state
-      onDayClick(isoEndDate)
-    };
-
+    
     return (
-      <div className="flex items-center bg-white transition duration-200 hover:bg-orange-50 hover:cursor-pointer rounded" >
+      <div className="flex items-center bg-white " >
         {daysInWeek.map((day) => (
           <div
             key={day.getTime()}
-            className={`w-10 text-center text-xs p-3 my-auto ${
+            className={`w-10 text-center text-xs p-3 my-auto transition duration-200 hover:bg-orange-50 hover:cursor-pointer rounded${
               isSameMonth(day, month) ? 'text-gray-500' : 'text-gray-300'
-            }`} onClick={onDayClick}
+            }`} onClick={onDayClick(day.toISOString)}
           >
             {format(day, 'd')}
           </div>
@@ -35,4 +29,4 @@ function WeekRow({ startDate, month,onDayClick }: any) {
     );
   }
   
-  export default WeekRow;
+  export default WeekRow2;

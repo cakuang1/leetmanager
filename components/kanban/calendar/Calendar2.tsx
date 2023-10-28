@@ -1,20 +1,21 @@
 import React from 'react';
 import { eachWeekOfInterval, startOfMonth, endOfMonth,addMonths,format,eachDayOfInterval} from 'date-fns';
 import { useState  } from 'react';
+import WeekRow2 from './Weekrow2';
 
 
 
-
-function Calendar({onWeekClick,value}:any) {
+function Calendar({value}:any) {
   const [currentMonth, setCurrentMonth] = useState(startOfMonth(new Date()));
-  const [currvalue,setValue] = useState<string>(value)
+  const [currvalue,setValue] = useState<string>(value);
+  console.log(currvalue)
   const handlePrevMonth = () => {
     setCurrentMonth((prevMonth) => addMonths(prevMonth, -1));
   };
   const handleNextMonth = () => {
     setCurrentMonth((prevMonth) => addMonths(prevMonth, 1));
   };
-  const days = eachDayOfInterval({
+  const weeksInMonth = eachWeekOfInterval({
     start: currentMonth,
     end: addMonths(currentMonth, 1),
   });
@@ -46,7 +47,7 @@ function Calendar({onWeekClick,value}:any) {
         <div className="weekday w-10 text-center justify-center">S</div>
       </div>
       {weeksInMonth.map((weekStartDate) => (
-        
+        <WeekRow2 key={weekStartDate.getTime()} startDate={weekStartDate} month={currentMonth} onDayClick = {handleDateSelection}/>
         ))}
     </div>
     </div>
