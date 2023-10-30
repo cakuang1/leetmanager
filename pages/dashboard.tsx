@@ -15,16 +15,18 @@ import Layout from "@/components/layout";
 import ChartView from "@/components/dashboard/Graph";
 import { useEffect,useState } from "react";
 import { UserQuestionDTO } from "@/components/types";
-
+export type DailyPerformance = {
+  date: string;
+  questionsDone: number;
+};
 
 export default function Dashboard() {
   const [questions, setQuestions] = useState<UserQuestionDTO[]>([]);
   const [categories,setCategories] = useState<Record<string,number>>({});
-  const questionsByDayWeek = calculateQuestionsByDay(questions, oneWeekAgo, currentDate);
-  const questionsByDayMonth = calculateQuestionsByDay(questions, oneMonthAgo, currentDate);
-  const questionsByDaySixMonths = calculateQuestionsByDay(questions, sixMonthsAgo, currentDate);
-  const questionsByDayYear = calculateQuestionsByDay(questions, oneYearAgo, currentDate);
-
+  const [questionsByDayWeek, setQuestionsByDayWeek] = useState({});
+  const [questionsByDayMonth, setQuestionsByDayMonth] = useState({});
+  const [questionsByDaySixMonths, setQuestionsByDaySixMonths] = useState({});
+  const [questionsByDayYear, setQuestionsByDayYear] = useState({});
 
 
   useEffect(() => {
@@ -34,7 +36,16 @@ export default function Dashboard() {
       .then((data) => {
         // Once data is fetched, update the state with the questions
         setQuestions(data.completed);
-        setCategories(calculateDifficultyCounts(data.completed) )
+        setCategories(calculateDifficultyCounts(data.completed))
+        const questionsByDayWeek = calculateQuestionsByDay(data.completed, oneWeekAgo, currentDate);
+        const questionsByDayMonth = calculateQuestionsByDay(data.completed, oneMonthAgo, currentDate);
+        const questionsByDaySixMonths = calculateQuestionsByDay(data.completed, sixMonthsAgo, currentDate);
+        const questionsByDayYear = calculateQuestionsByDay(data.completed, oneYearAgo, currentDate);
+        setQuestionsByDayWeek(questionsByDayWeek);
+        setQuestionsByDayMonth(questionsByDayMonth);
+        setQuestionsByDaySixMonths(questionsByDaySixMonths);
+        setQuestionsByDayYear(questionsByDayYear);
+        console.log(questionsByDayMonth)
       })
       .catch((error) => {
         console.error("Error fetching questions:", error);
@@ -42,7 +53,7 @@ export default function Dashboard() {
   }, []);
 
   console.log("Questions By Day (Past Week):", questionsByDayWeek);
-  console.log("Questions By Day (Past Month):", questionsByDayMonth);
+
 
   return (
     <Layout>
@@ -76,7 +87,6 @@ export default function Dashboard() {
           <Metric>{categories.medium}</Metric>
           <div className="inline-flex items-center mt-5">
   <span className="w-2 h-2 inline-block bg-yellow-200 rounded-full   mr-2"></span>
-
   <Text className="text-gray-600 text-sm">Medium</Text>
 </div>
         </div>
@@ -94,7 +104,7 @@ export default function Dashboard() {
       </Grid>
       <div className="mt-6">
       <Card>
-          <ChartView/>
+          <ChartView listofcategories = {[questionsByDayWeek,questionsByDayMonth,questionsByDaySixMonths,questionsByDayYear]}/>
         </Card>
       </div>
     </TabPanel>
@@ -136,7 +146,7 @@ function calculateDifficultyCounts(data:UserQuestionDTO[]) {
 }
 // Function to calculate the counts for easy, medium, and hard questions
 function calculateQuestionsByDay(data: UserQuestionDTO[], startDate: Date, endDate: Date) {
-  const counts: Record<string, number> = {};
+  const counts: DailyPerformance[] = [];
   const currentDate = new Date(startDate);
 
   while (currentDate <= endDate) {
@@ -147,12 +157,22 @@ function calculateQuestionsByDay(data: UserQuestionDTO[], startDate: Date, endDa
       return itemDate === formattedDate;
     }).length;
 
-    counts[formattedDate] = questionsDone;
+    counts.push({
+      date: formattedDate,
+      questionsDone,
+    });
+
     currentDate.setDate(currentDate.getDate() + 1);
   }
 
   return counts;
 }
+
+
+
+
+
+
 
 // Get the current date and calculate the start dates for the past week, month, 6 months, and year
 const currentDate = new Date();
