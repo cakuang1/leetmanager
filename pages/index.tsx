@@ -42,9 +42,17 @@ export default function Home() {
   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 first feature">
   <div className=" p-4">
     <h2 className='text-2xl font-bold text-gray-600'>Tabular View</h2>
-    <p className='mt-3 text-xl text-gray-500'>View your scheduled and finished problems in table.</p>
+    <p className='mt-3 text-xl text-gray-500'>View and edit your scheduled and finished problems in table</p>
   </div>
-  <div className="bg-gray-200 p-4">Column 2</div>
+  <div className="bg-gray-200 p-2"><Image src={'/tabular.png'} width={600} height={600}/>  </div>
+</div>
+<div className="grid grid-cols-1 sm:grid-cols-2 gap-4 second feature mt-10">
+<div className="bg-gray-200 p-2"><Image src={'/tabular.png'} width={600} height={600}/>  </div>
+  <div className=" p-4">
+    <h2 className='text-2xl font-bold text-gray-600'>Tabular View</h2>
+    <p className='mt-3 text-xl text-gray-500'>View and edit your scheduled and finished problems in table</p>
+  </div>
+
 </div>
 
   </div>
@@ -52,8 +60,6 @@ export default function Home() {
   <div>
     
   </div>
-
-
 
 
 
@@ -120,9 +126,6 @@ export default function Home() {
 </div>
 </div>
 
-      
-
-
     </div>
     </Layout>
 
@@ -150,7 +153,7 @@ function generateRandomData() {
   let currentDateCopy = new Date(oneWeekAgo);
   while (currentDateCopy <= currentDate) {
     const formattedDate = currentDateCopy.toISOString().split("T")[0];
-    const questionsDone = Math.floor(Math.random() * 100); // Adjust the range
+    const questionsDone = Math.floor(Math.random() * 5); // Adjust the range
     randomData.push({ date: formattedDate, questionsDone });
     currentDateCopy.setDate(currentDateCopy.getDate() + 1);
   }
@@ -159,7 +162,7 @@ function generateRandomData() {
   currentDateCopy = new Date(oneMonthAgo);
   while (currentDateCopy <= currentDate) {
     const formattedDate = currentDateCopy.toISOString().split("T")[0];
-    const questionsDone = Math.floor(Math.random() * 100); // Adjust the range
+    const questionsDone = Math.floor(Math.random() * 5); // Adjust the range
     randomData.push({ date: formattedDate, questionsDone });
     currentDateCopy.setDate(currentDateCopy.getDate() + 1);
   }
@@ -168,7 +171,7 @@ function generateRandomData() {
   currentDateCopy = new Date(sixMonthsAgo);
   while (currentDateCopy <= currentDate) {
     const formattedDate = currentDateCopy.toISOString().split("T")[0];
-    const questionsDone = Math.floor(Math.random() * 100); // Adjust the range
+    const questionsDone = Math.floor(Math.random() * 5); // Adjust the range
     randomData.push({ date: formattedDate, questionsDone });
     currentDateCopy.setDate(currentDateCopy.getDate() + 1);
   }
@@ -177,7 +180,7 @@ function generateRandomData() {
   currentDateCopy = new Date(oneYearAgo);
   while (currentDateCopy <= currentDate) {
     const formattedDate = currentDateCopy.toISOString().split("T")[0];
-    const questionsDone = Math.floor(Math.random() * 100); // Adjust the range
+    const questionsDone = Math.floor(Math.random() * 5); // Adjust the range
     randomData.push({ date: formattedDate, questionsDone });
     currentDateCopy.setDate(currentDateCopy.getDate() + 1);
   }

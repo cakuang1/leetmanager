@@ -13,7 +13,6 @@ export function KanbanProvider({ children }: { children: ReactNode }) {
 
   function handleLeftclick() {
     setColumns(getPreviousWeekInISOList(columns[3]));
-
   
   }
   function handleRightclick() {

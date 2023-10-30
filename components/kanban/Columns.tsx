@@ -133,7 +133,7 @@ function Column({ id, cards }: ColumnProps) {
       
         // If completionStatus is the same, sort by difficulty
         // Assuming 'difficulty' is a property that represents the difficulty of the card (e.g., 'easy', 'medium', 'hard')
-        const difficultyOrder: Record<string, number> = { easy: 0, medium: 1, hard: 2 }; // Define the order of difficulty levels
+        const difficultyOrder:Record<string, number> = { easy: 0, medium: 1, hard: 2 }; // Define the order of difficulty levels
       
         const difficultyComparison = difficultyOrder[a.difficulty] - difficultyOrder[b.difficulty];
         if (difficultyComparison !== 0) {
