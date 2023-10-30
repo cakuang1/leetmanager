@@ -16,13 +16,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       return;
     }
 
-    const userId = req.query.userId as string;
-
+    const  userId = session.user?.name
 
     try {
       const userQuestions = await prisma.userQuestions.findMany({
         where: {
-          githubId: userId,
+          githubId: userId as string,
         },
       });
 

@@ -3,13 +3,15 @@ import { UserQuestionDTO } from '../types';
 
 
 
+
+
 function Card({ card }: { card: UserQuestionDTO }) {
   return (
     <div className="">
       <div
         className={`${
-          card.completionStatus ? 'bg-opacity-30 text-opacity-30 bg-green-100' : ''
-        }  kanban-card flex justify-between rounded-lg text-gray-500 mt-2 border hover:border-leetcode hover:shadow cursor-pointer flex items-center p-2 cursor-pointer text-sm font-semibold`}
+          card.completionStatus ? 'bg-opacity-30 text-opacity-30 bg-green-50' : 'bg-white'
+        }  kanban-card flex justify-between rounded-lg text-gray-500 mt-2  border hover:border-leetcode hover:shadow cursor-pointer flex items-center p-2 cursor-pointer text-sm font-semibold`}
       >
         <div className="flex">
           <p>{card.questionId}.&nbsp;</p>

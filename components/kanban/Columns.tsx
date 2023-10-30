@@ -122,18 +122,29 @@ function Column({ id, cards }: ColumnProps) {
         setIsEditing(false);
       };
       
-      // const sortedCards = cards.slice().sort((a, b) => {
-      //   // First, sort by completionStatus (false comes before true)
-      //   if (!a.completionStatus && b.completionStatus) {
-      //     return -1;
-      //   }
-      //   if (a.completionStatus && !b.completionStatus) {
-      //     return 1;
-      //   }
+      const sortedCards = cards.slice().sort((a, b) => {
+        // Sort by completionStatus first
+        if (!a.completionStatus && b.completionStatus) {
+          return -1;
+        }
+        if (a.completionStatus && !b.completionStatus) {
+          return 1;
+        }
       
-      //   // If completionStatus is the same, sort by id
-      //   return a.questionId - b.questionId;
-      // });
+        // If completionStatus is the same, sort by difficulty
+        // Assuming 'difficulty' is a property that represents the difficulty of the card (e.g., 'easy', 'medium', 'hard')
+        const difficultyOrder: Record<string, number> = { easy: 0, medium: 1, hard: 2 }; // Define the order of difficulty levels
+      
+        const difficultyComparison = difficultyOrder[a.difficulty] - difficultyOrder[b.difficulty];
+        if (difficultyComparison !== 0) {
+          return difficultyComparison;
+        }
+      
+        // If both completionStatus and difficulty are the same, sort by questionId
+        return a.questionId - b.questionId;
+      });
+
+
 
     const isCurrent = isCurrentDate(id)
     const bgClass = isCurrent ? "bg-orange-50" : "";
@@ -152,7 +163,7 @@ function Column({ id, cards }: ColumnProps) {
             </div>}
             <div className='cardsection'>
 
-                {cards.map((card, index) => (
+                {sortedCards.map((card, index) => (
                   <div onClick={() => openModal(card)}>
                   <Card key={card.id} card={card} />
                   </div>

@@ -18,10 +18,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       res.status(401).json({ message: 'User not found' });
       return;
     }
-
-
     const { date } = req.query;
-
       // Check if date is not undefined or an empty string
     const dateObject = new Date(date as string);
 
@@ -53,7 +50,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             topicTags: data.topicTags,
             completionStatus: false,
             timeTaken: null,
-            code: '',
             notes: '',
             date : dateObject
           },
