@@ -15,14 +15,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       return;
     }
 
-    const userId = req.query.userId as string;
+    const  userId   = session.user?.name
     const page = parseInt(req.query.page as string) || 1;
     const pageSize = parseInt(req.query.pageSize as string) || 10;
 
     try {
       const completedQuestions = await prisma.userQuestions.findMany({
         where: {
-          githubId: userId,
+          githubId: userId as string,
           completionStatus: true,
         },
         skip: (page - 1) * pageSize,

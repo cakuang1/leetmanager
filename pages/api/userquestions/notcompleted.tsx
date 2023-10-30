@@ -13,31 +13,23 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       return;
     }
 
-    const userId = req.query.userId as string;
+    const  userId   = session.user?.name
     const page = parseInt(req.query.page as string) || 1;
     const pageSize = parseInt(req.query.pageSize as string) || 10;
     try {
-      const result = await prisma.userQuestions.aggregate({
-        where: {
-          githubId: userId,
-          completionStatus: false,
-        },
-          _count: {
-            completionStatus:true,
-      }
-    }
-      );
-
-      const totalNonCompletedCount = result._count;
-      
       const notCompletedQuestions = await prisma.userQuestions.findMany({
         where: {
-          githubId: userId,
+          githubId: userId as string,
           completionStatus: false,
+        },
+        orderBy: {
+          date: 'asc', // Sort by date in ascending order
         },
         skip: (page - 1) * pageSize,
         take: pageSize,
       });
+
+      const totalNonCompletedCount = notCompletedQuestions.length;
 
       res.status(200).json({
         notCompletedQuestions,

@@ -92,7 +92,7 @@ const Todo = () => {
   <tbody className="bg-white divide-y divide-gray-200 ">
     {progressList.map((row, index) => (
       <tr key={index} className='hover:bg-gray-100' onClick={() => openModal(row)}>
-        <td className="px-3 py-2 whitespace-nowrap text-xs ">{row.id}</td>
+        <td className="px-3 py-2 whitespace-nowrap text-xs ">{row.questionId}</td>
         <td className="px-3 py-2 whitespace-nowrap text-sm">{row.title}</td>
         <td className={`px-3 py-2 whitespace-nowrap `}>
           <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getColorClasses(row.difficulty)} text-green-800`}>

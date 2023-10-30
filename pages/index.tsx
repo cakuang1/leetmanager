@@ -24,8 +24,8 @@ import ChartView from "@/components/dashboard/Graph";
 export default function Home() {
   return (
     <Layout>
-<div>
-  <div className='h-auto'>  <h1 className='font-bold text-center mt-14 text-6xl text-gray-700'>A LeetCode based daily planner</h1>
+<div className='bg-white '>
+  <div className='h-auto'>  <h1 className='font-bold text-center pt-14 text-6xl text-gray-700'>A LeetCode based daily planner</h1>
       <p className='text-xl text-center mt-4 text-gray-600 w-2/5 mx-auto'><span className='text-leetcode font-semibold'>LeetTracker </span>is a simple free to use LeetCode productivity app to schedule your problems and track your overall progress. </p>
       <div className=''>
         <div className=''>  <Image src={'/calendar.png'} width={900} height={1000} className='mx-auto rounded mt-5 p-2   rounded bg-gray-200'/></div>
@@ -38,33 +38,27 @@ export default function Home() {
 </button></div>
 <div className='next section mt-20  w-4/6 mx-auto'>
   <h2 className='text-2xl text-center font-semibold text-gray-600'>Three Simple Features </h2>
-  <div className='mt-5'>
+  <div className='mt-8'>
   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 first feature">
-  <div className=" p-4">
-    <h2 className='text-2xl font-bold text-gray-600'>Tabular View</h2>
-    <p className='mt-3 text-xl text-gray-500'>View and edit your scheduled and finished problems in table</p>
+  <div className=" p-4 flex items-center">
+    <div>    <h2 className='text-2xl font-bold text-gray-600'>Tabular</h2>
+    <p className='mt-3 text-xl text-gray-500'>View and edit your problems in tablular view, seperated by scheduled and completed questions </p></div>
   </div>
-  <div className="bg-gray-200 p-2"><Image src={'/tabular.png'} width={600} height={600}/>  </div>
+  <div className="bg-gray-200 p-1 rounded"><Image alt = 'alt' src={'/tabular.png'} width={600} height={600}/>  </div>
 </div>
 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 second feature mt-10">
-<div className="bg-gray-200 p-2"><Image src={'/tabular.png'} width={600} height={600}/>  </div>
-  <div className=" p-4">
-    <h2 className='text-2xl font-bold text-gray-600'>Tabular View</h2>
-    <p className='mt-3 text-xl text-gray-500'>View and edit your scheduled and finished problems in table</p>
-  </div>
+<div className="bg-gray-200 p-1 rounded"><Image src={'/tabular.png'} alt='alt' width={600} height={600}/>  </div>
+<div className=" p-4 flex items-center">
+    <div>    <h2 className='text-2xl font-bold text-gray-600'>Calendar</h2>
+    <p className='mt-3 text-xl text-gray-500'>Schedule and edit your questions through a kanban board view</p></div>
 
+  </div>
 </div>
-
   </div>
-
-  <div>
-    
-  </div>
-
-
 
   <div className='dashboard'>
-  <Title className="font-bold text-2xl">Dashboard</Title>
+  <Title className="font-bold text-2xl mt-10 text-center">Dashboard</Title>
+  <p className='mt-3 text-xl text-gray-500 text-center'> Visualize your progress</p>
 <TabGroup className="mt-6"> 
   <TabPanels>
     <TabPanel>
@@ -199,7 +193,7 @@ function generateRandomDataForWeek() {
 
   while (currentDateCopy <= currentDate) {
     const formattedDate = currentDateCopy.toISOString().split("T")[0];
-    const questionsDone = Math.floor(Math.random() * 100); // Adjust the range
+    const questionsDone = Math.floor(Math.random() * 10); // Adjust the range
     randomData.push({ date: formattedDate, questionsDone });
     currentDateCopy.setDate(currentDateCopy.getDate() + 1);
   }
@@ -218,7 +212,7 @@ function generateRandomDataForMonth() {
 
   while (currentDateCopy <= currentDate) {
     const formattedDate = currentDateCopy.toISOString().split("T")[0];
-    const questionsDone = Math.floor(Math.random() * 100); // Adjust the range
+    const questionsDone = Math.floor(Math.random() * 10); // Adjust the range
     randomData.push({ date: formattedDate, questionsDone });
     currentDateCopy.setDate(currentDateCopy.getDate() + 1);
   }
@@ -237,11 +231,10 @@ function generateRandomDataForSixMonths() {
 
   while (currentDateCopy <= currentDate) {
     const formattedDate = currentDateCopy.toISOString().split("T")[0];
-    const questionsDone = Math.floor(Math.random() * 100); // Adjust the range
+    const questionsDone = Math.floor(Math.random() * 10); // Adjust the range
     randomData.push({ date: formattedDate, questionsDone });
     currentDateCopy.setDate(currentDateCopy.getDate() + 1);
   }
-
   return randomData;
 }
 
@@ -256,7 +249,7 @@ function generateRandomDataForYear() {
 
   while (currentDateCopy <= currentDate) {
     const formattedDate = currentDateCopy.toISOString().split("T")[0];
-    const questionsDone = Math.floor(Math.random() * 100); // Adjust the range
+    const questionsDone = Math.floor(Math.random() * 10); // Adjust the range
     randomData.push({ date: formattedDate, questionsDone });
     currentDateCopy.setDate(currentDateCopy.getDate() + 1);
   }

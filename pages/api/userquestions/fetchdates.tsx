@@ -13,8 +13,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       res.status(401).json({ message: 'Not authenticated' });
       return;
     }
-
-
     const  userId   = session.user?.name
     const { startDate, endDate } = req.query; // Replace with your parameter names for start and end dates
     try {

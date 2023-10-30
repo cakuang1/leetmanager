@@ -7,7 +7,7 @@ export default function Layout({ children, showFooter = true }: { children: Reac
     <div className="">
       {/* Navigation Component */}
       {/* Main Content */}
-      <main className="bg-gray-50 ">
+      <main className="">
         <Navigation />
         {children}
       </main>
