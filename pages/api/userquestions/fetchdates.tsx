@@ -14,7 +14,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       return;
     }
 
-    const { userId } = req.query; // Replace with your parameter name for the user ID
+
+    const  userId   = session.user?.name
     const { startDate, endDate } = req.query; // Replace with your parameter names for start and end dates
     try {
       // Convert date strings to ISO-8601 format

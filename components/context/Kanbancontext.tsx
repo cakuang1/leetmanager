@@ -25,17 +25,15 @@ export function KanbanProvider({ children }: { children: ReactNode }) {
   }
 
   useEffect(() => {
-    console.log(columns)
     const fetchData = async () => {
       setIsLoading(true);
       await update();
+      console.log(columnData)
       setIsLoading(false); // Set isLoading to false when the data is loaded
     };
 
     fetchData();
   }, [columns]);
-
-
 
 
 
@@ -48,7 +46,6 @@ export function KanbanProvider({ children }: { children: ReactNode }) {
       if (response.ok) {
         const data = await response.json();
         const newdata = groupDataByDate(columns,data)
-        console.log(newdata)
         setColumndata(newdata)
 
       }       

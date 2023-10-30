@@ -20,7 +20,6 @@ interface ColumnProps {
   }
 
 
-
 function Searching({ onClickOutside,date}: SearchProps) {
   const {update} = useKanban();
 
@@ -100,7 +99,9 @@ function Searching({ onClickOutside,date}: SearchProps) {
 
 
 
+
 function Column({ id, cards }: ColumnProps) {
+  const {update} = useKanban();
     const [isEditing, setIsEditing] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedCard, setSelectedCard] = useState<UserQuestionDTO>(userQuestion);
@@ -137,7 +138,7 @@ function Column({ id, cards }: ColumnProps) {
     const isCurrent = isCurrentDate(id)
     const bgClass = isCurrent ? "bg-orange-50" : "";
     return (
-        <div className={`kanban-column w-1/5 px-2 mx-2 pt-4 flex-shrink-0 rounded ${bgClass}` }>
+        <div className={`kanban-column w-1/6 px-2 mx-2 pt-4 flex-shrink-0 rounded ${bgClass}` }>
             <span className="font-bold text-xl">{getDateInfoFromISODate(id).month} </span>
                 <span className="font-bold text-xl">{getDateInfoFromISODate(id).day} </span>
                 <span className="font-bold text-leetcode">{getDateInfoFromISODate(id).dayOfWeek}</span>
@@ -157,7 +158,8 @@ function Column({ id, cards }: ColumnProps) {
                   </div>
                 ))}
               </div>
-            <Modal isOpen = {isModalOpen} closeModal = {closeModal} cardData = {selectedCard}/>
+              <Modal isOpen = {isModalOpen} closeModal = {closeModal} cardData = {selectedCard} updatefunction = {update} calendar = {true}/>
+
         </div>
     );
   }

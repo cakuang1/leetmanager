@@ -1,17 +1,40 @@
 import React from 'react';
 import Calendar from './calendar/Calendar';
-import { useState } from 'react';
+import { useRef, useEffect, useState  } from 'react';
 
 
 function CalNavigator({onPreviousWeek, onNextWeek,onWeekClick} :any) {
-  const [isCalendarOpen, setCalendarOpen] = useState(false);
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const calendarContainerRef = useRef<HTMLDivElement | null>(null);
+
+  
+  console.log(isCalendarOpen)
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (calendarContainerRef.current) {
+        if (!calendarContainerRef.current.contains(event.target as Node)) {
+          if (!event.target || !(event.target as HTMLElement).closest('button')) {
+            setIsCalendarOpen(false);
+          }
+        }
+      }
+    };
+
+    if (isCalendarOpen) {
+      document.addEventListener('click', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [isCalendarOpen]);
+
   const handleToggleCalendar = () => {
-    setCalendarOpen(!isCalendarOpen);
+    setIsCalendarOpen(!isCalendarOpen);
   };
     return (
         <div className="p-5 bg-white border-b">
         <div className="flex pl-20 gap-5">
-          <div className="border px-3 py-2 rounded-lg htransition duration-200 hover:bg-orange-50 hover:cursor-pointer">Today</div>
           <button className="hover:text-gray-400" onClick={onPreviousWeek}>
             <div className="leftbutton border-gray-400 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
@@ -33,7 +56,9 @@ function CalNavigator({onPreviousWeek, onNextWeek,onWeekClick} :any) {
             </svg>
           </div>
           </button>
-          {isCalendarOpen && <Calendar onWeekClick={onWeekClick}/>}
+          {isCalendarOpen &&         <div ref={calendarContainerRef}>
+          <Calendar onWeekClick={onWeekClick} />
+        </div>}
 </div>
 
 

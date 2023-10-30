@@ -26,12 +26,11 @@ model UserQuestions {
   questionId Int
   @@unique([githubId, questionId])
   title        String
-  titleSlug    String   @unique
+  titleSlug    String 
   topicTags    String[]
   difficulty String
   completionStatus Boolean
   timeTaken  String?
-  code String @default("")
   notes String @default("")
   date   DateTime? @map("date") 
 }

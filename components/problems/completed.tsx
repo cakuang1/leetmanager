@@ -4,6 +4,14 @@ import { UserQuestionDTO } from '../types';
 
 // Completed should include questions information,date completed?, attempt time?, code/notes
 const Completed = ({ progressList }: { progressList: UserQuestionDTO[] }) => {
+
+
+
+
+
+
+
+  
   return (
     <div className="">
       <h1 className="font-semibold text-gray-500">Completed</h1>

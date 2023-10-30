@@ -21,5 +21,9 @@ const config: Config = {
     },
   },
   plugins: [],
+  corePlugins: {
+    // Enable the 'opacity' and 'duration' utility classes for transitions
+    opacity: true,
+  },
 }
 export default config

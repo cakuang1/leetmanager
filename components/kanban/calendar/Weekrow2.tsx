@@ -12,7 +12,7 @@ function WeekRow2({ startDate, month,onDayClick }: any) {
 
     
 
-    
+
     return (
       <div className="flex items-center bg-white " >
         {daysInWeek.map((day) => (
@@ -20,7 +20,7 @@ function WeekRow2({ startDate, month,onDayClick }: any) {
             key={day.getTime()}
             className={`w-10 text-center text-xs p-3 my-auto transition duration-200 hover:bg-orange-50 hover:cursor-pointer rounded${
               isSameMonth(day, month) ? 'text-gray-500' : 'text-gray-300'
-            }`} onClick={onDayClick(day.toISOString)}
+            }`} onClick={() => onDayClick(day)}
           >
             {format(day, 'd')}
           </div>

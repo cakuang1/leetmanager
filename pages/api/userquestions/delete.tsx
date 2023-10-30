@@ -8,7 +8,6 @@ import { getSession } from 'next-auth/react';
 const prisma = new PrismaClient();
 
 
-
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'DELETE') {
     const session = await getSession({ req });
@@ -23,7 +22,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       return;
     }
     const id = parseInt(req.query.id as string, 10); // Parse the ID from URL
-
+    console.log(id,userId)
     try {
       // Delete the question from the user's list using the ID
       await prisma.userQuestions.delete({
