@@ -8,7 +8,6 @@ import { Card, Text, Metric } from "@tremor/react";
 export default function Home() {
   return (
     <Layout>
-
 <div>
   <div className='h-screen'>  <h1 className='font-bold text-center mt-14 text-6xl text-gray-700'>A LeetCode based daily planner</h1>
       <p className='text-xl text-center mt-4 text-gray-600 w-2/5 mx-auto'><span className='text-leetcode font-semibold'>LeetTracker </span>is a simple free to use LeetCode productivity app to schedule your problems and track your overall progress. </p>
@@ -21,16 +20,16 @@ export default function Home() {
   </svg>
   Sign in
 </button></div>
+<div className='next section mt-20 text-center w-3/5 mx-auto'>
+  <h2 className='text-2xl  font-semibold text-gray-600'>Three Pages </h2>
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 first feature">
+  <div className="bg-gray-200 p-4">Column 1</div>
+  <div className="bg-gray-200 p-4">Column 2</div>
 
-<div className='next section'>
-  <div className='feature1'></div>
+</div>
   <div></div>
   <div></div>
 
-  <Card className="max-w-xs mx-auto">
-    <Text>Sales</Text>
-    <Metric>$ 34,743</Metric>
-  </Card>
 </div>
 </div>
 
