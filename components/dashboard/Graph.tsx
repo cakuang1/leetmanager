@@ -16,22 +16,22 @@ export type DailyPerformance = {
 export const week: DailyPerformance[] = [
   {
     date: "2023-05-01",
-    Sales: 900,
+    questionsDone: 900,
 
   },
   {
     date: "2023-05-02",
-    Sales: 1000,
+    questionsDone: 1000,
 
   },
   {
     date: "2023-05-03",
-    Sales: 1100,
+    questionsDone: 1100,
 
   },
   {
     date: "2023-05-04",
-    Sales: 1200,
+    questionsDone: 1200,
   },
 ];
 

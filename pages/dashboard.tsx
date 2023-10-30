@@ -20,11 +20,15 @@ import { UserQuestionDTO } from "@/components/types";
 export default function Dashboard() {
   const [questions, setQuestions] = useState<UserQuestionDTO[]>([]);
   const [categories,setCategories] = useState<Record<string,number>>({});
+  const questionsByDayWeek = calculateQuestionsByDay(questions, oneWeekAgo, currentDate);
+  const questionsByDayMonth = calculateQuestionsByDay(questions, oneMonthAgo, currentDate);
+  const questionsByDaySixMonths = calculateQuestionsByDay(questions, sixMonthsAgo, currentDate);
+  const questionsByDayYear = calculateQuestionsByDay(questions, oneYearAgo, currentDate);
+
+
 
   useEffect(() => {
-    // Define the URL of your API endpoint for fetching questions
     const apiUrl = "/api/userquestions/graball";
-    // Use the fetch function to make the GET request to the API
     fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
@@ -37,13 +41,13 @@ export default function Dashboard() {
       });
   }, []);
 
-
-
+  console.log("Questions By Day (Past Week):", questionsByDayWeek);
+  console.log("Questions By Day (Past Month):", questionsByDayMonth);
 
   return (
     <Layout>
-      <div className="w-3/5 mx-auto">
-      <Title>Dashboard</Title>
+      <div className="w-3/5 mx-auto text-center mt-10 ">
+      <Title className="font-bold text-2xl">Dashboard</Title>
 
 <TabGroup className="mt-6">
 
@@ -114,19 +118,53 @@ export default function Dashboard() {
 function calculateTotalItems(data:UserQuestionDTO[]) {
   return data.length;
 }
-
-// Function to calculate the counts for easy, medium, and hard questions
 function calculateDifficultyCounts(data:UserQuestionDTO[]) {
   const counts: { [key: string]: number } = {
     easy: 0,
     medium: 0,
     hard: 0
   };
+
   data.forEach(item => {
     const difficulty = item.difficulty.toLowerCase();
     if (counts.hasOwnProperty(difficulty)) {
       counts[difficulty]++;
     }
   });
+
   return counts;
 }
+// Function to calculate the counts for easy, medium, and hard questions
+function calculateQuestionsByDay(data: UserQuestionDTO[], startDate: Date, endDate: Date) {
+  const counts: Record<string, number> = {};
+  const currentDate = new Date(startDate);
+
+  while (currentDate <= endDate) {
+    const formattedDate = currentDate.toISOString().split("T")[0];
+
+    const questionsDone = data.filter((item) => {
+      const itemDate = item.date.split("T")[0];
+      return itemDate === formattedDate;
+    }).length;
+
+    counts[formattedDate] = questionsDone;
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+  return counts;
+}
+
+// Get the current date and calculate the start dates for the past week, month, 6 months, and year
+const currentDate = new Date();
+const oneWeekAgo = new Date(currentDate);
+oneWeekAgo.setDate(currentDate.getDate() - 7);
+const oneMonthAgo = new Date(currentDate);
+oneMonthAgo.setMonth(currentDate.getMonth() - 1);
+const sixMonthsAgo = new Date(currentDate);
+sixMonthsAgo.setMonth(currentDate.getMonth() - 6);
+const oneYearAgo = new Date(currentDate);
+oneYearAgo.setFullYear(currentDate.getFullYear() - 1);
+
+// Calculate the number of questions done by day for the past week, month, 6 months, and year
+
+
