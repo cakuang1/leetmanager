@@ -45,7 +45,6 @@ export default function Dashboard() {
         setQuestionsByDayMonth(questionsByDayMonth);
         setQuestionsByDaySixMonths(questionsByDaySixMonths);
         setQuestionsByDayYear(questionsByDayYear);
-        console.log(questionsByDayMonth)
       })
       .catch((error) => {
         console.error("Error fetching questions:", error);
@@ -59,9 +58,7 @@ export default function Dashboard() {
     <Layout>
       <div className="w-3/5 mx-auto text-center mt-10 ">
       <Title className="font-bold text-2xl">Dashboard</Title>
-
-<TabGroup className="mt-6">
-
+<TabGroup className="mt-6"> 
   <TabPanels>
     <TabPanel>
       <Grid numItemsMd={2} numItemsLg={4} className="gap-6 mt-6">
