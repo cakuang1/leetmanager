@@ -31,12 +31,11 @@ import { BarChart, Card, Subtitle, Title } from "@tremor/react";
     },
   ];
 
-
   
 export default function Bar()
 {return (
   <Card>
-    <Title>Number of species threatened with extinction (2021)</Title>
+    <Title></Title>
 
     <BarChart
       className="mt-6"

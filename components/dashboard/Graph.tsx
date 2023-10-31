@@ -25,9 +25,7 @@ export default function ChartView({ listofcategories }:any) {
     yAxisWidth: 60,
   };
 
-
-
-  const fortitle = []
+  const fortitle = ["Week","Month","6 Months", "Year"]
 
 
   return (
@@ -35,7 +33,7 @@ export default function ChartView({ listofcategories }:any) {
       <div className="md:flex justify-between">
         <div>
           <Flex className="space-x-0.5" justifyContent="start" alignItems="center">
-            <Title>Questions Solved</Title>
+            <Title>Problems Solved in the last {fortitle[selectedIndex]}</Title>
           </Flex>
         </div>
         <div>
