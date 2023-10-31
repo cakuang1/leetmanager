@@ -31,19 +31,17 @@ import { BarChart, Card, Subtitle, Title } from "@tremor/react";
     },
   ];
 
-  
-export default function Bar()
-{return (
-  <Card>
-    <Title></Title>
 
+export default function Bar({bardata} : any)
+{return (
+  <Card className="mt-5">
+    <Title></Title>
     <BarChart
       className="mt-6"
       data={chartdata}
       index="name"
       categories={["Number of threatened species"]}
-      colors={["blue"]}
-
+      colors={["yellow"]}
       yAxisWidth={48}
     />
   </Card>

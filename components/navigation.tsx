@@ -11,8 +11,6 @@ export default function Navigation() {
       return "text-gray-500 bg-gray-100"
     }
   }
-
-  
   const { data: session, status } = useSession()
 
   return (
@@ -22,7 +20,7 @@ export default function Navigation() {
         <div>
   <div className={` `}>
         <div className="flex gap-4 ">
-          <Link href="/problems" className={`hover:text-gray-500 ${linkStyle("/problems")} flex gap-4 p-2 rounded`}>
+          <Link href="/problems" className={`hover:text-gray-600 ${linkStyle("/problems")} flex gap-4 p-2 rounded `}>
           <svg xmlns="http://www.w3.org/2000/svg" className={`h-6 w-6`} width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M4 20V4h16v16H4ZM5 9.154h14V5H5v4.154Zm4.998 4.923h4.004v-3.923H9.998v3.923Zm0 4.923h4.004v-3.923H9.998V19ZM5 14.077h3.998v-3.923H5v3.923Zm10.002 0H19v-3.923h-3.998v3.923ZM5 19h3.998v-3.923H5V19Zm10.002 0H19v-3.923h-3.998V19Z"/></svg> Tabular
           </Link>
           <Link href="/kanban" className={`hover:text-gray-500 ${linkStyle("/kanban")} flex gap-4 p-2`}>
