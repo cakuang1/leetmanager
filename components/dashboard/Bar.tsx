@@ -32,15 +32,12 @@ import { BarChart, Card, Subtitle, Title } from "@tremor/react";
   ];
 
 
-
   
 export default function Bar()
 {return (
   <Card>
     <Title>Number of species threatened with extinction (2021)</Title>
-    <Subtitle>
-      The IUCN Red List has assessed only a small share of the total known species in the world.
-    </Subtitle>
+
     <BarChart
       className="mt-6"
       data={chartdata}

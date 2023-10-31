@@ -1,27 +1,24 @@
 "use client";
 import Image from 'next/image'
-import Layout from '@/components/layout'
-
-
+import LandingNavigation from '@/components/landingNavigation';
+import Footer from '@/components/footer';
 import {
   Card,
   Grid,
-  Tab,
   TabGroup,
-  TabList,
   TabPanel,
   TabPanels,
   Text,
-  Title,
   Metric 
 } from "@tremor/react";
 
 import ChartView from "@/components/dashboard/Graph";
-
+import Bar from '@/components/dashboard/Bar';
 
 export default function Home() {
   return (
-    <Layout>
+    <>
+    <LandingNavigation/> 
 <div className='bg-white '>
   <div className='h-auto'>  <h1 className='font-bold text-center pt-14 text-6xl text-gray-700'>A LeetCode based daily planner</h1>
       <p className='text-xl text-center mt-4 text-gray-600 w-2/5 mx-auto'><span className='text-leetcode font-semibold'>LeetTracker </span>is a simple free to use LeetCode productivity app to schedule your problems and track your overall progress. </p>
@@ -46,17 +43,14 @@ export default function Home() {
 </div>
 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 second feature mt-10">
 <div className="bg-gray-200 p-1 rounded"><Image src={'/calendar.png'} alt='alt' width={600} height={600}/>  </div>
-<div className=" p-4 flex items-center">
-
+<div className=" p-4 flex items-center">  
     <div><div className=''>
     <h2 className='text-xl font-bold text-gray-600'>Kanban</h2>
     </div>    
     <p className='mt-3 text-xl text-gray-500'>Schedule and edit your questions through a kanban board view</p></div>
-
   </div>
 </div>
   </div>
-
   <div className='dashboard mt-4'>
   <h2 className='text-xl font-bold text-center text-gray-600'>Dashboard</h2>
   <p className='mt-3 text-xl text-gray-500 text-center'> Visualize your progress</p>
@@ -113,17 +107,21 @@ export default function Home() {
           <div className="h-96" />
         </Card>
       </div>
+      
     </TabPanel>
   </TabPanels>
+  
 </TabGroup>
+<Bar/>
   </div>
 
 </div>
 </div>
 
     </div>
-    </Layout>
+    <Footer/> 
 
+    </>
   )
 }
 
