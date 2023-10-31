@@ -19,8 +19,6 @@ import {
 import ChartView from "@/components/dashboard/Graph";
 
 
-
-
 export default function Home() {
   return (
     <Layout>
@@ -47,17 +45,20 @@ export default function Home() {
   <div className="bg-gray-200 p-1 rounded"><Image alt = 'alt' src={'/tabular.png'} width={600} height={600}/>  </div>
 </div>
 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 second feature mt-10">
-<div className="bg-gray-200 p-1 rounded"><Image src={'/tabular.png'} alt='alt' width={600} height={600}/>  </div>
+<div className="bg-gray-200 p-1 rounded"><Image src={'/calendar.png'} alt='alt' width={600} height={600}/>  </div>
 <div className=" p-4 flex items-center">
-    <div>    <h2 className='text-2xl font-bold text-gray-600'>Calendar</h2>
+
+    <div><div className=''>
+    <h2 className='text-xl font-bold text-gray-600'>Kanban</h2>
+    </div>    
     <p className='mt-3 text-xl text-gray-500'>Schedule and edit your questions through a kanban board view</p></div>
 
   </div>
 </div>
   </div>
 
-  <div className='dashboard'>
-  <Title className="font-bold text-2xl mt-10 text-center">Dashboard</Title>
+  <div className='dashboard mt-4'>
+  <h2 className='text-xl font-bold text-center text-gray-600'>Dashboard</h2>
   <p className='mt-3 text-xl text-gray-500 text-center'> Visualize your progress</p>
 <TabGroup className="mt-6"> 
   <TabPanels>

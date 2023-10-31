@@ -106,9 +106,7 @@ export default function Dashboard() {
         </Card>
       </div>
       <div className="mt-6">
-
           <Bar/>
-
       </div>
     </TabPanel>
   </TabPanels>

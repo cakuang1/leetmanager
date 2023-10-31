@@ -32,6 +32,8 @@ import { BarChart, Card, Subtitle, Title } from "@tremor/react";
   ];
 
 
+
+  
 export default function Bar()
 {return (
   <Card>

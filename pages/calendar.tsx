@@ -9,14 +9,16 @@ import { KanbanProvider } from "@/components/context/Kanbancontext"
 
 export default function Calender() {
   return (
-    <KanbanProvider>
 
     <Layout showFooter = {false}>
-<div className=" h-screen max-h-screen ">
+      <div className="flex border-t">
+
+      <div className=" h-screen max-h-screen ">
     <KanbanBoard/>
 </div>
+      </div>
+
       </Layout>
-          </KanbanProvider>
   )
 }
 

@@ -10,12 +10,12 @@ export default function App({ Component, pageProps: {session,...pageProps} }: Ap
   
 
   <SessionProvider session={session}>
-          <KanbanProvider>
+    <KanbanProvider>
 
 
   <Component {...pageProps} />
 
-  </KanbanProvider> 
+  </KanbanProvider>
 
 </SessionProvider>
 )
