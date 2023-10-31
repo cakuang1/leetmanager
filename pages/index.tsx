@@ -31,13 +31,17 @@ export default function Home() {
   </svg>
   Sign in
 </button></div>
-<div className='next section mt-20  w-4/6 mx-auto'>
+<div className='next section mt-14  w-4/6 mx-auto'>
   <h2 className='text-2xl text-center font-semibold text-gray-600'>Three Simple Features </h2>
   <div className='mt-8'>
   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 first feature">
-  <div className=" p-4 flex items-center">
-    <div>    <h2 className='text-2xl font-bold text-gray-600'>Tabular</h2>
-    <p className='mt-3 text-xl text-gray-500'>View and edit your problems in tablular view, seperated by scheduled and completed questions </p></div>
+  <div className=" p-4 items-center">
+    <div className='flex items-center'> 
+   <svg xmlns="http://www.w3.org/2000/svg" className={`h-10 w-10`} width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M4 20V4h16v16H4ZM5 9.154h14V5H5v4.154Zm4.998 4.923h4.004v-3.923H9.998v3.923Zm0 4.923h4.004v-3.923H9.998V19ZM5 14.077h3.998v-3.923H5v3.923Zm10.002 0H19v-3.923h-3.998v3.923ZM5 19h3.998v-3.923H5V19Zm10.002 0H19v-3.923h-3.998V19Z"/></svg>
+    <h2 className='text-2xl font-bold text-gray-500'>Tabular</h2>
+    </div>
+    <p className='mt-3 text-xl text-gray-500'>View and edit your problems in tablular view, seperated by scheduled and completed questions </p>
+
   </div>
   <div className="bg-gray-200 p-1 rounded"><Image alt = 'alt' src={'/tabular.png'} width={600} height={600}/>  </div>
 </div>

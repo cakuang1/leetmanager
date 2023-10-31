@@ -11,8 +11,8 @@ export default function Navigation() {
       return "text-gray-500 bg-gray-100"
     }
   }
-  const { data: session, status } = useSession()
 
+  const { data: session, status } = useSession()
   return (
     <div className="">
     <nav className="bg-white  text-gray-600 ">
@@ -41,3 +41,4 @@ export default function Navigation() {
     </div>
   );
 }
+
