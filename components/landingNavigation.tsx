@@ -14,9 +14,9 @@ export default function LandingNavigation() {
     setIsLogin(!isLogin);
   };
   return (
-    <div className="">
-    <nav className="bg-white  ">
-      <div className="flex gap-3 justify-between p-6">
+    <div className="w-full ">
+    <nav className="bg-white ">
+      <div className="flex gap-3 justify-between p-4  ">
         <div className="Title font-bold text-lg ml-10">LeetTracker</div>
         <div className="flex items-center ">          
           <div className={`${
