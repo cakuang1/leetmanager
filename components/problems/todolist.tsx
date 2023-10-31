@@ -45,8 +45,6 @@ const Todo = () => {
   function handleRightClick() {
     setPage(page + 1)
   }
-
-
   useEffect(() => {
     // Define a function to fetch data from the API
     fetchData();
@@ -83,6 +81,9 @@ const Todo = () => {
       </th>
       <th scope="col" className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
         Topics
+      </th>
+      <th scope="col" className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+        Status
       </th>
       <th scope="col" className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
         <span>Date Planned</span>
