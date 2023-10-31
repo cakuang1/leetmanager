@@ -27,6 +27,9 @@ export default function ChartView({ listofcategories }:any) {
 
 
 
+  const fortitle = []
+
+
   return (
     <>
       <div className="md:flex justify-between">

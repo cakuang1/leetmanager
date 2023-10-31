@@ -15,6 +15,7 @@ import Layout from "@/components/layout";
 import ChartView from "@/components/dashboard/Graph";
 import { useEffect,useState } from "react";
 import { UserQuestionDTO } from "@/components/types";
+import Bar from "@/components/dashboard/Bar";
 export type DailyPerformance = {
   date: string;
   questionsDone: number;
@@ -104,12 +105,10 @@ export default function Dashboard() {
           <ChartView listofcategories = {[questionsByDayWeek,questionsByDayMonth,questionsByDaySixMonths,questionsByDayYear]}/>
         </Card>
       </div>
-    </TabPanel>
-    <TabPanel>
       <div className="mt-6">
-        <Card>
-          <div className="h-96" />
-        </Card>
+
+          <Bar/>
+
       </div>
     </TabPanel>
   </TabPanels>

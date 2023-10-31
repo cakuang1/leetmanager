@@ -28,7 +28,7 @@ export default function Home() {
   <div className='h-auto'>  <h1 className='font-bold text-center pt-14 text-6xl text-gray-700'>A LeetCode based daily planner</h1>
       <p className='text-xl text-center mt-4 text-gray-600 w-2/5 mx-auto'><span className='text-leetcode font-semibold'>LeetTracker </span>is a simple free to use LeetCode productivity app to schedule your problems and track your overall progress. </p>
       <div className=''>
-        <div className=''>  <Image src={'/calendar.png'} width={900} height={1000} className='mx-auto rounded mt-5 p-2   rounded bg-gray-200'/></div>
+        <div className=''>  <Image src={'/calendar.png'} width={900} height={1000} className='mx-auto rounded mt-5 p-1   rounded bg-gray-200'/></div>
         <div className='text-center text-xl  font-semibold text-gray-600'> <p className=' mt-10'> Sign in with Github to get started</p></div>
         <button type="button" className="flex font-bold items-center mt-5 mx-auto bg-gray-800 p-3 rounded-lg hover:bg-gray-700 text-white hover">
   <svg className="w-4 h-4 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -102,7 +102,7 @@ export default function Home() {
       </Grid>
       <div className="mt-6">
       <Card>
-          <ChartView listofcategories = {[randomDataForWeek,randomDataForMonth,randomDataForSixMonths,randomDataForYear]}/>
+          <ChartView listofcategories = {[last7Items,last30Items,last180Items,randomDataForYear]}/>
         </Card>
       </div>
     </TabPanel>
@@ -129,116 +129,9 @@ export default function Home() {
 
 
 
-// Generate random data for the past week, month, 6 months, and year
-function generateRandomData() {
-  const currentDate = new Date();
-  const oneWeekAgo = new Date(currentDate);
-  oneWeekAgo.setDate(currentDate.getDate() - 7);
-  const oneMonthAgo = new Date(currentDate);
-  oneMonthAgo.setMonth(currentDate.getMonth() - 1);
-  const sixMonthsAgo = new Date(currentDate);
-  sixMonthsAgo.setMonth(currentDate.getMonth() - 6);
-  const oneYearAgo = new Date(currentDate);
-  oneYearAgo.setFullYear(currentDate.getFullYear() - 1);
 
-  const randomData = [];
 
-  // Generate random data for the past week
-  let currentDateCopy = new Date(oneWeekAgo);
-  while (currentDateCopy <= currentDate) {
-    const formattedDate = currentDateCopy.toISOString().split("T")[0];
-    const questionsDone = Math.floor(Math.random() * 5); // Adjust the range
-    randomData.push({ date: formattedDate, questionsDone });
-    currentDateCopy.setDate(currentDateCopy.getDate() + 1);
-  }
 
-  // Generate random data for the past month
-  currentDateCopy = new Date(oneMonthAgo);
-  while (currentDateCopy <= currentDate) {
-    const formattedDate = currentDateCopy.toISOString().split("T")[0];
-    const questionsDone = Math.floor(Math.random() * 5); // Adjust the range
-    randomData.push({ date: formattedDate, questionsDone });
-    currentDateCopy.setDate(currentDateCopy.getDate() + 1);
-  }
-
-  // Generate random data for the past 6 months
-  currentDateCopy = new Date(sixMonthsAgo);
-  while (currentDateCopy <= currentDate) {
-    const formattedDate = currentDateCopy.toISOString().split("T")[0];
-    const questionsDone = Math.floor(Math.random() * 5); // Adjust the range
-    randomData.push({ date: formattedDate, questionsDone });
-    currentDateCopy.setDate(currentDateCopy.getDate() + 1);
-  }
-
-  // Generate random data for the past year
-  currentDateCopy = new Date(oneYearAgo);
-  while (currentDateCopy <= currentDate) {
-    const formattedDate = currentDateCopy.toISOString().split("T")[0];
-    const questionsDone = Math.floor(Math.random() * 5); // Adjust the range
-    randomData.push({ date: formattedDate, questionsDone });
-    currentDateCopy.setDate(currentDateCopy.getDate() + 1);
-  }
-
-  return randomData;
-}
-
-// Generate random data for the past week
-function generateRandomDataForWeek() {
-  const currentDate = new Date();
-  const oneWeekAgo = new Date(currentDate);
-  oneWeekAgo.setDate(currentDate.getDate() - 7);
-
-  const randomData = [];
-  let currentDateCopy = new Date(oneWeekAgo);
-
-  while (currentDateCopy <= currentDate) {
-    const formattedDate = currentDateCopy.toISOString().split("T")[0];
-    const questionsDone = Math.floor(Math.random() * 10); // Adjust the range
-    randomData.push({ date: formattedDate, questionsDone });
-    currentDateCopy.setDate(currentDateCopy.getDate() + 1);
-  }
-
-  return randomData;
-}
-
-// Generate random data for the past month
-function generateRandomDataForMonth() {
-  const currentDate = new Date();
-  const oneMonthAgo = new Date(currentDate);
-  oneMonthAgo.setMonth(currentDate.getMonth() - 1);
-
-  const randomData = [];
-  let currentDateCopy = new Date(oneMonthAgo);
-
-  while (currentDateCopy <= currentDate) {
-    const formattedDate = currentDateCopy.toISOString().split("T")[0];
-    const questionsDone = Math.floor(Math.random() * 10); // Adjust the range
-    randomData.push({ date: formattedDate, questionsDone });
-    currentDateCopy.setDate(currentDateCopy.getDate() + 1);
-  }
-
-  return randomData;
-}
-
-// Generate random data for the past 6 months
-function generateRandomDataForSixMonths() {
-  const currentDate = new Date();
-  const sixMonthsAgo = new Date(currentDate);
-  sixMonthsAgo.setMonth(currentDate.getMonth() - 6);
-
-  const randomData = [];
-  let currentDateCopy = new Date(sixMonthsAgo);
-
-  while (currentDateCopy <= currentDate) {
-    const formattedDate = currentDateCopy.toISOString().split("T")[0];
-    const questionsDone = Math.floor(Math.random() * 10); // Adjust the range
-    randomData.push({ date: formattedDate, questionsDone });
-    currentDateCopy.setDate(currentDateCopy.getDate() + 1);
-  }
-  return randomData;
-}
-
-// Generate random data for the past year
 function generateRandomDataForYear() {
   const currentDate = new Date();
   const oneYearAgo = new Date(currentDate);
@@ -258,12 +151,10 @@ function generateRandomDataForYear() {
 }
 
 // Example usage
-const randomDataForWeek = generateRandomDataForWeek();
-const randomDataForMonth = generateRandomDataForMonth();
-const randomDataForSixMonths = generateRandomDataForSixMonths();
+
 const randomDataForYear = generateRandomDataForYear();
 
-console.log("Random Data for the Past Week:", randomDataForWeek);
-console.log("Random Data for the Past Month:", randomDataForMonth);
-console.log("Random Data for the Past 6 Months:", randomDataForSixMonths);
-console.log("Random Data for the Past Year:", randomDataForYear);
+const last7Items = randomDataForYear.slice(-7);
+const last30Items = randomDataForYear.slice(-30);
+const last180Items = randomDataForYear.slice(-180);
+
