@@ -9,14 +9,16 @@ export function KanbanProvider({ children }: { children: ReactNode }) {
   const date = new Date(); // Use your desired date here
   const [columns, setColumns] = useState<string[]>(getWeekDatesInISO(date))
   const [columnData, setColumndata] = useState<Record<string, UserQuestionDTO[]>>({});
-  const [isLoading, setIsLoading] = useState(true); // Initialize isLoading to true
+  const [isLoading, setIsLoading] = useState(true); 
 
   function handleLeftclick() {
     setColumns(getPreviousWeekInISOList(columns[3]));
+    setIsLoading(true);
   
   }
   function handleRightclick() {
     setColumns(getNextWeekInISOList(columns[3]));
+    setIsLoading(true);
   }
 
   function handleCalendarClick(isodate:string) {
@@ -25,9 +27,8 @@ export function KanbanProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
+
       await update();
-      console.log(columnData)
       setIsLoading(false); // Set isLoading to false when the data is loaded
     };
 
@@ -165,9 +166,6 @@ function getNextWeekInISOList(isoDateString:string) {
 
   return isoDates;
 }
-
-
-
 
 
 

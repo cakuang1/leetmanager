@@ -144,8 +144,6 @@ function Column({ id, cards }: ColumnProps) {
         return a.questionId - b.questionId;
       });
 
-
-
     const isCurrent = isCurrentDate(id)
     const bgClass = isCurrent ? "bg-orange-50" : "";
     return (

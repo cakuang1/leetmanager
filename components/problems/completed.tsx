@@ -19,7 +19,7 @@ const userQuestion: UserQuestionDTO = {
 };
 
 
-const Todo = () => {
+const CompletedQuestions = () => {
   const [page, setPage] = useState(1);
   const [progressList, setListofCards] = useState<UserQuestionDTO[]>([]);
   const [totalItems, setTotalItems] = useState(0);
@@ -63,7 +63,7 @@ const Todo = () => {
   
   return (
     <div className="">
-      <table className="w-full divide-y divide-gray-200">
+      <table className="w-full divide-y divide-gray-200 ">
   <thead className="bg-gray-50">
     <tr>
       <th scope="col" className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -109,6 +109,13 @@ const Todo = () => {
             </span>
           ))}
         </td>
+        <td className="px-3 py-2 whitespace-nowrap font-semibold text-xs ">
+        <div className='flex items-center bg-green-50 rounded p-1 '>   <svg xmlns="http://www.w3.org/2000/svg" className = {'w-3 h-3 mr-2'}  width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><path d="M10.243 16.314L6 12.07l1.414-1.414l2.829 2.828l5.656-5.657l1.415 1.415l-7.071 7.07Z"/><path fill-rule="evenodd" d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11s-4.925 11-11 11S1 18.075 1 12Zm11 9a9 9 0 1 1 0-18a9 9 0 0 1 0 18Z" clip-rule="evenodd"/></g></svg> <p>Solved</p>
+</div>
+        </td>
+        <td className="px-3 py-2 whitespace-nowrap font-semibold">
+            {row.timeTaken}
+        </td>
         <td className="px-3 py-2 whitespace-nowrap font-semibold">
             {extractIsoDate(row.date)}
         </td>
@@ -128,7 +135,7 @@ const Todo = () => {
   );
 };
 
-export default Todo;
+export default CompletedQuestions;
 
 function extractIsoDate(dateString:string) {
   const dateObject = new Date(dateString);

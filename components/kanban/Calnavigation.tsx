@@ -33,7 +33,7 @@ function CalNavigator({onPreviousWeek, onNextWeek,onWeekClick} :any) {
     setIsCalendarOpen(!isCalendarOpen);
   };
     return (
-        <div className="p-5 bg-white border-b">
+        <div className="p-5 bg-white border-b ">
         <div className="flex pl-20 gap-5">
           <button className="hover:text-gray-400" onClick={onPreviousWeek}>
             <div className="leftbutton border-gray-400 p-2">

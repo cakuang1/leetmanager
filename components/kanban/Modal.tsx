@@ -11,9 +11,6 @@ const Modal = ({ isOpen, closeModal, cardData,updatefunction,calendar }:any) => 
   const [calendaropen,setCalendar] = useState<boolean>(false)
   const [currprops, setModalData] = useState<UserQuestionDTO >(cardData);
   
-
-
-
   useEffect(() => {
     // Use the useEffect hook to update currprops when cardData changes
     setModalData(cardData);
@@ -32,6 +29,9 @@ const Modal = ({ isOpen, closeModal, cardData,updatefunction,calendar }:any) => 
   }
   const handleTimeRangeSelection = (timeRange:string) => {
     handleAttributeChange("timeTaken", timeRange); // Update the "timeTaken" attribute
+  };
+  const handleBoolean = (boolean:boolean) => {
+    handleAttributeChange("completionStatus",boolean); // Update the "timeTaken" attribute
   };
 
 
@@ -112,8 +112,6 @@ const Modal = ({ isOpen, closeModal, cardData,updatefunction,calendar }:any) => 
   };
   
 
-
-  
   return (
     <>
     <div className={`${isOpen? 'z-20' : 'hidden'}`}>
@@ -132,18 +130,26 @@ const Modal = ({ isOpen, closeModal, cardData,updatefunction,calendar }:any) => 
                             <div className='flex solved'>
                               <div className='flex gap-5 items-center w-1/2'>
                                 <div className='logo'><svg xmlns="http://www.w3.org/2000/svg" className = "w-5 h-5" width="512" height="512" viewBox="0 0 512 512"><path fill="currentColor" d="m199.066 456l-7.379-7.514l-3.94-3.9l-86.2-86.2l.053-.055l-83.664-83.666l97.614-97.613l83.565 83.565L398.388 61.344L496 158.958L296.729 358.229l-11.26 11.371ZM146.6 358.183l52.459 52.46l.1-.1l.054.054l52.311-52.311l11.259-11.368l187.963-187.96l-52.358-52.358l-199.273 199.271l-83.565-83.565l-52.359 52.359l83.464 83.463Z"/></svg></div>
-                                <div className=''>Solved</div>
+                                <div className=''>Status</div>
                               </div>
-                              <div className="flex items-center rounded pl-1 ">
-                                  <input
-                                    id="bordered-checkbox-1"
-                                    type="checkbox"
-                                    value=""
-                                    name="bordered-checkbox"
-                                    className="w-4 h-4 text-green-400 bg-gray-100 border-gray-300 rounded   outline-none hover:shadow-lg"
-                                    onChange={(e) => handleAttributeChange("completionStatus", e.target.checked)}
-                                    checked={currprops.completionStatus}
-                                  />
+                              <div className="flex items-center rounded pl-1 gap-2">
+                              <button
+                                  className={`${ 
+                                    currprops.completionStatus === false ? ` font-semibold rounded-sm  bg-gray-50 items-center border ` : 'bg-gray-300'
+                                  } rounded px-2 py-1 flex items-center text-xs`}
+                                  onClick={() => handleBoolean(false)}
+                                > <div className='flex'>        <svg xmlns="http://www.w3.org/2000/svg" className = {'w-4 h-4 mr-2'} width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20.777a8.942 8.942 0 0 1-2.48-.969M14 3.223a9.003 9.003 0 0 1 0 17.554m-9.421-3.684a8.961 8.961 0 0 1-1.227-2.592M3.124 10.5c.16-.95.468-1.85.9-2.675l.169-.305m2.714-2.941A8.954 8.954 0 0 1 10 3.223"/></svg></div>
+                          <p>In Progress</p>
+                                </button>
+                                <button
+                                  className={`${ 
+                                    currprops.completionStatus === true ? ` font-semibold rounded-sm  bg-green-50 items-center border ` : 'bg-gray-300'
+                                  } rounded px-2 py-1 flex items-center text-xs`}
+                                  onClick={() => handleBoolean(true)}
+                                >
+                                              <div className='flex '>        <svg xmlns="http://www.w3.org/2000/svg" className = {'w-4 h-4 mr-2'}  width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><path d="M10.243 16.314L6 12.07l1.414-1.414l2.829 2.828l5.656-5.657l1.415 1.415l-7.071 7.07Z"/><path fill-rule="evenodd" d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11s-4.925 11-11 11S1 18.075 1 12Zm11 9a9 9 0 1 1 0-18a9 9 0 0 1 0 18Z" clip-rule="evenodd"/></g></svg></div>
+                          <p>Solved</p>
+                                </button>
                                 </div>
                             </div>
                             <div className='flex difficulty'>
@@ -192,10 +198,10 @@ const Modal = ({ isOpen, closeModal, cardData,updatefunction,calendar }:any) => 
         <button
             className={`${ 
               currprops.timeTaken === '' ? 'bg-gray-50 border font-semibold' : 'bg-gray-200'
-            } rounded px-2 py-1 `}
+            } rounded px-2 py-1 w-16`}
             onClick={() => handleTimeRangeSelection('')}
           >
-            Not solved
+            
           </button>
           <button
             className={`${ 
@@ -228,6 +234,14 @@ const Modal = ({ isOpen, closeModal, cardData,updatefunction,calendar }:any) => 
             onClick={() => handleTimeRangeSelection('45-60')}
           >
             45-60 mins
+          </button>
+          <button
+            className={`${
+              currprops.timeTaken === '60+' ? 'bg-gray-50 border font-semibold' : 'bg-gray-200'
+            } rounded px-2 py-1  `}
+            onClick={() => handleTimeRangeSelection('60+')}
+          >
+            60+ mins
           </button>
 
         </div>
@@ -271,7 +285,7 @@ const Modal = ({ isOpen, closeModal, cardData,updatefunction,calendar }:any) => 
                                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd"><path d="M24 0v24H0V0h24ZM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01l-.184-.092Z"/><path fill="currentColor" d="M6 2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6.414A2 2 0 0 0 19.414 5L17 2.586A2 2 0 0 0 15.586 2H6Zm0 2h9.586L18 6.414V20H6V4Zm10.238 6.793a1 1 0 1 0-1.414-1.414l-4.242 4.242l-1.415-1.414a1 1 0 0 0-1.414 1.414l2.05 2.051a1.1 1.1 0 0 0 1.556 0l4.88-4.879Z"/></g></svg>
 
                                   <span className='  text-gray-400 '>
-                                    Done </span></button>   </div>
+                                    Save </span></button>   </div>
                         </div>
 
                         </div>

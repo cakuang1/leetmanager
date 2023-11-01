@@ -1,47 +1,15 @@
-import Completed from "@/components/problems/completed";
+import CompletedQuestions from "@/components/problems/completed";
 import Layout from "@/components/layout";
 import Todo from "@/components/problems/todolist";
 import { useEffect,useState } from "react";
 import { UserQuestionDTO } from "@/components/types";
 
 
-
-
-//As a user I,when I click on the problems page, I am able to see which problems are on my todo list. I am also able to switch between todo and completed tabs
-  // API call to grab the entire list of a user and distribute compoleted and non completed
-  // Todo list should be ordered by lowest date first, date asc
-  // Completed should be ordered by most recently completed, date desc
   
-
-
-
 export default function Problems() {
   const [activeTab, setActiveTab] = useState('todo');
-  const [todoList, setTodoList] = useState<UserQuestionDTO[]>([]);
-  const [completedList, setCompletedList] = useState<UserQuestionDTO[]>([]);
 
-  useEffect(() => {
-    async function getQuestionsByCompletionStatus() {
-      try {
-        const response = await fetch(`/api/userquestions/graball`);
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        return data;
-      } catch (error) {
-        console.error("Error fetching questions:", error);
-        return { completed: [], notCompleted: [] };
-      }
-    };
-  
-    getQuestionsByCompletionStatus().then((data) => {
-      setCompletedList(data.completed);
-      setTodoList(data.notCompleted);
-    });
-  }, []);
 
-  
   return (
     <Layout>
       <div className="w-3/5 mx-auto h-screen max-h-screen overflow-auto">
@@ -67,12 +35,15 @@ export default function Problems() {
             </button>
           </ul>
         </div>
-        
+        <div className="mt-5">
+
         {activeTab === 'todo' ? (
-          <Todo progressList={todoList} />
+          <Todo />
         ) : (
-          <Completed progressList={completedList} />
+          <CompletedQuestions />
         )}
+
+        </div>
 
       </div>
     </Layout>

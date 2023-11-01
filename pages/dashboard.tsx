@@ -28,7 +28,8 @@ export default function Dashboard() {
   const [questionsByDayMonth, setQuestionsByDayMonth] = useState({});
   const [questionsByDaySixMonths, setQuestionsByDaySixMonths] = useState({});
   const [questionsByDayYear, setQuestionsByDayYear] = useState({});
-
+  const [topic, setTopic] = useState<TopicCount[] | null>(null);
+  console.log(topic)
 
   useEffect(() => {
     const apiUrl = "/api/userquestions/graball";
@@ -46,6 +47,7 @@ export default function Dashboard() {
         setQuestionsByDayMonth(questionsByDayMonth);
         setQuestionsByDaySixMonths(questionsByDaySixMonths);
         setQuestionsByDayYear(questionsByDayYear);
+        setTopic(generateTopicCounts(data.completed))
       })
       .catch((error) => {
         console.error("Error fetching questions:", error);
@@ -106,7 +108,7 @@ export default function Dashboard() {
         </Card>
       </div>
       <div className="mt-6">
-          <Bar/>
+          <Bar bardata = {topic} />
       </div>
     </TabPanel>
   </TabPanels>
@@ -142,7 +144,6 @@ function calculateDifficultyCounts(data:UserQuestionDTO[]) {
 function calculateQuestionsByDay(data: UserQuestionDTO[], startDate: Date, endDate: Date) {
   const counts: DailyPerformance[] = [];
   const currentDate = new Date(startDate);
-
   while (currentDate <= endDate) {
     const formattedDate = currentDate.toISOString().split("T")[0];
 
@@ -158,12 +159,8 @@ function calculateQuestionsByDay(data: UserQuestionDTO[], startDate: Date, endDa
 
     currentDate.setDate(currentDate.getDate() + 1);
   }
-
   return counts;
 }
-
-
-
 
 
 
@@ -180,5 +177,35 @@ const oneYearAgo = new Date(currentDate);
 oneYearAgo.setFullYear(currentDate.getFullYear() - 1);
 
 // Calculate the number of questions done by day for the past week, month, 6 months, and year
+
+
+interface TopicCount {
+  topic: string;
+  count: number;
+}
+
+
+function generateTopicCounts(data: UserQuestionDTO[]): TopicCount[] {
+  const topicBuckets: { [key: string]: TopicCount } = {};
+
+  data.forEach(item => {
+    if (item.topicTags) {
+      item.topicTags.forEach(tag => {
+        if (!topicBuckets[tag]) {
+          topicBuckets[tag] = {
+            topic: tag,
+            count: 1,
+          };
+        } else {
+          topicBuckets[tag].count++;
+        }
+      });
+    }
+  });
+
+  return Object.values(topicBuckets);
+}
+
+
 
 

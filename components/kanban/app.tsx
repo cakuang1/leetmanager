@@ -6,18 +6,16 @@ import { useKanban } from '../context/Kanbancontext';
 function KanbanBoard() { 
   const { columns,  columnData, isLoading,handleCalendarClick, handleLeftclick, handleRightclick} = useKanban();
   return (
-    <div>
+    <div className=''>
       <CalNavigator onPreviousWeek={handleLeftclick} onNextWeek={handleRightclick} onWeekClick={handleCalendarClick} />
-      <div className="kanban-scroll-container h-screen overflow-x-auto flex">
+      <div className="kanban-scroll-container h-screen overflow-x-auto flex w-screen">
         {isLoading ? (
-          <p>Loading...</p>
-        ) : columnData && Object.keys(columnData).length > 0 ? (
+          <p></p>
+        ) :  (
           columns.map((date, index) => (
             <Column key={index} id={date} cards={columnData[date]} />
           ))
-        ) : (
-          <p>No data available.</p>
-        )}
+        ) }
       </div>
     </div>
   );
