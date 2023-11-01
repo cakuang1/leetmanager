@@ -13,6 +13,7 @@ function Card({ card ,modalfunction}: { card: UserQuestionDTO,modalfunction:any}
     setTooltipVisible(true);
   };
 
+
   const handledeletecard = async () => {
     try {
       setTooltipVisible(false)
@@ -44,6 +45,25 @@ function Card({ card ,modalfunction}: { card: UserQuestionDTO,modalfunction:any}
     }
   };
 
+
+  const handleSave = async () => {
+    // Check if any changes have been made
+      try {
+        // Send a PUT request to update the data
+        card.completionStatus = !card.completionStatus
+        const response = await fetch(`/api/userquestions/update?id=${card.id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(card),
+        });
+        update()
+      } 
+      catch {
+        console.log("Error Updating")
+      }
+    }
 
 
 
@@ -99,12 +119,12 @@ function Card({ card ,modalfunction}: { card: UserQuestionDTO,modalfunction:any}
           } absolute z-10   bg-white ml-3 text-sm font-medium w-28 text-gray-700  rounded border shadow-sm  mt-2 transition-opacity ease-in-out duration-200 transform `}
         >
           {card.completionStatus ?
-                    <div className='flex items-center gap-2 p-2 hover:bg-gray-100 '>
+                    <div className='flex items-center gap-2 p-2 hover:bg-gray-100 ' onClick={handleSave}>
                     <div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 15 15"><path fill="currentColor" fill-rule="evenodd" d="M11.782 4.032a.575.575 0 1 0-.813-.814L7.5 6.687L4.032 3.218a.575.575 0 0 0-.814.814L6.687 7.5l-3.469 3.468a.575.575 0 0 0 .814.814L7.5 8.313l3.469 3.469a.575.575 0 0 0 .813-.814L8.313 7.5l3.469-3.468Z" clip-rule="evenodd"/></svg></div>
                     <p>Unsolve</p>
                   </div> :
           
-          <div className='flex items-center gap-2 p-2 hover:bg-gray-100 '>
+          <div className='flex items-center gap-2 p-2 hover:bg-gray-100 ' onClick={handleSave}>
           <div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9.55 18l-5.7-5.7l1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4L9.55 18Z"/></svg></div>
           <p>Solved</p>
         </div>}          
