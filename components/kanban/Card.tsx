@@ -1,16 +1,52 @@
 import React from 'react';
 import { UserQuestionDTO } from '../types';
 import { useState,useRef,useEffect} from 'react';
-
+import { useKanban } from '../context/Kanbancontext';
 
 
 function Card({ card ,modalfunction}: { card: UserQuestionDTO,modalfunction:any}) {
+  const {update} = useKanban()
   const [isTooltipVisible, setTooltipVisible] = useState(false);
   const tooltipRef = useRef(null);
   const handleCardRightClick = (event: React.MouseEvent) => {
     event.preventDefault();
     setTooltipVisible(true);
   };
+
+  const handledeletecard = async () => {
+    try {
+      setTooltipVisible(false)
+      await handleDelete();
+      update()
+    } catch (error) {
+      // Handle any errors that may occur during deletion or update
+      console.error('Error during deletion or update:', error);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      // Send a DELETE request to delete the data
+      const response = await fetch(`/api/userquestions/delete?id=${card.id}`, {
+        method: 'DELETE',
+      });
+  
+      if (response.ok) {
+        // Handle the response, e.g., show a success message
+        console.log('Data deleted successfully');
+      } else {
+        // Handle errors if the response is not OK
+        console.error('Error deleting data:', response.statusText);
+      }
+    } catch (error) {
+      // Handle any errors that occur during the request
+      console.error('Error deleting data:', error);
+    }
+  };
+
+
+
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (tooltipRef.current && !tooltipRef.current.contains(event.target as Node)) {
@@ -73,7 +109,7 @@ function Card({ card ,modalfunction}: { card: UserQuestionDTO,modalfunction:any}
           <p>Solved</p>
         </div>}          
         
-        <div className='flex items-center gap-2 p-2 hover:bg-gray-100 '>
+        <div className='flex items-center gap-2 p-2 hover:bg-gray-100 ' onClick={handledeletecard}>
             <div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M7 21q-.825 0-1.413-.588T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.588 1.413T17 21H7ZM17 6H7v13h10V6ZM9 17h2V8H9v9Zm4 0h2V8h-2v9ZM7 6v13V6Z"/></svg></div>
             <p>Delete</p>
           </div>

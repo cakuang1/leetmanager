@@ -49,7 +49,6 @@ const Modal = ({ isOpen, closeModal, cardData,updatefunction,calendar }:any) => 
       } else {
         // Use the updatefunction passed in as a prop
         updatefunction();
-
       }
 
 
