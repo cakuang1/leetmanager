@@ -1,6 +1,9 @@
 import { BarChart, Card, Subtitle, Title } from "@tremor/react";
   
-  
+
+
+
+
 
 export default function Bar({bardata} : any)
 {return (

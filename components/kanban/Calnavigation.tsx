@@ -31,6 +31,10 @@ function CalNavigator({onPreviousWeek, onNextWeek,onWeekClick} :any) {
     setIsCalendarOpen(!isCalendarOpen);
   };
 
+  function Alsoclose(isodate:string) {
+    onWeekClick(isodate);
+    setIsCalendarOpen(!isCalendarOpen)
+  }
     return (
         <div className="p-5 bg-white border-b ">
         <div className="flex pl-20 gap-5">
@@ -56,7 +60,7 @@ function CalNavigator({onPreviousWeek, onNextWeek,onWeekClick} :any) {
           </div>
           </button>
           {isCalendarOpen &&         <div ref={calendarContainerRef}>
-          <Calendar onWeekClick={onWeekClick} />
+          <Calendar onWeekClick={Alsoclose} />
         </div>}
 </div>
 

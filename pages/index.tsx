@@ -21,6 +21,7 @@ import Bar from '@/components/dashboard/Bar';
 
 
 export default function Home() {
+
   return (
     <>
     <LandingNavigation/> 
@@ -139,7 +140,7 @@ export default function Home() {
   </TabPanels>
   
 </TabGroup>
-<Bar/>
+<Bar bardata= {topicCounts}/>
   </div>
 
 </div>
@@ -184,3 +185,98 @@ const last7Items = randomDataForYear.slice(-7);
 const last30Items = randomDataForYear.slice(-30);
 const last180Items = randomDataForYear.slice(-180);
 
+const topicKeys = [
+  "array",
+  "hash-table",
+  "linked-list",
+  "math",
+  "recursion",
+  "string",
+  "sliding-window",
+  "binary-search",
+  "divide-and-conquer",
+  "dynamic-programming",
+  "two-pointers",
+  "greedy",
+  "trie",
+  "sorting",
+  "backtracking",
+  "stack",
+  "heap-priority-queue",
+  "merge-sort",
+  "string-matching",
+  "bit-manipulation",
+  "matrix",
+  "monotonic-stack",
+  "simulation",
+  "combinatorics",
+  "memoization",
+  "tree",
+  "depth-first-search",
+  "binary-tree",
+  "binary-search-tree",
+  "breadth-first-search",
+  "union-find",
+  "graph",
+  "design",
+  "doubly-linked-list",
+  "geometry",
+  "interactive",
+  "bucket-sort",
+  "radix-sort",
+  "counting",
+  "data-stream",
+  "iterator",
+  "database",
+  "rolling-hash",
+  "hash-function",
+  "shell",
+  "enumeration",
+  "number-theory",
+  "topological-sort",
+  "prefix-sum",
+  "quickselect",
+  "binary-indexed-tree",
+  "segment-tree",
+  "line-sweep",
+  "ordered-set",
+  "queue",
+  "monotonic-queue",
+  "counting-sort",
+  "brainteaser",
+  "game-theory",
+  "eulerian-circuit",
+  "randomized",
+  "reservoir-sampling",
+  "shortest-path",
+  "bitmask",
+  "rejection-sampling",
+  "probability-and-statistics",
+  "suffix-array",
+  "concurrency",
+  "minimum-spanning-tree",
+  "biconnected-component",
+  "strongly-connected-component",
+];
+
+for (let i = topicKeys.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [topicKeys[i], topicKeys[j]] = [topicKeys[j], topicKeys[i]];
+}
+
+// Randomly select at most 10 topics
+const selectedTopics = topicKeys.slice(0, 10);
+
+// Calculate a balanced count for each topic
+const balancedCount = Math.floor(100 / selectedTopics.length);
+
+// Create an array of objects with topics and counts
+const topicCounts = selectedTopics.map(topic => ({
+  topic,
+  count: balancedCount + Math.floor(Math.random() * 3) - 1, // Variation within +/- 1
+}));
+
+// Adjust the total count to exactly 100
+const totalCounts = topicCounts.reduce((total, { count }) => total + count, 0);
+const diff = 100 - totalCounts;
+topicCounts[0].count += diff;
