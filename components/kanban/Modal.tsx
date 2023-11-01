@@ -17,13 +17,13 @@ const Modal = ({ isOpen, closeModal, cardData,updatefunction,calendar }:any) => 
   }, [cardData]);
 
   const handleAttributeChange = (attribute: string, value: any) => {
-    console.log(attribute,value)
     setModalData((prevData: UserQuestionDTO) => ({
       ...prevData,
       [attribute]: value,
     }) as UserQuestionDTO);
   };
   
+
   function handleCalendarClick() {
     setCalendar(!calendaropen)
   }
@@ -80,46 +80,59 @@ const Modal = ({ isOpen, closeModal, cardData,updatefunction,calendar }:any) => 
     }
   };
 
-
-  const handleClose = async () => {
-    try {
-      // Send a PUT request to update the data
-      const response = await fetch(`/api/userquestions/update?id=${currprops.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(currprops),
-      });
-  
-      if (response.ok) {
-        // Handle the response, e.g., show a success message
-        console.log('Data updated successfully');
-  
-        // After a successful update, you can call the update function
-        updatefunction();
-  
-        // Close the modal
-        closeModal();
-      } else {
-        // Handle errors if the response is not OK
-        console.error('Error updating data:', response.statusText);
-      }
-    } catch (error) {
-      // Handle any errors that occur during the request
-      console.error('Error updating data:', error);
+  const handleOutsideClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    // Check if the click is outside the modal
+    if (e.target instanceof HTMLDivElement && e.target.classList.contains('modal-overlay')) {
+      handleClose();
     }
   };
+
+
+  const handleClose = async () => {
+    // Check if any changes have been made
+    if (JSON.stringify(currprops) !== JSON.stringify(cardData)) {
+      try {
+        // Send a PUT request to update the data
+        const response = await fetch(`/api/userquestions/update?id=${currprops.id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(currprops),
+        });
+  
+        if (response.ok) {
+          // Handle the response, e.g., show a success message
+          console.log('Data updated successfully');
+  
+          // After a successful update, you can call the update function
+          updatefunction();
+  
+          // Close the modal
+          closeModal();
+        } else {
+          // Handle errors if the response is not OK
+          console.error('Error updating data:', response.statusText);
+        }
+      } catch (error) {
+        // Handle any errors that occur during the request
+        console.error('Error updating data:', error);
+      }
+    } else {
+      // No changes were made, simply close the modal
+      closeModal();
+    }
+  };
+  
   
 
   return (
     <>
-    <div className={`${isOpen? 'z-20' : 'hidden'}`}>
+    <div className={` ${isOpen? 'z-20' : 'hidden'}` } >
 <div className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true"></div>
     <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
-
-    <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-    <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+    <div className="fixed inset-0 z-10 w-screen overflow-y-auto " >
+    <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0 modal-overlay" onClick={handleOutsideClick}>
                     <div id="authentication-modal" className=" bg-white rounded-lg shadow text-sm w-[600px]">  
 
                         <div className="px-6 py-4  rounded-t text-gray-400">

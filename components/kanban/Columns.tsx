@@ -162,9 +162,9 @@ function Column({ id, cards }: ColumnProps) {
             <div className='cardsection'>
 
                 {sortedCards.map((card, index) => (
-                  <div onClick={() => openModal(card)}>
-                  <Card key={card.id} card={card} />
-                  </div>
+
+                  <Card key={card.id} card={card} modalfunction={openModal} />
+
                 ))}
               </div>
               <Modal isOpen = {isModalOpen} closeModal = {closeModal} cardData = {selectedCard} updatefunction = {update} calendar = {true}/>
