@@ -6,8 +6,6 @@ import { useRef, useEffect, useState  } from 'react';
 function CalNavigator({onPreviousWeek, onNextWeek,onWeekClick} :any) {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const calendarContainerRef = useRef<HTMLDivElement | null>(null);
-
-  
   console.log(isCalendarOpen)
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -32,6 +30,7 @@ function CalNavigator({onPreviousWeek, onNextWeek,onWeekClick} :any) {
   const handleToggleCalendar = () => {
     setIsCalendarOpen(!isCalendarOpen);
   };
+
     return (
         <div className="p-5 bg-white border-b ">
         <div className="flex pl-20 gap-5">

@@ -50,13 +50,13 @@ const Todo = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`/api/userquestions/completed?page=${page}`);
+      const response = await fetch(`/api/userquestions/notcompleted?page=${page}`);
       if (!response.ok) {
         throw new Error('API request failed');
       }
       const data = await response.json();
-      setListofCards(data.CompletedQuestions);
-      setTotalItems(data.NonCompletedCount)
+      setListofCards(data.notCompletedQuestions);
+      setTotalItems(data.totalNonCompletedCount)
     } catch (error) {
       console.error('Error fetching data:', error);
     }

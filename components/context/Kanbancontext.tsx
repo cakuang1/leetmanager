@@ -23,6 +23,8 @@ export function KanbanProvider({ children }: { children: ReactNode }) {
 
   function handleCalendarClick(isodate:string) {
     setColumns(getCurrentWeekInISOList(isodate));
+    setIsLoading(true);
+
   }
 
   useEffect(() => {

@@ -3,7 +3,6 @@ import { eachWeekOfInterval, startOfMonth, endOfMonth,addMonths,format,eachDayOf
 import { useState  } from 'react';
 import WeekRow2 from './Weekrow2';
 
-
 // this will be used to change the dates in a modal, how the value of the calender also changes the value of the parent component
 
 function Calendar({value,handleDateClick}:any) {
@@ -23,6 +22,7 @@ function Calendar({value,handleDateClick}:any) {
   });
 
   function handleDateSelection(date:string) {
+   
     //sets the new value for the modal
     handleDateClick(date); 
     //sets the new value for the current

@@ -2,7 +2,7 @@ import React from 'react';
 import { eachWeekOfInterval, startOfMonth, endOfMonth,addMonths,format } from 'date-fns';
 import WeekRow from './Weekrow'; // Import the WeekRow component
 import { useState  } from 'react';
-
+import { useKanban } from '@/components/context/Kanbancontext';
 
 function Calendar({onWeekClick}:any) {
   const [currentMonth, setCurrentMonth] = useState(startOfMonth(new Date()));
@@ -12,6 +12,7 @@ function Calendar({onWeekClick}:any) {
   const handleNextMonth = () => {
     setCurrentMonth((prevMonth) => addMonths(prevMonth, 1));
   };
+
   const weeksInMonth = eachWeekOfInterval({
     start: currentMonth,
     end: addMonths(currentMonth, 1),
