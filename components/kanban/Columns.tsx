@@ -6,6 +6,9 @@ import { LeetCodeQuestionDTO,UserQuestionDTO } from '../types';
 import SearchResult from './SearchResult';
 import { useKanban } from '../context/Kanbancontext';
 import Modal from './Modal';
+import toast from 'react-hot-toast';
+
+
 
 
 
@@ -21,6 +24,27 @@ interface ColumnProps {
 
 
 function Searching({ onClickOutside,date}: SearchProps) {
+  const notify = () => toast(<Msg />, {
+    position: "bottom-left",
+    hideProgressBar: true,
+    closeOnClick: true,
+    draggable: false,
+    progress: undefined,
+    theme: "light",
+    })
+  
+    const Msg = () => (
+  <div id="toast-success" className="flex items-center w-full max-w-xs  rounded" role="alert">
+  <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M7 21q-.825 0-1.413-.588T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.588 1.413T17 21H7ZM17 6H7v13h10V6ZM9 17h2V8H9v9Zm4 0h2V8h-2v9ZM7 6v13V6Z"/></svg>
+        <span className="sr-only">Check icon</span>
+    </div>
+  <div className='pl-4'> <span className=''>{card.questionId}. {card.title}</span> has been deleted <span className={`${getColorClasses(card.difficulty)} px-2 text-xs font-semibold rounded-full `}>
+          {card.difficulty}
+        </span></div>
+  </div>
+    )
+
   const {update} = useKanban();
 
     const searchRef = useRef<HTMLDivElement | null>(null);
@@ -44,10 +68,9 @@ function Searching({ onClickOutside,date}: SearchProps) {
       setQueryResults([]);
       try {
         await postLeetCodeQuestion(card, date);
-        // The database operation is complete here
         update();
+
       } catch (error) {
-        // Handle any errors that occurred during the database operation
       }
     };  
 
@@ -62,6 +85,7 @@ function Searching({ onClickOutside,date}: SearchProps) {
     };
     return (
         <div ref={searchRef}>
+
       <div  className=" border rounded p-2 text-sm hover:border-leetcode  hover:shadow cursor-pointer flex items-center p-2 cursor-pointer bg-white">
         <div className="add-card-left text-gray-400 pr-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="16" stroke-dashoffset="16" d="M10.5 13.5L3 21"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.4s" dur="0.2s" values="16;0"/></path><path stroke-dasharray="40" stroke-dashoffset="40" d="M10.7574 13.2426C8.41421 10.8995 8.41421 7.10051 10.7574 4.75736C13.1005 2.41421 16.8995 2.41421 19.2426 4.75736C21.5858 7.10051 21.5858 10.8995 19.2426 13.2426C16.8995 15.5858 13.1005 15.5858 10.7574 13.2426Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="40;0"/></path></g></svg>

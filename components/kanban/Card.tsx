@@ -2,9 +2,34 @@ import React from 'react';
 import { UserQuestionDTO } from '../types';
 import { useState,useRef,useEffect} from 'react';
 import { useKanban } from '../context/Kanbancontext';
+import { toast } from 'react-toastify';
+
 
 
 function Card({ card ,modalfunction}: { card: UserQuestionDTO,modalfunction:any}) {
+  const notify = () => toast(<Msg />, {
+    position: "bottom-left",
+    hideProgressBar: true,
+    closeOnClick: true,
+    draggable: false,
+    progress: undefined,
+    theme: "light",
+    })
+
+    const Msg = () => (
+<div id="toast-success" className="flex items-center w-full max-w-xs  rounded" role="alert">
+<div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M7 21q-.825 0-1.413-.588T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.588 1.413T17 21H7ZM17 6H7v13h10V6ZM9 17h2V8H9v9Zm4 0h2V8h-2v9ZM7 6v13V6Z"/></svg>
+        <span className="sr-only">Check icon</span>
+    </div>
+  <div className='pl-4'> <span className=''>{card.questionId}. {card.title}</span> has been deleted <span className={`${getColorClasses(card.difficulty)} px-2 text-xs font-semibold rounded-full `}>
+          {card.difficulty}
+        </span></div>
+</div>
+    )
+
+
+
   const {update} = useKanban()
   const [isTooltipVisible, setTooltipVisible] = useState(false);
   const tooltipRef = useRef(null);
@@ -12,8 +37,6 @@ function Card({ card ,modalfunction}: { card: UserQuestionDTO,modalfunction:any}
     event.preventDefault();
     setTooltipVisible(true);
   };
-
-
   const handledeletecard = async () => {
     try {
       setTooltipVisible(false)
@@ -26,6 +49,7 @@ function Card({ card ,modalfunction}: { card: UserQuestionDTO,modalfunction:any}
   };
 
   const handleDelete = async () => {
+
     try {
       // Send a DELETE request to delete the data
       const response = await fetch(`/api/userquestions/delete?id=${card.id}`, {
@@ -33,8 +57,7 @@ function Card({ card ,modalfunction}: { card: UserQuestionDTO,modalfunction:any}
       });
   
       if (response.ok) {
-        // Handle the response, e.g., show a success message
-        console.log('Data deleted successfully');
+        notify()
       } else {
         // Handle errors if the response is not OK
         console.error('Error deleting data:', response.statusText);
@@ -43,11 +66,13 @@ function Card({ card ,modalfunction}: { card: UserQuestionDTO,modalfunction:any}
       // Handle any errors that occur during the request
       console.error('Error deleting data:', error);
     }
+
   };
 
 
   const handleSave = async () => {
     // Check if any changes have been made
+    setTooltipVisible(false)
       try {
         // Send a PUT request to update the data
         card.completionStatus = !card.completionStatus
@@ -59,14 +84,12 @@ function Card({ card ,modalfunction}: { card: UserQuestionDTO,modalfunction:any}
           body: JSON.stringify(card),
         });
         update()
+
       } 
       catch {
         console.log("Error Updating")
       }
     }
-
-
-
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (tooltipRef.current && !tooltipRef.current.contains(event.target as Node)) {
@@ -87,7 +110,8 @@ function Card({ card ,modalfunction}: { card: UserQuestionDTO,modalfunction:any}
 
 
 
-  
+ 
+ 
 
 
   return (
@@ -100,13 +124,16 @@ function Card({ card ,modalfunction}: { card: UserQuestionDTO,modalfunction:any}
         onContextMenu={handleCardRightClick}
         onClick={() => modalfunction(card)} // Add this onContextMenu event handler
       >
-        <div className="flex">
+        <div className="flex w-full">
           <p>{card.questionId}.&nbsp;</p>
           <p>{card.title}&nbsp;</p>
         </div>
         <p className={`${getColorClasses(card.difficulty)} px-2 text-xs font-semibold rounded-full `}>
           {card.difficulty}
         </p>
+        <div>
+
+    </div>
       </div>
       <div className='flex items-center relative hover:cursor-pointer'>     
         <div
@@ -128,7 +155,7 @@ function Card({ card ,modalfunction}: { card: UserQuestionDTO,modalfunction:any}
           <div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9.55 18l-5.7-5.7l1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4L9.55 18Z"/></svg></div>
           <p>Solved</p>
         </div>}          
-        
+
         <div className='flex items-center gap-2 p-2 hover:bg-gray-100 ' onClick={handledeletecard}>
             <div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M7 21q-.825 0-1.413-.588T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.588 1.413T17 21H7ZM17 6H7v13h10V6ZM9 17h2V8H9v9Zm4 0h2V8h-2v9ZM7 6v13V6Z"/></svg></div>
             <p>Delete</p>
@@ -141,10 +168,6 @@ function Card({ card ,modalfunction}: { card: UserQuestionDTO,modalfunction:any}
     </>
   );
 }
-
-
-
-
 
 
 export default Card;
