@@ -2,12 +2,10 @@ import CompletedQuestions from "@/components/problems/completed";
 import Layout from "@/components/layout";
 import Todo from "@/components/problems/todolist";
 import { useEffect,useState } from "react";
-import { UserQuestionDTO } from "@/components/types";
 
-
-  
 export default function Problems() {
   const [activeTab, setActiveTab] = useState('todo');
+
 
 
   return (

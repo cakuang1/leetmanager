@@ -11,9 +11,7 @@ import {
   Text,
   Metric 
 } from "@tremor/react";
-
 import {  signIn,signOut,useSession } from "next-auth/react";
-
 import ChartView from "@/components/dashboard/Graph";
 import Bar from '@/components/dashboard/Bar';
 

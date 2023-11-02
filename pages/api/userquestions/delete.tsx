@@ -32,10 +32,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         },
       });
 
-      res.status(200).json({ message: 'Question removed from your list' });
+      res.status(200).json({ message: 'Question successfully removed from your list' });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'An error occurred' });
+      res.status(500).json({ message: 'Server Error Occured,Try deleting the question again' });
     }
   } else {
     res.status(405).end(); 

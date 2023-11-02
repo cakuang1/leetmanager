@@ -16,6 +16,8 @@ import ChartView from "@/components/dashboard/Graph";
 import { useEffect,useState } from "react";
 import { UserQuestionDTO } from "@/components/types";
 import Bar from "@/components/dashboard/Bar";
+import Neetcode from "@/components/dashboard/Neetcode"; 
+
 export type DailyPerformance = {
   date: string;
   questionsDone: number;
@@ -29,9 +31,10 @@ export default function Dashboard() {
   const [questionsByDaySixMonths, setQuestionsByDaySixMonths] = useState({});
   const [questionsByDayYear, setQuestionsByDayYear] = useState({});
   const [topic, setTopic] = useState<TopicCount[] | null>(null);
-  console.log(topic)
 
+  
   useEffect(() => {
+
     const apiUrl = "/api/userquestions/graball";
     fetch(apiUrl)
       .then((response) => response.json())
@@ -52,6 +55,7 @@ export default function Dashboard() {
       .catch((error) => {
         console.error("Error fetching questions:", error);
       });
+
   }, []);
 
   console.log("Questions By Day (Past Week):", questionsByDayWeek);
@@ -113,9 +117,8 @@ export default function Dashboard() {
     </TabPanel>
   </TabPanels>
 </TabGroup>
-
       </div>
-
+      <Neetcode/>
       </Layout>
   )
 }

@@ -6,7 +6,7 @@ import { LeetCodeQuestionDTO,UserQuestionDTO } from '../types';
 import SearchResult from './SearchResult';
 import { useKanban } from '../context/Kanbancontext';
 import Modal from './Modal';
-import toast from 'react-hot-toast';
+import { notify,GA,BA } from '../notifications';
 
 
 
@@ -23,27 +23,11 @@ interface ColumnProps {
   }
 
 
+
+
+
 function Searching({ onClickOutside,date}: SearchProps) {
-  const notify = () => toast(<Msg />, {
-    position: "bottom-left",
-    hideProgressBar: true,
-    closeOnClick: true,
-    draggable: false,
-    progress: undefined,
-    theme: "light",
-    })
-  
-    const Msg = () => (
-  <div id="toast-success" className="flex items-center w-full max-w-xs  rounded" role="alert">
-  <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M7 21q-.825 0-1.413-.588T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.588 1.413T17 21H7ZM17 6H7v13h10V6ZM9 17h2V8H9v9Zm4 0h2V8h-2v9ZM7 6v13V6Z"/></svg>
-        <span className="sr-only">Check icon</span>
-    </div>
-  <div className='pl-4'> <span className=''>{card.questionId}. {card.title}</span> has been deleted <span className={`${getColorClasses(card.difficulty)} px-2 text-xs font-semibold rounded-full `}>
-          {card.difficulty}
-        </span></div>
-  </div>
-    )
+
 
   const {update} = useKanban();
 
@@ -64,6 +48,8 @@ function Searching({ onClickOutside,date}: SearchProps) {
     }, [onClickOutside]);
 
     const handleSearchResultClick = async (card: LeetCodeQuestionDTO,date:string) => {
+
+
       setQuery('');
       setQueryResults([]);
       try {
@@ -227,27 +213,50 @@ const searchApi = async (query: string): Promise<LeetCodeQuestionDTO[]> => {
 };
 
 async function postLeetCodeQuestion(card:LeetCodeQuestionDTO,date:string) {
-  const endpoint = `/api/userquestions/add?date=${date}` // Replace with your actual API endpoint
-  try {
-
+  const endpoint = `/api/userquestions/add?date=${date}` 
     const response = await fetch(endpoint, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json', // Set the appropriate content type
+        'Content-Type': 'application/json', 
       },
-      body: JSON.stringify(card), // Convert the object to JSON
-    });
+      body: JSON.stringify(card),
+    })  .then((response) => {
+      if (response.status === 200) {
+        return response.json().then((data) => {
+          const errorMessage = data.message;
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
+          notify(GA,errorMessage,)
+          console.error('Error:', errorMessage);
+        });
+      } else if (response.status === 400 || response.status === 401) {
+        return response.json().then((data) => {
+          const errorMessage = data.message;
+          const difficulty = data.difficulty;
+          notify(BA,errorMessage,)
+          console.error('Error:', errorMessage);
+        });
+      } else if (response.status === 500) {
+        return response.json().then((data) => {
+          const error = data.error;
+          console.error('Server Error:', error);
+        });
+      } else {
+        throw new Error('Unknown error');
+      }
+    })}
 
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Error posting data:', error);
-    throw error;
+
+
+function getColorClasses(difficulty : String) {
+  switch (difficulty) {
+    case 'Easy':
+      return 'bg-green-100 text-green-800 border-green-200';
+    case 'Medium':
+      return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+    case 'Hard':
+      return 'bg-red-100 text-red-800 border-red-200';
+    default:
+      return ''; 
   }
 }
-
 

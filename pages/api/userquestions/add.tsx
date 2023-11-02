@@ -37,7 +37,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
       if (isQuestionAlreadyAdded) {
         // Send a notification
-        res.status(400).json({ message: 'Question is already in your list' });
+        res.status(400).json({ message: `Question ${questionId}. ${data.title} is already in your list`,difficulty : data.difficulty});
       } else {
         // Add the question to the user's list
         await prisma.userQuestions.create({
@@ -49,16 +49,16 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             difficulty: data.difficulty,
             topicTags: data.topicTags,
             completionStatus: false,
-            timeTaken: null,
+            timeTaken: '',
             notes: '',
             date : dateObject
           },
         });
-        res.status(200).json({ message: 'Question added to your list' });
+        res.status(200).json({ message: `Question ${questionId}. ${data.title} added to your list`,difficulty : data.difficulty} );
       }
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'An error occurred' });
+      res.status(500).json({ error: 'An error occurred with our servers. Try again.' });
     }
   } else {
     res.status(405).end(); // Method not allowed

@@ -3,30 +3,12 @@ import { UserQuestionDTO } from '../types';
 import { useState,useRef,useEffect} from 'react';
 import { useKanban } from '../context/Kanbancontext';
 import { toast } from 'react-toastify';
+import { GT,BT,notify} from '../notifications';
 
 
 
 function Card({ card ,modalfunction}: { card: UserQuestionDTO,modalfunction:any}) {
-  const notify = () => toast(<Msg />, {
-    position: "bottom-left",
-    hideProgressBar: true,
-    closeOnClick: true,
-    draggable: false,
-    progress: undefined,
-    theme: "light",
-    })
 
-    const Msg = () => (
-<div id="toast-success" className="flex items-center w-full max-w-xs  rounded" role="alert">
-<div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M7 21q-.825 0-1.413-.588T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.588 1.413T17 21H7ZM17 6H7v13h10V6ZM9 17h2V8H9v9Zm4 0h2V8h-2v9ZM7 6v13V6Z"/></svg>
-        <span className="sr-only">Check icon</span>
-    </div>
-  <div className='pl-4'> <span className=''>{card.questionId}. {card.title}</span> has been deleted <span className={`${getColorClasses(card.difficulty)} px-2 text-xs font-semibold rounded-full `}>
-          {card.difficulty}
-        </span></div>
-</div>
-    )
 
 
 
@@ -49,25 +31,30 @@ function Card({ card ,modalfunction}: { card: UserQuestionDTO,modalfunction:any}
   };
 
   const handleDelete = async () => {
-
-    try {
       // Send a DELETE request to delete the data
       const response = await fetch(`/api/userquestions/delete?id=${card.id}`, {
         method: 'DELETE',
-      });
+      }).then((response) => {
+        if (response.status === 200) {
+          return response.json().then((data) => {
+            const errorMessage = data.message;
+            notify(GT,errorMessage)
+          });
+        } else if (response.status === 400 || response.status === 401) {
+          return response.json().then((data) => {
+            const errorMessage = data.message;
+            notify(BT,errorMessage)
+          });
+        } else if (response.status === 500) {
+          return response.json().then((data) => {
+            const error = data.error;
+            console.error('Server Error:', error);
+          });
+        } else {
+          throw new Error('Unknown error');
+        }
+      })}
   
-      if (response.ok) {
-        notify()
-      } else {
-        // Handle errors if the response is not OK
-        console.error('Error deleting data:', response.statusText);
-      }
-    } catch (error) {
-      // Handle any errors that occur during the request
-      console.error('Error deleting data:', error);
-    }
-
-  };
 
 
   const handleSave = async () => {
@@ -109,18 +96,13 @@ function Card({ card ,modalfunction}: { card: UserQuestionDTO,modalfunction:any}
   }, [isTooltipVisible]);
 
 
-
- 
- 
-
-
   return (
     <>
       <div className='flex'>
       <div
         className={`${
           card.completionStatus ? 'bg-opacity-30 text-opacity-30 bg-green-50' : 'bg-white'
-        }  kanban-card  justify-between rounded-lg text-gray-500 mt-2  w-full flex border hover:border-leetcode hover:shadow cursor-pointer flex items-center p-2 cursor-pointer text-sm font-semibold`}
+        }  kanban-card  justify-between rounded-sm text-gray-500 mt-2  w-full flex border hover:border-leetcode hover:shadow cursor-pointer flex items-center p-2 cursor-pointer text-sm font-semibold`}
         onContextMenu={handleCardRightClick}
         onClick={() => modalfunction(card)} // Add this onContextMenu event handler
       >
@@ -150,7 +132,7 @@ function Card({ card ,modalfunction}: { card: UserQuestionDTO,modalfunction:any}
                     <div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 15 15"><path fill="currentColor" fill-rule="evenodd" d="M11.782 4.032a.575.575 0 1 0-.813-.814L7.5 6.687L4.032 3.218a.575.575 0 0 0-.814.814L6.687 7.5l-3.469 3.468a.575.575 0 0 0 .814.814L7.5 8.313l3.469 3.469a.575.575 0 0 0 .813-.814L8.313 7.5l3.469-3.468Z" clip-rule="evenodd"/></svg></div>
                     <p>Unsolve</p>
                   </div> :
-          
+  
           <div className='flex items-center gap-2 p-2 hover:bg-gray-100 ' onClick={handleSave}>
           <div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9.55 18l-5.7-5.7l1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4L9.55 18Z"/></svg></div>
           <p>Solved</p>
