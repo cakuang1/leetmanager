@@ -11,52 +11,57 @@ type Kpi = {
     metric: string;
     progress: number;
     target: string;
-    delta: string;
-    deltaType: DeltaType;
   };
   
   const kpiData: Kpi[] = [
     {
-      title: "Sales",
-      metric: "$ 12,699",
+      title: "NeetCode 150",
+      metric: "20",
       progress: 15.9,
-      target: "$ 80,000",
-      delta: "13.2%",
-      deltaType: "moderateIncrease",
+      target: "150",
     },
     {
-      title: "Profit",
-      metric: "$ 45,564",
+      title: "Blind 75",
+      metric: "17",
       progress: 36.5,
-      target: "$ 125,000",
-      delta: "23.9%",
-      deltaType: "increase",
+      target: "75",
     },
   ];
   
   export default function Neetcode() {
-    return (
+
+    const [curr,setCurr] = useState<string>();
+
+
+    const handleCardClick = (title: string) => {
+        setCurr(title); // Set curr to the title of the clicked card
+      };
+
+
+      return (
         <div className="mt-10">
-        <div className="w-3/5 mx-auto justify-center flex gap-2">
-        {kpiData.map((item) => (
-          <Card key={item.title} className="w-1/4">
-            <Flex alignItems="start">
-              <div className="truncate">
-                <Text>{item.title}</Text>
-                <Metric className="truncate">{item.metric}</Metric>
-              </div>
-              <BadgeDelta deltaType={item.deltaType}>
-                {item.delta}
-              </BadgeDelta>
-            </Flex>
-            <Flex className="mt-4 space-x-2">
-              <Text className="truncate">{`${item.progress}% (${item.metric})`}</Text>
-              <Text className="truncate">{item.target}</Text>
-            </Flex>
-            <ProgressBar value={item.progress} className="mt-2" />
-          </Card>
-        ))}
+          <h1 className="text-center">Study Plans</h1>
+          <div className="w-3/5 mx-auto justify-center flex gap-10">
+            {kpiData.map((item) => (
+              <Card
+                key={item.title}
+                className={`w-1/4 hover:bg-gray-100 ${curr === item.title ? 'bg-gray-100 border border-gray-200' : ''}`}
+                onClick={() => handleCardClick(item.title)} // Handle card click event
+              >
+                <Flex alignItems="start">
+                  <div className="truncate">
+                    <Text>{item.title}</Text>
+                    <Metric className="truncate">{item.metric}</Metric>
+                  </div>
+                </Flex>
+                <Flex className="mt-4 space-x-2">
+                  <Text className="truncate">{`${item.progress}% (${item.metric})`}</Text>
+                  <Text className="truncate">{item.target}</Text>
+                </Flex>
+                <ProgressBar value={item.progress} className="mt-2" />
+              </Card>
+            ))}
+          </div>
         </div>
-        </div>
-    );
-  }
+      );
+    }
