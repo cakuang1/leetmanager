@@ -1,14 +1,11 @@
 import React from "react"
 import Layout from "@/components/layout"
 import KanbanBoard from "@/components/kanban/app"
-import Neetcode from "@/components/dashboard/Neetcode"
+import Neetcode from "@/components/dashboard/plans/Neetcode"
 
 
 
 export default function Plans() {
-
-
-
 
   return (
 
