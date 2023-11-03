@@ -16,7 +16,6 @@ import ChartView from "@/components/dashboard/Graph";
 import { useEffect,useState } from "react";
 import { UserQuestionDTO } from "@/components/types";
 import Bar from "@/components/dashboard/Bar";
-import Neetcode from "@/components/dashboard/Neetcode"; 
 
 export type DailyPerformance = {
   date: string;
@@ -118,7 +117,7 @@ export default function Dashboard() {
   </TabPanels>
 </TabGroup>
       </div>
-      <Neetcode/>
+
       </Layout>
   )
 }

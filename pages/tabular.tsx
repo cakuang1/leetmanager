@@ -10,7 +10,7 @@ export default function Problems() {
 
   return (
     <Layout>
-      <div className="w-3/5 mx-auto h-screen max-h-screen overflow-auto">
+      <div className="w-4/6 mx-auto h-screen max-h-screen overflow-auto">
         <div className="mt-20">
           <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 justify-center gap-2">
             <button

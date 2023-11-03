@@ -3,9 +3,6 @@ import { BadgeDelta, Card, DeltaType, Flex, Grid, Metric, ProgressBar, Text } fr
 import { useState } from "react";
 // section for dropdown 
 
-
-
-
 type Kpi = {
     title: string;
     metric: string;
@@ -27,16 +24,27 @@ type Kpi = {
       target: "75",
     },
   ];
-  
+
+
+
+
+
+  function DropDown(topic:string,questions:string[]) {
+    return (
+        <div>
+            <h1></h1>
+        </div>
+    )
+  }
+
+
+
   export default function Neetcode() {
-
-    const [curr,setCurr] = useState<string>();
-
+    const [curr,setCurr] = useState<string>('Blind 75');
 
     const handleCardClick = (title: string) => {
         setCurr(title); // Set curr to the title of the clicked card
       };
-
 
       return (
         <div className="mt-10">
@@ -65,3 +73,134 @@ type Kpi = {
         </div>
       );
     }
+
+
+
+    const list = {
+        "Array & Hashing": {
+          "Easy": [
+            "Contains Duplicate",
+            "Two Sum",
+            "Valid Anagram",    
+          ],
+          "Medium": [
+            "Encode and Decode Strings",
+            "Group Anagrams",
+            "Longest Consecutive Sequence",
+            "Product of Array Except Self",
+            "Top K Frequent Elements",
+          ]
+        },
+        "Two-Pointers": {
+            "Easy": [
+                "Valid Palindrome",                
+              ],
+          "Medium": [
+            "3Sum",
+            "Container With Most Water"
+          ],
+    
+        },
+        "Sliding Window": {
+          "Easy": [
+            "Best Time to Buy And Sell Stock",
+
+          ],
+          "Medium": [
+            "Longest Substring Without Repeating Characters",
+            "Longest Repeating Character Replacement",
+          ],
+          "Hard" : [
+            "Minimum Window Substring"
+          ]
+        },
+        "Stack": {
+          "Easy": [
+            "Valid Parentheses"
+          ]
+    
+        },
+        "Binary Search": {
+
+          "Medium": [
+            "Find Minimum In Rotated Sorted Array",
+            "Search In Rotated Sorted Array",
+
+          ],
+
+    
+        },
+        "Linked List": {
+          "Easy": [
+            "Reverse a Linked List",
+            "Merge Two Sorted Lists",
+            "Linked List Cycle",
+          ],
+    
+          "Medium": [
+            "Reorder List",
+            "Remove Nth Node From End of List"
+          ],
+          "Hard": [
+            "Merge K Sorted Lists"
+          ],
+        },
+        "Tree": {
+            "Easy": [
+              "Invert Binary Tree",
+              "Maximum Depth of Binary Tree",
+              "Same Tree",
+              "Subtree of Another Tree",
+            ],
+      
+            "Medium": [
+              "Lowest Common Ancestor of a Binary Search Tree",
+              "Binary Tree Level Order Traversal",
+              "Validate Binary Search Tree",
+              "Kth Smallest Element in a BST",
+              "Implement Trie (Prefix Tree)",
+              "Add and Search Word",
+      
+            ],
+            "Hard": [
+              "Binary Tree Maximum Path Sum",
+              "Serialize and Deserialize Binary Tree",
+              "Word Search II"
+            ],
+          },
+    
+        "String": {
+            "Easy": [
+                "Valid Anagram",
+                "Valid Parentheses",
+                "Valid Palindrome"
+              ],
+        
+          "Medium": [
+            "Longest Substring w/o Repeating Characters",
+            "Longest Repeating Character Replacement",
+            "Group Anagrams",
+            "Longest Palindromic Substring",
+            "Palindromic Substrings",
+            "Encode and Decode Strings"
+    
+          ],
+    
+          "Hard": [
+            "Minimum Window Substring",
+    
+          ]
+        },
+
+        "Heap": {
+            "Medium": [
+                "Top K Frequent Elements"
+              ],
+          "Hard": [
+            "Merge K Sorted Lists",
+            "Find Median from Data Stream"
+          ],
+    
+        }
+      }
+      
