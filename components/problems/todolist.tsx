@@ -142,7 +142,7 @@ function extractIsoDate(dateString:string) {
   return isoDate;
 }
 
-      function getColorClasses(difficulty : String) {
+    export function getColorClasses(difficulty : String) {
         switch (difficulty) {
           case 'Easy':
             return 'bg-green-100 text-green-800 border-green-200';

@@ -1,7 +1,7 @@
 import React from "react"
 import { BadgeDelta, Card, DeltaType, Flex, Title, Metric, ProgressBar, Text } from "@tremor/react";
 import { useState,useEffect} from "react";
-
+import { getColorClasses } from "@/components/problems/todolist";
 // section for dropdown 
 
 type Kpi = {
@@ -11,6 +11,80 @@ type Kpi = {
     target: string;
   };
   
+
+
+  const CategoryTable = ( { category, questions,completed,notCompleted,func }: { category: string, questions: QuestionItem[],completed:any,notCompleted:any,func:any}) => {
+    const [isExpanded, setIsExpanded] = useState(false);
+    const [numbercompleted,setNumbercompleted] = useState(0);
+    
+    const toggleExpansion = () => {
+      setIsExpanded(!isExpanded);
+    };
+    const isFinished = (id:number) => completed.has(id);
+    const inProgress = (id:number) => notCompleted.has(id);
+
+    useEffect(() => {
+      let totalCompleted = 0;
+      // Iterate through the questions and check if each one is completed
+      questions.forEach((question) => {
+        if (completed.has(question.id)) {
+          totalCompleted++;
+        }
+      });
+      console.log(totalCompleted)
+      func(totalCompleted)
+      setNumbercompleted(totalCompleted);
+    }, []);
+  
+    return (
+      <div className="mb-2">
+        <div className="flex justify-between items-center border p-5 font-bold bg-gray-50" onClick={toggleExpansion}>
+          <h2>{category}</h2>
+          <div className="w-2/5  flex "> 
+          <div className="font-bold text-sm mr-3">{numbercompleted + '/' + questions.length}</div>
+          <ProgressBar value={numbercompleted/questions.length * 100} color="green" className="" />
+          <div className="ml-3 font-bold">{isExpanded ? <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="currentColor" fill-rule="evenodd" d="M10.103 7.222c3.447 3.468 5.744 5.764 6.89 6.887c.198.185.539.56 1.046.07c.339-.327.325-.685-.039-1.073l-7.444-7.43a.638.638 0 0 0-.455-.176a.702.702 0 0 0-.472.176l-7.453 7.635c-.241.388-.231.715.03.98c.26.265.577.28.95.043l6.947-7.112Z"/></svg>:<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="currentColor" d="M10.103 12.778L16.81 6.08a.69.69 0 0 1 .99.012a.726.726 0 0 1-.012 1.012l-7.203 7.193a.69.69 0 0 1-.985-.006L2.205 6.72a.727.727 0 0 1 0-1.01a.69.69 0 0 1 .99 0l6.908 7.068Z"/></svg>}</div>
+</div>
+        </div>
+        {isExpanded && (
+        <div className="">
+            {questions.map((item) => (
+              <div className={`flex justify-between items-center border p-3 font-bold w-full pl-10 ${isFinished(item.id) && 'bg-green-100'} ${inProgress(item.id) && 'bg-gray-100'} justify-between` } >
+                <div className="flex items-center "> <h2 className="">{item.name}</h2> <span className={`${getColorClasses(item.difficulty)} p-1 rounded-sm ml-3`}>{item.difficulty}</span></div>
+  
+              <div className="">    {isFinished(item.id) ? (
+      <div className=" p-2 rounded-xl text-green-600 flex gap-2">Solved<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9.55 18l-5.7-5.7l1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4L9.55 18Z"/></svg></div>
+    ) : inProgress(item.id)? (
+      <div className=" p-2 rounded-xl  flex">In Progress <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20.777a8.942 8.942 0 0 1-2.48-.969M14 3.223a9.003 9.003 0 0 1 0 17.554m-9.421-3.684a8.961 8.961 0 0 1-1.227-2.592M3.124 10.5c.16-.95.468-1.85.9-2.675l.169-.305m2.714-2.941A8.954 8.954 0 0 1 10 3.223"/></svg></div>
+    ) : (
+      <div className=""></div>
+    )}</div>
+            </div>
+            ))}
+        </div>
+      )}
+      </div>
+    );
+  };
+
+
+
+  export default function Neetcode(takein:any) {
+    const [curr,setCurr] = useState<string>('Blind 75');
+    const [total150,set150] = useState<number>(0)
+    const [blind75,setblind75] = useState<number>(0)
+    console.log(blind75)
+    const handleCardClick = (title: string) => {
+        setCurr(title); // Set curr to the title of the clicked card
+      };
+
+    function addtototal150(addnumber:number) {
+        set150(total150 + addnumber)
+    }
+    function addtototalblind(addnumber:number) {
+      setblind75(blind75 + addnumber)
+  }
+  console.log(blind75)
   const kpiData: Kpi[] = [
     {
       title: "NeetCode 150",
@@ -25,85 +99,57 @@ type Kpi = {
       target: "75",
     },
   ];
-
-
-  const CategoryTable = ( { category, questions,completed,notCompleted }: { category: string, questions: QuestionItem[],completed:any,notCompleted:any}) => {
-    const [isExpanded, setIsExpanded] = useState(true);
-
-    const toggleExpansion = () => {
-      setIsExpanded(!isExpanded);
-    };
-
-    const isFinished = (id:number) => completed.has(id);
-    // Define the isSolved function
-    const isSolved = (id:number) => notCompleted.has(id);
-
-    return (
-      <div className="mb-4">
-        <h2 className="text-xl font-semibold mb-2 ">{category}</h2>
-        <div className="flex justify-between items-center border p-5 font-bold" onClick={toggleExpansion}>
-          <h2>{category}</h2>
-          <div className="w-2/5  flex "> 
-          <div className="font-bold text-sm mr-3">{'4/10'}</div>
-          <ProgressBar value={45} color="green" className="" />
-          <div className="ml-3 font-bold">{isExpanded ? <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="currentColor" fill-rule="evenodd" d="M10.103 7.222c3.447 3.468 5.744 5.764 6.89 6.887c.198.185.539.56 1.046.07c.339-.327.325-.685-.039-1.073l-7.444-7.43a.638.638 0 0 0-.455-.176a.702.702 0 0 0-.472.176l-7.453 7.635c-.241.388-.231.715.03.98c.26.265.577.28.95.043l6.947-7.112Z"/></svg>:<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="currentColor" d="M10.103 12.778L16.81 6.08a.69.69 0 0 1 .99.012a.726.726 0 0 1-.012 1.012l-7.203 7.193a.69.69 0 0 1-.985-.006L2.205 6.72a.727.727 0 0 1 0-1.01a.69.69 0 0 1 .99 0l6.908 7.068Z"/></svg>}</div>
-</div>
-        </div>
-        {isExpanded && (
-        <div className="">
-            {questions.map((item) => (
-              <div className="flex justify-between items-center border p-5 font-bold w-full">
-              <h2 className="">{item.name}</h2>
-              <div className="w-2/5  flex "> 
-      </div>
-            </div>
-            ))}
-        </div>
-      )}
-      </div>
-    );
-  };
-
-
-  export default function Neetcode(takein:any) {
-    const [curr,setCurr] = useState<string>('Blind 75');
-    const handleCardClick = (title: string) => {
-        setCurr(title); // Set curr to the title of the clicked card
-      };
-    
     const completedQuestionIds = new Set(takein.takein.completed.map((item:any) => item.questionId));
     const notCompletedQuestionIds = new Set(takein.takein.notCompleted.map((item:any) => item.questionId));
       return (
         <div className="mt-10 mx-auto w-3/5">
-      <Title className="font-bold text-2xl text-center mb-4">Study Plans</Title>
+      <Title className="font-bold text-2xl text-center mb-4">General Study Plans</Title>
           <div className="justify-center flex gap-10">
-            {kpiData.map((item) => (
+
               <Card
-                key={item.title}
-                className={`w-1/4 hover:bg-gray-100 ${curr === item.title ? 'bg-gray-100 border border-gray-200' : ''}`}
-                onClick={() => handleCardClick(item.title)} // Handle card click event
+                key={"Blind 75"}
+                className={`w-1/4 hover:bg-gray-100 ${curr === "Blind 75"? 'bg-gray-100 border border-orange-200' : ''}`}
+                onClick={() => handleCardClick("Blind 75")} // Handle card click event
               >
                 <Flex alignItems="start">
                   <div className="truncate">
-                    <Text>{item.title}</Text>
-                    <Metric className="truncate">{item.metric}</Metric>
+                    <Text>{"Blind 75"}</Text>
+                    <Metric className="truncate">{blind75}</Metric>
                   </div>
                 </Flex>
                 <Flex className="mt-4 space-x-2">
-                  <Text className="truncate">{`${item.progress}% (${item.metric})`}</Text>
-                  <Text className="truncate">{item.target}</Text>
+                  <Text className="truncate">{`${blind75/75 * 100}% (${blind75})`}</Text>
+                  <Text className="truncate">{75}</Text>
                 </Flex>
-                <ProgressBar value={item.progress} className="mt-2" />
+                <ProgressBar value={blind75/75 * 100} className="mt-2" color="green" />
               </Card>
-            ))}
+
+                          <Card
+
+                className={`w-1/4 hover:bg-gray-100 ${curr === "Neetcode 150" ? 'bg-gray-100 border border-orange-200' : ''}`}
+                onClick={() => handleCardClick("Neetcode 150")} // Handle card click event
+              >
+                <Flex alignItems="start">
+                  <div className="truncate">
+                    <Text>{"Neetcode 150"}</Text>
+                    <Metric className="truncate">{total150}</Metric>
+                  </div>
+                </Flex>
+                <Flex className="mt-4 space-x-2">
+                  <Text className="truncate">{`${total150/150 * 100}% (${total150})`}</Text>
+                  <Text className="truncate">{150}</Text>
+                </Flex>
+                <ProgressBar value={total150/150 * 100} className="mt-2" color="green" />
+              </Card>
           </div>
-          <div className="">
+          <div className="mt-12">
           {categoriesArray.map((category) => (
         <CategoryTable
           category={category.name}
           questions={category.items}
           completed={completedQuestionIds}
           notCompleted={notCompletedQuestionIds}
+          func={addtototalblind}
         />
       ))}
           </div>

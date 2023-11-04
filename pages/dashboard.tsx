@@ -116,7 +116,6 @@ export default function Dashboard() {
   </TabPanels>
 </TabGroup>
       </div>
-      {questions != null ?  <Neetcode takein = {questions}/> : ''}
       </Layout>
   )
 }
