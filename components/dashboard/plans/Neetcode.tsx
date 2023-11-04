@@ -1,5 +1,5 @@
 import React from "react"
-import { BadgeDelta, Card, DeltaType, Flex, Grid, Metric, ProgressBar, Text } from "@tremor/react";
+import { BadgeDelta, Card, DeltaType, Flex, Title, Metric, ProgressBar, Text } from "@tremor/react";
 import { useState,useEffect} from "react";
 
 // section for dropdown 
@@ -26,86 +26,57 @@ type Kpi = {
     },
   ];
 
-  function CategoryDropdown(category:string ) {
-    const [isOpen, setIsOpen] = useState(false);
-    const handleToggle = () => {
-      setIsOpen(!isOpen);
+
+  const CategoryTable = ( { category, questions,completed,notCompleted }: { category: string, questions: QuestionItem[],completed:any,notCompleted:any}) => {
+    const [isExpanded, setIsExpanded] = useState(true);
+
+    const toggleExpansion = () => {
+      setIsExpanded(!isExpanded);
     };
-    const isFinished = (id:number) => {
-        // Add your logic to determine if the question with 'id' is finished
-        return true;
-      };
-    const isSolved = (id:number)   => {
-      return true;
-    };
-    const items = listWithIds[category as keyof typeof listWithIds]; // Type assertion
+
+    const isFinished = (id:number) => completed.has(id);
+    // Define the isSolved function
+    const isSolved = (id:number) => notCompleted.has(id);
 
     return (
-      <div className="relative inline-block text-left">
-        <div>
-          <button
-            type="button"
-            className="inline-flex justify-between w-64 rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring focus:ring-blue-200"
-            onClick={handleToggle}
-          >
-            {category}
-            <span className="ml-2 text-gray-400">{isOpen ? '▲' : '▼'}</span>
-          </button>
+      <div className="mb-4">
+        <h2 className="text-xl font-semibold mb-2 ">{category}</h2>
+        <div className="flex justify-between items-center border p-5 font-bold" onClick={toggleExpansion}>
+          <h2>{category}</h2>
+          <div className="w-2/5  flex "> 
+          <div className="font-bold text-sm mr-3">{'4/10'}</div>
+          <ProgressBar value={45} color="green" className="" />
+          <div className="ml-3 font-bold">{isExpanded ? <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="currentColor" fill-rule="evenodd" d="M10.103 7.222c3.447 3.468 5.744 5.764 6.89 6.887c.198.185.539.56 1.046.07c.339-.327.325-.685-.039-1.073l-7.444-7.43a.638.638 0 0 0-.455-.176a.702.702 0 0 0-.472.176l-7.453 7.635c-.241.388-.231.715.03.98c.26.265.577.28.95.043l6.947-7.112Z"/></svg>:<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="currentColor" d="M10.103 12.778L16.81 6.08a.69.69 0 0 1 .99.012a.726.726 0 0 1-.012 1.012l-7.203 7.193a.69.69 0 0 1-.985-.006L2.205 6.72a.727.727 0 0 1 0-1.01a.69.69 0 0 1 .99 0l6.908 7.068Z"/></svg>}</div>
+</div>
         </div>
-        {isOpen && (
-          <table className="mt-4 table-auto border border-gray-300">
-            <thead>
-              <tr>
-                <th className="border bg-gray-200 p-2">Name</th>
-                <th className="border bg-gray-200 p-2">Difficulty</th>
-                <th className="border bg-gray-200 p-2">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-            {items.map((item) => (
-            <tr key={item.id}>
-              <td className="border px-2 py-1">
-                {isFinished(item.id) ? "Finished" : "Not Finished"}
-              </td>
-              <td className="border px-2 py-1">{item.name}</td>
-              <td className="border px-2 py-1">{item.difficulty}</td>
-            </tr>
-          ))}
-            </tbody>
-          </table>
-        )}
+        {isExpanded && (
+        <div className="">
+            {questions.map((item) => (
+              <div className="flex justify-between items-center border p-5 font-bold w-full">
+              <h2 className="">{item.name}</h2>
+              <div className="w-2/5  flex "> 
+      </div>
+            </div>
+            ))}
+        </div>
+      )}
       </div>
     );
-  }
+  };
 
 
-
-
-
-
-
-  export default function Neetcode() {
+  export default function Neetcode(takein:any) {
     const [curr,setCurr] = useState<string>('Blind 75');
-    const [data,setdata] = useState({})
     const handleCardClick = (title: string) => {
         setCurr(title); // Set curr to the title of the clicked card
       };
-      useEffect(() => {
-        const apiUrl = "/api/userquestions/graball";
-        fetch(apiUrl)
-          .then((response) => response.json())
-          .then((data) => {
-            // Once data is fetched, update the state with the questions
-            setdata(data);
-          })
-          .catch((error) => {
-            console.error("Error fetching questions:", error);
-          });
-      }, []);
+    
+    const completedQuestionIds = new Set(takein.takein.completed.map((item:any) => item.questionId));
+    const notCompletedQuestionIds = new Set(takein.takein.notCompleted.map((item:any) => item.questionId));
       return (
-        <div className="mt-10">
-          <h1 className="text-center">Study Plans</h1>
-          <div className="w-3/5 mx-auto justify-center flex gap-10">
+        <div className="mt-10 mx-auto w-3/5">
+      <Title className="font-bold text-2xl text-center mb-4">Study Plans</Title>
+          <div className="justify-center flex gap-10">
             {kpiData.map((item) => (
               <Card
                 key={item.title}
@@ -126,12 +97,20 @@ type Kpi = {
               </Card>
             ))}
           </div>
+          <div className="">
+          {categoriesArray.map((category) => (
+        <CategoryTable
+          category={category.name}
+          questions={category.items}
+          completed={completedQuestionIds}
+          notCompleted={notCompletedQuestionIds}
+        />
+      ))}
+          </div>
         </div>
       );
     }
-
-
-    const listWithIds = {
+    const listWithIds:ListWithIds ={
       "Array & Hashing": [
         { id: 217, name: "Contains Duplicate", difficulty: "Easy" },
         { id: 1, name: "Two Sum", difficulty: "Easy" },
@@ -244,4 +223,20 @@ type Kpi = {
         { id: 371, name: "Sum of Two Integers", difficulty: "Medium" },
       ],
     };
+
+
+    type QuestionItem = {
+      id: number;
+      name: string;
+      difficulty: string;
+    };
+    
+    type ListWithIds = {
+      [key: string]: QuestionItem[];
+    };
+    
+    const categoriesArray = Object.keys(listWithIds).map((category) => ({
+      name: category,
+      items: listWithIds[category],
+    }));
     

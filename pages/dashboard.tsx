@@ -16,6 +16,7 @@ import ChartView from "@/components/dashboard/Graph";
 import { useEffect,useState } from "react";
 import { UserQuestionDTO } from "@/components/types";
 import Bar from "@/components/dashboard/Bar";
+import Neetcode from "@/components/dashboard/plans/Neetcode";
 
 export type DailyPerformance = {
   date: string;
@@ -23,7 +24,7 @@ export type DailyPerformance = {
 };
 
 export default function Dashboard() {
-  const [questions, setQuestions] = useState<UserQuestionDTO[]>([]);
+  const [questions, setQuestions] = useState<any>(null);
   const [categories,setCategories] = useState<Record<string,number>>({});
   const [questionsByDayWeek, setQuestionsByDayWeek] = useState({});
   const [questionsByDayMonth, setQuestionsByDayMonth] = useState({});
@@ -31,15 +32,13 @@ export default function Dashboard() {
   const [questionsByDayYear, setQuestionsByDayYear] = useState({});
   const [topic, setTopic] = useState<TopicCount[] | null>(null);
 
-  
   useEffect(() => {
-
     const apiUrl = "/api/userquestions/graball";
     fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
         // Once data is fetched, update the state with the questions
-        setQuestions(data.completed);
+        setQuestions(data);
         setCategories(calculateDifficultyCounts(data.completed))
         const questionsByDayWeek = calculateQuestionsByDay(data.completed, oneWeekAgo, currentDate);
         const questionsByDayMonth = calculateQuestionsByDay(data.completed, oneMonthAgo, currentDate);
@@ -71,7 +70,7 @@ export default function Dashboard() {
         <Card className=" ">
         <div className="text-center pt-6 ">
           <div></div>
-          <Metric>{calculateTotalItems(questions)}</Metric>
+          <Metric>{questions != null ? calculateTotalItems(questions.completed) : '--'}</Metric>
           <Text className="mt-5">Total Questions Solved</Text>
         </div>
         </Card>
@@ -117,7 +116,7 @@ export default function Dashboard() {
   </TabPanels>
 </TabGroup>
       </div>
-
+      {questions != null ?  <Neetcode takein = {questions}/> : ''}
       </Layout>
   )
 }
