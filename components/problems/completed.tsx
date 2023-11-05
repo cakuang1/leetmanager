@@ -91,7 +91,7 @@ const CompletedQuestions = () => {
   </thead>
   <tbody className="bg-white divide-y divide-gray-200 ">
     {progressList.map((row, index) => (
-      <tr key={index} className='hover:bg-gray-100' onClick={() => openModal(row)}>
+      <tr key={index} className='hover:bg-gray-100 hover:cursor-pointer' onClick={() => openModal(row)}>
         <td className="px-3 py-2 whitespace-nowrap text-xs ">{row.questionId}</td>
         <td className="px-3 py-2 whitespace-nowrap text-sm">{row.title}</td>
         <td className={`px-3 py-2 whitespace-nowrap `}>

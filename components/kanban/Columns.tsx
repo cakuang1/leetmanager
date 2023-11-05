@@ -24,8 +24,6 @@ interface ColumnProps {
 
 
 
-
-
 function Searching({ onClickOutside,date}: SearchProps) {
 
 
@@ -194,16 +192,11 @@ function getDateInfoFromISODate(dateString:string) {
   return { month, dayOfWeek, day };
 }
 
-
 function isCurrentDate(isoDate: string) {
-  const currentDate = new Date();
+  const date = getCurrentDateISOString();
 
-const isoDateString = currentDate.toISOString();
-const ymd = isoDateString.split('T')[0]; 
-
-  return ymd === isoDate;
+  return date === isoDate;
 }
-
 
 
 
@@ -260,3 +253,11 @@ function getColorClasses(difficulty : String) {
   }
 }
 
+function getCurrentDateISOString() {
+  const currentDate = new Date();
+  
+  // Format the current date as an ISO string with only the date part
+  const isoString = format(currentDate, 'yyyy-MM-dd');
+
+  return isoString;
+}

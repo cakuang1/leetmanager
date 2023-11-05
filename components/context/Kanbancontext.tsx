@@ -1,12 +1,13 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { UserQuestionDTO } from '../types';
 import { useEffect } from 'react';
-import { startOfWeek, addDays, format,subWeeks,endOfWeek,eachDayOfInterval, addWeeks, getWeek} from 'date-fns';
+import { startOfWeek, addDays, format,subWeeks,endOfWeek,eachDayOfInterval, addWeeks} from 'date-fns';
 
 export const KanbanContext = createContext<KanbanContextData | undefined>(undefined);
 
 export function KanbanProvider({ children }: { children: ReactNode }) {
   const date = new Date(); // Use your desired date here
+  
   const [columns, setColumns] = useState<string[]>(getWeekDatesInISO(date))
   const [columnData, setColumndata] = useState<Record<string, UserQuestionDTO[]>>({});
   const [isLoading, setIsLoading] = useState(true); 
@@ -98,8 +99,6 @@ export function useKanban() {
 //HELPERS 
 
 
-
-
 function getWeekDatesInISO(date:Date) {
   const weekStart = startOfWeek(date, { weekStartsOn: 0 }); // 0 means Sunday
   const weekDates = [];
@@ -152,7 +151,7 @@ function getCurrentWeekInISOList(isoDateString:string) {
 
 function getNextWeekInISOList(isoDateString:string) {
   const currentDate = new Date(isoDateString); // Convert the input ISO string to a Date object
-
+  
   // Calculate the start and end of the next week
   const nextWeekStart = startOfWeek(addWeeks(currentDate, 1), { weekStartsOn: 0 }); // 0 indicates Sunday as the first day of the week
   const nextWeekEnd = endOfWeek(addWeeks(currentDate, 1), { weekStartsOn: 0 });
@@ -190,4 +189,5 @@ const groupDataByDate = (columns:string[], columnData:UserQuestionDTO[]) => {
   });
   return dateBuckets;
 };
+
 
