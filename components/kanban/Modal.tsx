@@ -85,8 +85,6 @@ const Modal = ({ isOpen, closeModal, cardData,updatefunction,calendar }:any) => 
       handleClose();
     }
   };
-
-
   const handleClose = async () => {
     // Check if any changes have been made
     if (JSON.stringify(currprops) !== JSON.stringify(cardData)) {
@@ -258,6 +256,14 @@ const Modal = ({ isOpen, closeModal, cardData,updatefunction,calendar }:any) => 
 
         </div>
     </div>
+    <div className='flex difficulty'>
+                              <div className='flex gap-5 items-center w-1/2'>
+                                <div className='logo'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M11 17H7q-2.075 0-3.538-1.463T2 12q0-2.075 1.463-3.538T7 7h4v2H7q-1.25 0-2.125.875T4 12q0 1.25.875 2.125T7 15h4v2Zm-3-4v-2h8v2H8Zm5 4v-2h4q1.25 0 2.125-.875T20 12q0-1.25-.875-2.125T17 9h-4V7h4q2.075 0 3.538 1.463T22 12q0 2.075-1.463 3.538T17 17h-4Z"/></svg></div>
+                                <div className=''>Link</div>
+                              </div>
+                              <div className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full`}><a href={`https://www.leetcode.com/problems/` + currprops.titleSlug} target="_blank">{currprops.titleSlug}</a></div>
+
+                            </div>
                             <div className='flex'>
                               <div className='flex gap-5 items-center w-1/2'>
                                 <div className='logo'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 12h5v5h-5v-5m7-9h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m0 2v2H5V5h14M5 19V9h14v10H5Z"/></svg></div>

@@ -16,8 +16,6 @@ export default function Layout({ children, showFooter = true }: { children: Reac
 
   return (
     <div className="">
-      {/* Navigation Component */}
-      {/* Main Content */}
       <main className="">
         <Navigation />
         <div className="flex items-center hover:cursor-pointer fixed right-0 bottom-4">          
