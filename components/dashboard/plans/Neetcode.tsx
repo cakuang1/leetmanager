@@ -70,12 +70,12 @@ type Kpi = {
     const [curr,setCurr] = useState<string>('Blind 75');
     const [total150,set150] = useState<number>(0)
     const [blind75,setblind75] = useState<number>(0)
-    console.log(blind75)
     const handleCardClick = (title: string) => {
         setCurr(title); // Set curr to the title of the clicked card
       };
 
     function addtototal150(addnumber:number) {
+      console.log('test')
         set150((prev150) => prev150 + addnumber);
 
     }
@@ -126,8 +126,19 @@ type Kpi = {
               </Card>
           </div>
           <div className="mt-12">
-            {curr == "Blind 75" ?
-            categoriesArray.map((category) => (
+            <div className={curr === "Neetcode 150" ? "" : "hidden"}>            {
+                  neet.map((category) => (
+                    <CategoryTable
+                        key={category.name}
+                      category={category.name}
+                      questions={category.items}
+                      completed={completedQuestionIds}
+                      notCompleted={notCompletedQuestionIds}
+                      func={addtototal150}
+                    />
+
+      ))}</div>
+      <div className={curr === "Blind 75" ? "" : "hidden"}>{categoriesArray.map((category) => (
         <CategoryTable
             key={category.name}
           category={category.name}
@@ -136,19 +147,9 @@ type Kpi = {
           notCompleted={notCompletedQuestionIds}
           func={addtototalblind}
         />
-      )) : 
-      neet.map((category) => (
-        <CategoryTable
-            key={category.name}
-          category={category.name}
-          questions={category.items}
-          completed={completedQuestionIds}
-          notCompleted={notCompletedQuestionIds}
-          func={addtototal150}
-        />
-      ))
-      
-      }
+      ))}</div>
+
+
 
           </div>
         </div>

@@ -36,7 +36,7 @@ export default function Home() {
   Sign in
 </button></div>
 <div className='next section mt-14  w-4/6 mx-auto'>
-  <h2 className='text-2xl text-center font-semibold text-gray-600'>Three Simple Features </h2>
+  <h2 className='text-2xl text-center font-semibold text-gray-600'>Four Simple Features </h2>
   <div className='mt-8'>
   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 first feature">
   <div className=" p-4 flex items-center">
@@ -71,6 +71,22 @@ export default function Home() {
 
 
   </div>
+</div>
+<div className="grid grid-cols-1 sm:grid-cols-2 gap-4 first feature">
+  <div className=" p-4 flex items-center">
+    <div>
+    <div className='flex items-center'> 
+
+    <svg xmlns="http://www.w3.org/2000/svg" className={`h-8 w-8 mr-2`} width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M8.048 2.488a.75.75 0 0 1-.036 1.06l-4.286 4a.75.75 0 0 1-1.095-.076l-1.214-1.5a.75.75 0 0 1 1.166-.944l.708.875l3.697-3.451a.75.75 0 0 1 1.06.036ZM11.25 5a.75.75 0 0 1 .75-.75h10a.75.75 0 0 1 0 1.5H12a.75.75 0 0 1-.75-.75ZM8.048 9.488a.75.75 0 0 1-.036 1.06l-4.286 4a.75.75 0 0 1-1.095-.076l-1.214-1.5a.75.75 0 1 1 1.166-.944l.708.875l3.697-3.451a.75.75 0 0 1 1.06.036ZM11.25 12a.75.75 0 0 1 .75-.75h10a.75.75 0 0 1 0 1.5H12a.75.75 0 0 1-.75-.75Zm-3.202 4.488a.75.75 0 0 1-.036 1.06l-4.286 4a.75.75 0 0 1-1.095-.076l-1.214-1.5a.75.75 0 1 1 1.166-.944l.708.875l3.697-3.451a.75.75 0 0 1 1.06.036ZM11.25 19a.75.75 0 0 1 .75-.75h10a.75.75 0 0 1 0 1.5H12a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd"/></svg> 
+ <h2 className='text-2xl font-bold text-gray-600'>Plans</h2>
+ </div>
+ <p className='mt-3 text-xl text-gray-500'>View your progress for popular plans such as the Blind 75</p>
+
+    </div>
+  </div>
+
+
+  <div className="bg-gray-200 p-1 rounded mt-8"><Image alt = 'alt' src={'/plans.png'} width={600} height={600}/>  </div>
 </div>
   </div>
   <div className='dashboard mt-12'>
