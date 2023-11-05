@@ -9,7 +9,7 @@ function Calendar({value,handleDateClick}:any) {
   const [currentMonth, setCurrentMonth] = useState(startOfMonth(new Date()));
   const [currvalue,setValue] = useState<string>(value);
 
-  console.log(currvalue)
+
   const handlePrevMonth = () => {
     setCurrentMonth((prevMonth) => addMonths(prevMonth, -1));
   };

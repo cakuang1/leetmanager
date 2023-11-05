@@ -10,8 +10,6 @@ function WeekRow2({ startDate, month,onDayClick }: any) {
       end: weekEndDate,
     });
 
-    
-
 
     return (
       <div className="flex items-center bg-white " >

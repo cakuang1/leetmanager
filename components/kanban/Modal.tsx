@@ -263,9 +263,12 @@ const Modal = ({ isOpen, closeModal, cardData,updatefunction,calendar }:any) => 
                                 <div className='logo'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 12h5v5h-5v-5m7-9h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m0 2v2H5V5h14M5 19V9h14v10H5Z"/></svg></div>
                                 <div className=''>Date</div>
                               </div>
-                              <div className='p-2 hover:bg-gray-100 rounded-sm' onClick={handleCalendarClick} >{extractIsoDate(currprops.date)}
-                              {calendaropen && <Calendar handleDateClick = {handleDateSelection} value = {extractIsoDate(currprops.date)}/>}
+                              <div>                              <div className='p-2 hover:bg-gray-100 rounded-sm' onClick={handleCalendarClick} >{extractIsoDate(currprops.date)}
                               </div>
+                              {calendaropen && <Calendar handleDateClick = {handleDateSelection} value = {extractIsoDate(currprops.date)}/>}
+</div>
+
+
 
 
                             </div>
