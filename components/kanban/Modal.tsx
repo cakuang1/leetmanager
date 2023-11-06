@@ -333,6 +333,8 @@ function getColorClasses(difficulty : String) {
   }
 }
 
+
+
 function extractIsoDate(dateString:string) {
   const dateObject = new Date(dateString);
   const isoDate = dateObject.toISOString().split('T')[0];
