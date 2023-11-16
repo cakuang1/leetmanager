@@ -5,6 +5,7 @@ import { KanbanProvider } from '@/components/context/Kanbancontext'
 import { ToastContainer, Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'animate.css';
+import { Analytics } from '@vercel/analytics/react';
 
 
 
@@ -16,11 +17,9 @@ export default function App({ Component, pageProps: {session,...pageProps} }: Ap
     <ToastContainer 
     closeButton={false}  autoClose={1000} transition={Zoom}/>
 
-
-
-
-
   <Component {...pageProps} />
+  <Analytics />
+
   </KanbanProvider>
 
 </SessionProvider>

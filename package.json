@@ -16,6 +16,7 @@
     "@prisma/client": "^5.4.2",
     "@reduxjs/toolkit": "^1.9.7",
     "@tremor/react": "^3.10.0",
+    "@vercel/analytics": "^1.1.1",
     "animate.css": "^4.1.1",
     "apollo-server": "^3.12.1",
     "csv-parser": "^3.0.0",
