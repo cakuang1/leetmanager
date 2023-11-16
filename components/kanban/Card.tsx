@@ -35,6 +35,9 @@ function Card({ card ,modalfunction}: { card: UserQuestionDTO,modalfunction:any}
       const response = await fetch(`/api/userquestions/delete?id=${card.id}`, {
         method: 'DELETE',
         credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json', 
+        },
       }).then((response) => {
         if (response.status === 200) {
           return response.json().then((data) => {
