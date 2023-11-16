@@ -14,7 +14,7 @@ function Card({ card ,modalfunction}: { card: UserQuestionDTO,modalfunction:any}
 
   const {update} = useKanban()
   const [isTooltipVisible, setTooltipVisible] = useState(false);
-  const tooltipRef = useRef(null);
+  const tooltipRef = useRef<HTMLDivElement | null>(null);
   const handleCardRightClick = (event: React.MouseEvent) => {
     event.preventDefault();
     setTooltipVisible(true);
@@ -79,7 +79,11 @@ function Card({ card ,modalfunction}: { card: UserQuestionDTO,modalfunction:any}
     }
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (tooltipRef.current && !tooltipRef.current.contains(event.target as Node)) {
+      // Check if tooltipRef.current is defined and is a DOM element
+      if (
+        tooltipRef.current instanceof Element &&
+        !tooltipRef.current.contains(event.target as Node)
+      ) {
         setTooltipVisible(false);
       }
     };
