@@ -34,6 +34,7 @@ function Card({ card ,modalfunction}: { card: UserQuestionDTO,modalfunction:any}
       // Send a DELETE request to delete the data
       const response = await fetch(`/api/userquestions/delete?id=${card.id}`, {
         method: 'DELETE',
+        credentials: 'include',
       }).then((response) => {
         if (response.status === 200) {
           return response.json().then((data) => {

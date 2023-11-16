@@ -104,7 +104,7 @@ const Modal = ({ isOpen, closeModal, cardData,updatefunction,calendar }:any) => 
   
           // After a successful update, you can call the update function
           updatefunction();
-  
+          setCalendar(!calendaropen)
           // Close the modal
           closeModal();
         } else {
