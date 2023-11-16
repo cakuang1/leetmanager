@@ -1,5 +1,4 @@
 import React from "react";
-import { useRouter } from "next/router";
 import { useState } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 
@@ -7,19 +6,16 @@ import { useSession, signIn, signOut } from "next-auth/react";
 
 
 export default function LandingNavigation() {
-  const router = useRouter();
   const { data: session, status } = useSession()
     const [isLogin, setIsLogin] = useState(false);
   const toggleLogin = () => {
     setIsLogin(!isLogin);
   };
-
-
   return (
     <div className="w-full ">
     <nav className="bg-white ">
       <div className="flex gap-3 justify-between p-4  ">
-        <div className="Title font-bold text-lg ml-10">LeetTracker</div>
+        <div className="Title font-bold text-lg ml-10 flex items-center">LeetTracker</div>
         <div className="flex items-center hover:cursor-pointer">          
           <div className={`${
           isLogin     ? ' opacity-100'

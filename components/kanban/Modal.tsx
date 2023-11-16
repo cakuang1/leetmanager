@@ -253,7 +253,6 @@ const Modal = ({ isOpen, closeModal, cardData,updatefunction,calendar }:any) => 
           >
             60+ mins
           </button>
-
         </div>
     </div>
     <div className='flex difficulty'>
@@ -287,7 +286,7 @@ const Modal = ({ isOpen, closeModal, cardData,updatefunction,calendar }:any) => 
                             </div>
                             <div className="p-2 codesegment">
                                   <textarea
-                                    className="py-3 px-4 w-full rounded-md text-sm h-[300px] focus:border-gray-300 focus:border resize-none focus:ring-0"
+                                    className="py-3 px-4 w-full rounded-md text-sm h-[300px] border-gray-300 focus:border resize-none focus:ring-0"
                                     value={currprops.notes}
                                     onChange={(e) => handleAttributeChange("notes", e.target.value)}
                                     style={{ outline: 'none' }}
