@@ -1,6 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
 import { getSession } from 'next-auth/react';
+import { getServerSession } from "next-auth/next"
+import { authOptions } from "../auth/[...nextauth]"
 
 
 
@@ -10,7 +12,7 @@ const prisma = new PrismaClient();
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'DELETE') {
-    const session = await getSession({ req });
+    const session = await getServerSession(req, res,authOptions);
 
     if (!session) {
       res.status(401).json({ message: 'Not authenticated' });
