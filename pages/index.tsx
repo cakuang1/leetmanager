@@ -27,7 +27,7 @@ export default function Home() {
   <div className='h-auto'>  <h1 className='font-bold text-center pt-14 text-6xl text-gray-700'>A LeetCode based daily planner</h1>
       <p className='text-xl text-center mt-4 text-gray-600 w-2/5 mx-auto'><span className='text-leetcode font-semibold'>LeetTracker </span>is a simple free to use LeetCode productivity app to schedule your problems and track your overall progress. </p>
       <div className=''>
-        <div className=''>  <Image src={'/calendar.png'} width={900} height={1000} className='mx-auto rounded mt-5 p-1   rounded bg-gray-200'/></div>
+        <div className=''>  <Image src={'/calendar.png'} alt = {'Image Not Available'} width={900} height={1000} className='mx-auto rounded mt-5 p-1   rounded bg-gray-200'/></div>
         <div className='text-center text-xl  font-semibold text-gray-600'> <p className=' mt-10'> Sign in with Github to get started</p></div>
         <button type="button" className="flex font-bold items-center mt-5 mx-auto bg-gray-800 p-3 rounded-lg hover:bg-gray-700 text-white hover" onClick={() => signIn('github',{ callbackUrl: '/tabular' })}>
   <svg className="w-4 h-4 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">

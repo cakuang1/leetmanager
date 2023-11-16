@@ -6,7 +6,6 @@ import { useRef, useEffect, useState  } from 'react';
 function CalNavigator({onPreviousWeek, onNextWeek,onWeekClick} :any) {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const calendarContainerRef = useRef<HTMLDivElement | null>(null);
-  console.log(isCalendarOpen)
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (calendarContainerRef.current) {

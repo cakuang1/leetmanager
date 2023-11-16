@@ -10,10 +10,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
     const { query } = req.query;
     try {
-      const results = await prisma.LeetCodeQuestion.findMany({
+      const results = await prisma.leetCodeQuestion.findMany({
         where: {
             title: {
-                contains: query,
+                contains: query as string,
                 mode: 'insensitive', 
           },
         },

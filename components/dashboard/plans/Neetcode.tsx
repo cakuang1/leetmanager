@@ -75,7 +75,6 @@ type Kpi = {
       };
 
     function addtototal150(addnumber:number) {
-      console.log('test')
         set150((prev150) => prev150 + addnumber);
 
     }

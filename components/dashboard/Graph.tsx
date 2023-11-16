@@ -14,7 +14,6 @@ export type DailyPerformance = {
 
 export default function ChartView({ listofcategories }:any) {
   const [selectedIndex, setSelectedIndex] = useState(0)
-    console.log(listofcategories)
   const areaChartArgs = {
     className: "mt-5 h-72",
     data: listofcategories[selectedIndex],
