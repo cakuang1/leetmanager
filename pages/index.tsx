@@ -14,12 +14,8 @@ import {
 import {  signIn,signOut,useSession } from "next-auth/react";
 import ChartView from "@/components/dashboard/Graph";
 import Bar from '@/components/dashboard/Bar';
-
-
-
-
+  
 export default function Home() {
-
   return (
     <>
     <LandingNavigation/> 
