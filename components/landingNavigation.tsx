@@ -15,7 +15,7 @@ export default function LandingNavigation() {
     <div className="w-full ">
     <nav className="bg-white ">
       <div className="flex gap-3 justify-between p-4  ">
-        <div className="Title font-bold text-lg ml-10 flex items-center">LeetTracker</div>
+        <div className="Title font-bold text-lg ml-10 flex items-center">LeetManager</div>
         <div className="flex items-center hover:cursor-pointer">          
           <div className={`${
           isLogin     ? ' opacity-100'

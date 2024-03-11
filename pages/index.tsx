@@ -21,7 +21,7 @@ export default function Home() {
     <LandingNavigation/> 
 <div className='bg-white '>
   <div className='h-auto'>  <h1 className='font-bold text-center pt-14 text-6xl text-gray-700'>A LeetCode based daily planner</h1>
-      <p className='text-xl text-center mt-4 text-gray-600 w-2/5 mx-auto'><span className='text-leetcode font-semibold'>LeetTracker </span>is a simple, free-to-use LeetCode productivity app designed to help you schedule your problems and track your overall progress </p>
+      <p className='text-xl text-center mt-4 text-gray-600 w-2/5 mx-auto'><span className='text-leetcode font-semibold'>LeetManager </span>is a simple, free-to-use LeetCode productivity app designed to help you schedule your problems and track your overall progress </p>
       <div className=''>
         <div className=''>  <Image src={'/calendar.png'} alt = {'Image Not Available'} width={900} height={1000} className='mx-auto rounded mt-5 p-1   rounded bg-gray-200'/></div>
         <div className='text-center text-xl  font-semibold text-gray-600'> <p className=' mt-10'> Sign in with Github to get started</p></div>
